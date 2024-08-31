@@ -5,8 +5,12 @@ public enum CharacterAbility {
   ONE_CHEAPER,
   BOARD_EMPTY,
   EXTRA_CARD,
-  EXTRA_COINS, // ["extraCoins", "Skiff", 1] or ["extraCoins", "Flute", 1]
-  SWORDS, // ["swords", 1] or ["swords", 2]
+  EXTRA_COIN_SKIFF,
+  EXTRA_COIN_FLUTE,
+  EXTRA_COIN_FRIGATE,
+  EXTRA_COIN_GALLEON,
+  EXTRA_COIN_PINANCE,
+  SWORDS,
   HOUSE, // Used to buy research cards
   ANCHOR, // Used to buy research cards
   CROSS // Used to buy research cards

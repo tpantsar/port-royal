@@ -8,24 +8,26 @@ import java.util.List;
 /* Class to handle the game logic and state. */
 public class GameState {
 
+  private GameSetupService gameSetupService;
+
   private List<Player> players;
   private Cards cards;
   private Player currentPlayer; // The current player in turn
   private boolean duplicateColoredShips;
   private GameStatus status;
 
-  public GameState(final GameSetupService gameSetupService) {
-    initGame(gameSetupService);
+  public GameState(GameSetupService gameSetupService) {
+    this.gameSetupService = gameSetupService;
   }
 
   // Initialize the game state using the GameSetupService
   @PostConstruct
-  private void initGame(final GameSetupService gameSetupService) {
-    this.players = gameSetupService.getPlayers();
-    this.cards = gameSetupService.getCards();
-    this.currentPlayer = gameSetupService.getCurrentPlayer();
-    this.duplicateColoredShips = gameSetupService.isDuplicateColoredShips();
-    this.status = gameSetupService.getStatus();
+  private void initGame() {
+    this.players = gameSetupService.initPlayers();
+    this.cards = gameSetupService.initCards();
+    this.currentPlayer = players.getFirst();
+    this.duplicateColoredShips = false;
+    this.status = GameStatus.IN_PROGRESS;
   }
 
   public List<Player> getPlayers() {
@@ -66,5 +68,13 @@ public class GameState {
 
   public void setStatus(GameStatus status) {
     this.status = status;
+  }
+
+  public GameSetupService getGameSetupService() {
+    return gameSetupService;
+  }
+
+  public void setGameSetupService(GameSetupService gameSetupService) {
+    this.gameSetupService = gameSetupService;
   }
 }

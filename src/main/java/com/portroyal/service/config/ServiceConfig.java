@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfig {
 
-  /* Services */
-
   @Bean
   public GameSetupService gameSetupService() {
     return new GameSetupService();
@@ -22,10 +20,8 @@ public class ServiceConfig {
     return new GameServiceImpl(gameState);
   }
 
-  /* Other beans */
-
   @Bean
-  public GameState gameState(final GameSetupService gameSetupService) {
+  public GameState gameState(GameSetupService gameSetupService) {
     return new GameState(gameSetupService);
   }
 }

@@ -19,6 +19,7 @@ public class GameServiceImpl implements GameService {
   }
 
   // Synchronized methods to handle game logic safely
+  @Override
   public synchronized GameState getGameState() {
     return gameState;
   }
@@ -30,10 +31,13 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public synchronized ApiResponse<Player> addPlayer(Player player) {
+    // Check if player name already exists in the game
     final List<Player> players = gameState.getPlayers();
-    if (players.contains(player)) {
+    boolean playerNameExists = players.stream().anyMatch(p -> p.getName().equals(player.getName()));
+
+    if (playerNameExists) {
       return ApiResponse.error(404, "Player already exists", "playerId",
-          "Player already exists in the game.");
+          String.format("Player with name '%s' already exists in the game.", player.getName()));
     }
     players.add(player);
     return ApiResponse.success(200, "Player added successfully.", player);
@@ -48,7 +52,7 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public synchronized ApiResponse<Card> drawRandomCard(final String playerId) {
+  public synchronized ApiResponse<Card> drawRandomCard(String playerId) {
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> discardPile = gameState.getCards().getDiscardPile();
 

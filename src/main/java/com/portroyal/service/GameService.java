@@ -14,7 +14,7 @@ public interface GameService {
    *
    * @return The card information that is drawn from the primary deck.
    */
-  ApiResponse<Card> drawRandomCard(final String playerId);
+  ApiResponse<Card> drawRandomCard(String playerId);
 
   GameState getGameState();
 

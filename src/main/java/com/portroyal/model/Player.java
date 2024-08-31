@@ -3,6 +3,7 @@ package com.portroyal.model;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterAbility;
 import java.util.List;
+import java.util.Objects;
 
 public class Player {
 
@@ -59,5 +60,36 @@ public class Player {
 
   public void setAbilities(List<CharacterAbility> abilities) {
     this.abilities = abilities;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Player player = (Player) o;
+    return coins == player.coins && score == player.score && Objects.equals(name,
+        player.name) && Objects.equals(cards, player.cards) && Objects.equals(
+        abilities, player.abilities);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, coins, score, cards, abilities);
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Player{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", coins=").append(coins);
+    sb.append(", score=").append(score);
+    sb.append(", cards=").append(cards);
+    sb.append(", abilities=").append(abilities);
+    sb.append('}');
+    return sb.toString();
   }
 }
