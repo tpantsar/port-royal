@@ -6,7 +6,9 @@
     "victoryPoints": 1,
     "characterCost": 5,
     "imageName": "admiral_1.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 2,
@@ -15,7 +17,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "admiral_2.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 3,
@@ -24,7 +28,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "admiral_2.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 4,
@@ -33,7 +39,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "admiral_2.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 5,
@@ -42,7 +50,9 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "admiral_3.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 6,
@@ -51,7 +61,9 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "admiral_3.png",
-    "abilities": ["fiveCards"]
+    "abilities": [
+      "fiveCards"
+    ]
   },
   {
     "id": 7,
@@ -60,7 +72,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "mademoiselle_2.png",
-    "abilities": ["oneCheaper"]
+    "abilities": [
+      "oneCheaper"
+    ]
   },
   {
     "id": 8,
@@ -69,7 +83,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "mademoiselle_2.png",
-    "abilities": ["oneCheaper"]
+    "abilities": [
+      "oneCheaper"
+    ]
   },
   {
     "id": 9,
@@ -78,7 +94,9 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "mademoiselle_3.png",
-    "abilities": ["oneCheaper"]
+    "abilities": [
+      "oneCheaper"
+    ]
   },
   {
     "id": 10,
@@ -87,7 +105,9 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "mademoiselle_3.png",
-    "abilities": ["oneCheaper"]
+    "abilities": [
+      "oneCheaper"
+    ]
   },
   {
     "id": 11,
@@ -96,7 +116,9 @@
     "victoryPoints": 1,
     "characterCost": 5,
     "imageName": "jester_1.png",
-    "abilities": ["boardEmpty"]
+    "abilities": [
+      "boardEmpty"
+    ]
   },
   {
     "id": 12,
@@ -105,7 +127,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "jester_2.png",
-    "abilities": ["boardEmpty"]
+    "abilities": [
+      "boardEmpty"
+    ]
   },
   {
     "id": 13,
@@ -114,7 +138,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "jester_2.png",
-    "abilities": ["boardEmpty"]
+    "abilities": [
+      "boardEmpty"
+    ]
   },
   {
     "id": 14,
@@ -123,7 +149,9 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "jester_2.png",
-    "abilities": ["boardEmpty"]
+    "abilities": [
+      "boardEmpty"
+    ]
   },
   {
     "id": 15,
@@ -132,7 +160,9 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "jester_3.png",
-    "abilities": ["boardEmpty"]
+    "abilities": [
+      "boardEmpty"
+    ]
   },
   {
     "id": 16,
@@ -141,7 +171,9 @@
     "victoryPoints": 0,
     "characterCost": 8,
     "imageName": "governor_0.png",
-    "abilities": ["extraCard"]
+    "abilities": [
+      "extraCard"
+    ]
   },
   {
     "id": 17,
@@ -150,7 +182,9 @@
     "victoryPoints": 0,
     "characterCost": 8,
     "imageName": "governor_0.png",
-    "abilities": ["extraCard"]
+    "abilities": [
+      "extraCard"
+    ]
   },
   {
     "id": 18,
@@ -159,7 +193,9 @@
     "victoryPoints": 0,
     "characterCost": 8,
     "imageName": "governor_0.png",
-    "abilities": ["extraCard"]
+    "abilities": [
+      "extraCard"
+    ]
   },
   {
     "id": 19,
@@ -168,7 +204,9 @@
     "victoryPoints": 0,
     "characterCost": 8,
     "imageName": "governor_0.png",
-    "abilities": ["extraCard"]
+    "abilities": [
+      "extraCard"
+    ]
   },
   {
     "id": 20,
@@ -177,7 +215,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_skiff.png",
-    "abilities": ["extraCoin_skiff"]
+    "abilities": [
+      "extraCoin_skiff"
+    ]
   },
   {
     "id": 21,
@@ -186,7 +226,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_skiff.png",
-    "abilities": ["extraCoin_skiff"]
+    "abilities": [
+      "extraCoin_skiff"
+    ]
   },
   {
     "id": 22,
@@ -195,7 +237,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_flute.png",
-    "abilities": ["extraCoin_flute"]
+    "abilities": [
+      "extraCoin_flute"
+    ]
   },
   {
     "id": 23,
@@ -204,7 +248,9 @@
     "victoryPoints": 2,
     "characterCost": 5,
     "imageName": "trader_2_flute.png",
-    "abilities": ["extraCoin_flute"]
+    "abilities": [
+      "extraCoin_flute"
+    ]
   },
   {
     "id": 24,
@@ -213,7 +259,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_frigate.png",
-    "abilities": ["extraCoin_frigate"]
+    "abilities": [
+      "extraCoin_frigate"
+    ]
   },
   {
     "id": 25,
@@ -222,7 +270,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_frigate.png",
-    "abilities": ["extraCoin_frigate"]
+    "abilities": [
+      "extraCoin_frigate"
+    ]
   },
   {
     "id": 26,
@@ -231,7 +281,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_galleon.png",
-    "abilities": ["extraCoin_galleon"]
+    "abilities": [
+      "extraCoin_galleon"
+    ]
   },
   {
     "id": 27,
@@ -240,7 +292,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_galleon.png",
-    "abilities": ["extraCoin_galleon"]
+    "abilities": [
+      "extraCoin_galleon"
+    ]
   },
   {
     "id": 28,
@@ -249,7 +303,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "trader_1_pinance.png",
-    "abilities": ["extraCoin_pinance"]
+    "abilities": [
+      "extraCoin_pinance"
+    ]
   },
   {
     "id": 29,
@@ -258,7 +314,9 @@
     "victoryPoints": 2,
     "characterCost": 5,
     "imageName": "trader_2_pinance.png",
-    "abilities": ["extraCoin_pinance"]
+    "abilities": [
+      "extraCoin_pinance"
+    ]
   },
   {
     "id": 30,
@@ -267,7 +325,11 @@
     "victoryPoints": 1,
     "characterCost": 6,
     "imageName": "jack_of_all_trades_1.png",
-    "abilities": ["house", "anchor", "cross"]
+    "abilities": [
+      "house",
+      "anchor",
+      "cross"
+    ]
   },
   {
     "id": 31,
@@ -276,7 +338,11 @@
     "victoryPoints": 1,
     "characterCost": 6,
     "imageName": "jack_of_all_trades_1.png",
-    "abilities": ["house", "anchor", "cross"]
+    "abilities": [
+      "house",
+      "anchor",
+      "cross"
+    ]
   },
   {
     "id": 32,
@@ -285,7 +351,11 @@
     "victoryPoints": 1,
     "characterCost": 6,
     "imageName": "jack_of_all_trades_1.png",
-    "abilities": ["house", "anchor", "cross"]
+    "abilities": [
+      "house",
+      "anchor",
+      "cross"
+    ]
   },
   {
     "id": 33,
@@ -294,7 +364,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 34,
@@ -303,7 +375,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 35,
@@ -312,7 +386,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 36,
@@ -321,7 +397,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 37,
@@ -330,7 +408,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 38,
@@ -339,7 +419,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 39,
@@ -348,7 +430,9 @@
     "victoryPoints": 1,
     "characterCost": 3,
     "imageName": "sailor_1.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 40,
@@ -357,7 +441,9 @@
     "victoryPoints": 2,
     "characterCost": 5,
     "imageName": "sailor_2.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 41,
@@ -366,7 +452,9 @@
     "victoryPoints": 2,
     "characterCost": 5,
     "imageName": "sailor_2.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 42,
@@ -375,7 +463,9 @@
     "victoryPoints": 3,
     "characterCost": 7,
     "imageName": "sailor_3.png",
-    "abilities": ["swords"]
+    "abilities": [
+      "swords"
+    ]
   },
   {
     "id": 43,
@@ -384,7 +474,10 @@
     "victoryPoints": 1,
     "characterCost": 5,
     "imageName": "pirate_1.png",
-    "abilities": ["swords", "swords"]
+    "abilities": [
+      "swords",
+      "swords"
+    ]
   },
   {
     "id": 44,
@@ -393,7 +486,10 @@
     "victoryPoints": 2,
     "characterCost": 7,
     "imageName": "pirate_2.png",
-    "abilities": ["swords", "swords"]
+    "abilities": [
+      "swords",
+      "swords"
+    ]
   },
   {
     "id": 45,
@@ -402,7 +498,10 @@
     "victoryPoints": 3,
     "characterCost": 9,
     "imageName": "pirate_3.png",
-    "abilities": ["swords", "swords"]
+    "abilities": [
+      "swords",
+      "swords"
+    ]
   },
   {
     "id": 46,
@@ -411,7 +510,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "captain_1.png",
-    "abilities": ["anchor"]
+    "abilities": [
+      "anchor"
+    ]
   },
   {
     "id": 47,
@@ -420,7 +521,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "captain_1.png",
-    "abilities": ["anchor"]
+    "abilities": [
+      "anchor"
+    ]
   },
   {
     "id": 48,
@@ -429,7 +532,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "captain_1.png",
-    "abilities": ["anchor"]
+    "abilities": [
+      "anchor"
+    ]
   },
   {
     "id": 49,
@@ -438,7 +543,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "captain_1.png",
-    "abilities": ["anchor"]
+    "abilities": [
+      "anchor"
+    ]
   },
   {
     "id": 50,
@@ -447,7 +554,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "captain_1.png",
-    "abilities": ["anchor"]
+    "abilities": [
+      "anchor"
+    ]
   },
   {
     "id": 51,
@@ -456,7 +565,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "priest_1.png",
-    "abilities": ["cross"]
+    "abilities": [
+      "cross"
+    ]
   },
   {
     "id": 52,
@@ -465,7 +576,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "priest_1.png",
-    "abilities": ["cross"]
+    "abilities": [
+      "cross"
+    ]
   },
   {
     "id": 53,
@@ -474,7 +587,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "priest_1.png",
-    "abilities": ["cross"]
+    "abilities": [
+      "cross"
+    ]
   },
   {
     "id": 54,
@@ -483,7 +598,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "priest_1.png",
-    "abilities": ["cross"]
+    "abilities": [
+      "cross"
+    ]
   },
   {
     "id": 55,
@@ -492,7 +609,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "priest_1.png",
-    "abilities": ["cross"]
+    "abilities": [
+      "cross"
+    ]
   },
   {
     "id": 56,
@@ -501,7 +620,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "settler_1.png",
-    "abilities": ["house"]
+    "abilities": [
+      "house"
+    ]
   },
   {
     "id": 57,
@@ -510,7 +631,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "settler_1.png",
-    "abilities": ["house"]
+    "abilities": [
+      "house"
+    ]
   },
   {
     "id": 58,
@@ -519,7 +642,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "settler_1.png",
-    "abilities": ["house"]
+    "abilities": [
+      "house"
+    ]
   },
   {
     "id": 59,
@@ -528,7 +653,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "settler_1.png",
-    "abilities": ["house"]
+    "abilities": [
+      "house"
+    ]
   },
   {
     "id": 60,
@@ -537,7 +664,9 @@
     "victoryPoints": 1,
     "characterCost": 4,
     "imageName": "settler_1.png",
-    "abilities": ["house"]
+    "abilities": [
+      "house"
+    ]
   },
   {
     "id": 61,
@@ -971,7 +1100,10 @@
     "id": 115,
     "name": "Research",
     "displayImage": false,
-    "researchMode": ["anchor", "anchor"],
+    "researchMode": [
+      "anchor",
+      "anchor"
+    ],
     "coinsAmount": 2,
     "victoryPoints": 4,
     "imageName": "research_1.png"
@@ -980,7 +1112,10 @@
     "id": 116,
     "name": "Research",
     "displayImage": false,
-    "researchMode": ["cross", "cross"],
+    "researchMode": [
+      "cross",
+      "cross"
+    ],
     "coinsAmount": 2,
     "victoryPoints": 4,
     "imageName": "research_2.png"
@@ -989,7 +1124,10 @@
     "id": 117,
     "name": "Research",
     "displayImage": false,
-    "researchMode": ["house", "house"],
+    "researchMode": [
+      "house",
+      "house"
+    ],
     "coinsAmount": 2,
     "victoryPoints": 4,
     "imageName": "research_3.png"
@@ -998,7 +1136,11 @@
     "id": 118,
     "name": "Research",
     "displayImage": false,
-    "researchMode": ["anchor", "anchor", "house"],
+    "researchMode": [
+      "anchor",
+      "anchor",
+      "house"
+    ],
     "coinsAmount": 3,
     "victoryPoints": 6,
     "imageName": "research_4.png"
@@ -1007,7 +1149,11 @@
     "id": 119,
     "name": "Research",
     "displayImage": false,
-    "researchMode": ["cross", "cross", "house"],
+    "researchMode": [
+      "cross",
+      "cross",
+      "house"
+    ],
     "coinsAmount": 3,
     "victoryPoints": 6,
     "imageName": "research_5.png"

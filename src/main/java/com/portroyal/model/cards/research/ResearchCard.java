@@ -10,7 +10,8 @@ public class ResearchCard extends Card {
   private int coinsAmount;
   private int victoryPoints;
 
-  public ResearchCard(final Integer id, final String name, final CardType type, boolean displayImage,
+  public ResearchCard(final Integer id, final String name, final CardType type,
+      boolean displayImage,
       final String imageName, final List<ResearchMode> researchMode, final int coinsAmount,
       final int victoryPoints) {
     super(id, name, type, displayImage, imageName);
