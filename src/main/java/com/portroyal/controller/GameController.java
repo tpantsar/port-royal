@@ -1,7 +1,8 @@
 package com.portroyal.controller;
 
 import com.portroyal.controller.output.ApiResponse;
-import com.portroyal.model.GameState;
+import com.portroyal.controller.output.GameStatusInfo;
+import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.service.GameService;
@@ -21,10 +22,14 @@ public class GameController {
   @Autowired
   private GameService gameService;
 
-  // Endpoint to get the current game state
-  @GetMapping("/state")
-  public GameState getGameState() {
-    return gameService.getGameState();
+  @GetMapping("/state-full")
+  public ApiResponse<GameStatusInfo> getGameStateFull() {
+    return gameService.getGameStateFull();
+  }
+
+  @GetMapping("/state-simple")
+  public ApiResponse<GameStatusInfoSimple> getGameStateSimple() {
+    return gameService.getGameStateSimple();
   }
 
   // Endpoint to get list of players
@@ -41,8 +46,8 @@ public class GameController {
 
   // Endpoint to draw a random card
   @PostMapping("/draw-card")
-  public ApiResponse<Card> drawCard(@RequestParam String playerId) {
-    return gameService.drawRandomCard(playerId);
+  public ApiResponse<Card> drawCard() {
+    return gameService.drawRandomCard();
   }
 
   // Endpoint to buy a character card

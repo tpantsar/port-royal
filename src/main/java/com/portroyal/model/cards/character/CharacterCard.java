@@ -20,6 +20,14 @@ public class CharacterCard extends Card {
     this.abilities = abilities;
   }
 
+  public CharacterCard(final Card card, final int victoryPoints, final int characterCost,
+      final List<CharacterAbility> abilities) {
+    super(card);
+    this.victoryPoints = victoryPoints;
+    this.characterCost = characterCost;
+    this.abilities = abilities;
+  }
+
   public int getVictoryPoints() {
     return victoryPoints;
   }

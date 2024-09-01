@@ -1,5 +1,6 @@
 package com.portroyal.model;
 
+import com.portroyal.controller.output.PlayerInformation;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterAbility;
 import java.util.List;
@@ -20,6 +21,10 @@ public class Player {
     this.score = score;
     this.cards = cards;
     this.abilities = abilities;
+  }
+
+  public PlayerInformation toPlayerInformation() {
+    return new PlayerInformation(name, coins, score, cards, abilities);
   }
 
   public String getName() {

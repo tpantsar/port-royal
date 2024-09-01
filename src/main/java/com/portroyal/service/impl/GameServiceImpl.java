@@ -1,6 +1,11 @@
 package com.portroyal.service.impl;
 
+import static com.portroyal.util.CardUtil.resolveCardType;
+
 import com.portroyal.controller.output.ApiResponse;
+import com.portroyal.controller.output.CardType;
+import com.portroyal.controller.output.GameStatusInfo;
+import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.GameState;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
@@ -20,8 +25,25 @@ public class GameServiceImpl implements GameService {
 
   // Synchronized methods to handle game logic safely
   @Override
-  public synchronized GameState getGameState() {
-    return gameState;
+  public synchronized ApiResponse<GameStatusInfo> getGameStateFull() {
+    final GameStatusInfo status = new GameStatusInfo(gameState);
+    try {
+      return ApiResponse.success(200, "Game state retrieved successfully.", status);
+    } catch (Exception e) {
+      return ApiResponse.error(404, "Game state not found", "id",
+          "Game state not found. Please try again.");
+    }
+  }
+
+  @Override
+  public synchronized ApiResponse<GameStatusInfoSimple> getGameStateSimple() {
+    final GameStatusInfoSimple status = new GameStatusInfoSimple(gameState);
+    try {
+      return ApiResponse.success(200, "Game state retrieved successfully.", status);
+    } catch (Exception e) {
+      return ApiResponse.error(404, "Game state not found", "id",
+          "Game state not found. Please try again.");
+    }
   }
 
   @Override
@@ -52,13 +74,24 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public synchronized ApiResponse<Card> drawRandomCard(String playerId) {
+  public synchronized ApiResponse<Card> drawRandomCard() {
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
+    List<Card> tablePile = gameState.getCards().getTablePile();
     List<Card> discardPile = gameState.getCards().getDiscardPile();
+    List<Card> researchPile = gameState.getCards().getResearchPile();
 
     try {
       final Card randomCard = RandomUtil.popRandomElementFromList(primaryPile, discardPile);
-      return ApiResponse.success(200, "Card drawn successfully.", new Card(randomCard));
+      if (randomCard != null) {
+        if (randomCard.getType().equals(CardType.RESEARCH)) {
+          researchPile.add(randomCard);
+        } else {
+          tablePile.add(randomCard);
+        }
+        return ApiResponse.success(200, "Card drawn successfully.", resolveCardType(randomCard));
+      }
+      return ApiResponse.error(404, "No cards available", "id",
+          "No cards available in the primary pile.");
     } catch (Exception e) {
       return ApiResponse.error(404, "No cards available", "id",
           "No cards available in the primary pile.");

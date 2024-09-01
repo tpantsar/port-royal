@@ -13,6 +13,11 @@ public class TaxCard extends Card {
     this.taxMode = taxMode;
   }
 
+  public TaxCard(final Card card, final TaxMode taxMode) {
+    super(card);
+    this.taxMode = taxMode;
+  }
+
   public TaxMode getTaxMode() {
     return taxMode;
   }

@@ -1,7 +1,8 @@
 package com.portroyal.service;
 
 import com.portroyal.controller.output.ApiResponse;
-import com.portroyal.model.GameState;
+import com.portroyal.controller.output.GameStatusInfo;
+import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import java.util.List;
@@ -14,9 +15,11 @@ public interface GameService {
    *
    * @return The card information that is drawn from the primary deck.
    */
-  ApiResponse<Card> drawRandomCard(String playerId);
+  ApiResponse<Card> drawRandomCard();
 
-  GameState getGameState();
+  ApiResponse<GameStatusInfo> getGameStateFull();
+
+  ApiResponse<GameStatusInfoSimple> getGameStateSimple();
 
   List<Player> getPlayers();
 

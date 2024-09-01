@@ -20,6 +20,14 @@ public class ResearchCard extends Card {
     this.victoryPoints = victoryPoints;
   }
 
+  public ResearchCard(final Card card, final List<ResearchMode> researchMode, final int coinsAmount,
+      final int victoryPoints) {
+    super(card);
+    this.researchMode = researchMode;
+    this.coinsAmount = coinsAmount;
+    this.victoryPoints = victoryPoints;
+  }
+
   public List<ResearchMode> getResearchMode() {
     return researchMode;
   }

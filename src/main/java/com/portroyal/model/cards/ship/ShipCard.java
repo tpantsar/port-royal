@@ -15,6 +15,12 @@ public class ShipCard extends Card {
     this.shipCoins = shipCoins;
   }
 
+  public ShipCard(final Card card, final int shipWeapons, final int shipCoins) {
+    super(card);
+    this.shipWeapons = shipWeapons;
+    this.shipCoins = shipCoins;
+  }
+
   public int getShipWeapons() {
     return shipWeapons;
   }
