@@ -8,14 +8,16 @@ import java.util.Objects;
 
 public class Player {
 
+  private int id;
   private String name;
   private int coins;
   private int score;
   private List<Card> cards;
   private List<CharacterAbility> abilities;
 
-  public Player(String name, int coins, int score, List<Card> cards,
+  public Player(int id, String name, int coins, int score, List<Card> cards,
       List<CharacterAbility> abilities) {
+    this.id = id;
     this.name = name;
     this.coins = coins;
     this.score = score;
@@ -25,6 +27,14 @@ public class Player {
 
   public PlayerInformation toPlayerInformation() {
     return new PlayerInformation(name, coins, score, cards, abilities);
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {

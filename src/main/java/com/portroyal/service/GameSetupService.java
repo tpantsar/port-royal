@@ -98,8 +98,8 @@ public class GameSetupService {
   // Test players
   public List<Player> initPlayers() {
     List<Player> players = new ArrayList<>();
-    players.add(new Player("Alice", 15, 0, new ArrayList<>(), new ArrayList<>()));
-    players.add(new Player("Bob", 15, 0, new ArrayList<>(), new ArrayList<>()));
+    players.add(new Player(1, "Alice", 15, 0, new ArrayList<>(), new ArrayList<>()));
+    players.add(new Player(2, "Bob", 15, 0, new ArrayList<>(), new ArrayList<>()));
     return players;
   }
 

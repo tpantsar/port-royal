@@ -1,5 +1,6 @@
 package com.portroyal.controller;
 
+import com.portroyal.controller.dto.BuyCardRequest;
 import com.portroyal.controller.output.ApiResponse;
 import com.portroyal.controller.output.GameStatusInfo;
 import com.portroyal.controller.output.GameStatusInfoSimple;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,8 +51,8 @@ public class GameController {
   }
 
   // Endpoint to buy a character card
-  @PostMapping("/buy")
-  public void buyCharacterCard(@RequestParam String playerId, @RequestParam String cardId) {
-    gameService.buyCharacterCard(playerId, cardId);
+  @PostMapping("/buy-card")
+  public ApiResponse<Card> buyCharacterCard(@RequestBody BuyCardRequest request) {
+    return gameService.buyCharacterCard(request);
   }
 }

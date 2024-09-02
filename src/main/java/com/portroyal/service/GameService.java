@@ -1,5 +1,6 @@
 package com.portroyal.service;
 
+import com.portroyal.controller.dto.BuyCardRequest;
 import com.portroyal.controller.output.ApiResponse;
 import com.portroyal.controller.output.GameStatusInfo;
 import com.portroyal.controller.output.GameStatusInfoSimple;
@@ -25,5 +26,5 @@ public interface GameService {
 
   ApiResponse<Player> addPlayer(Player player);
 
-  void buyCharacterCard(String playerId, String cardId);
+  ApiResponse<Card> buyCharacterCard(BuyCardRequest request);
 }
