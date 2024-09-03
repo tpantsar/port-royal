@@ -3,6 +3,7 @@ package com.portroyal.model.cards.character;
 import com.portroyal.controller.output.CardType;
 import com.portroyal.model.cards.Card;
 import java.util.List;
+import java.util.Objects;
 
 public class CharacterCard extends Card {
 
@@ -50,5 +51,33 @@ public class CharacterCard extends Card {
 
   public void setAbilities(List<CharacterAbility> abilities) {
     this.abilities = abilities;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CharacterCard that = (CharacterCard) o;
+    return victoryPoints == that.victoryPoints && characterCost == that.characterCost
+        && Objects.equals(abilities, that.abilities);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(victoryPoints, characterCost, abilities);
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("CharacterCard{");
+    sb.append("victoryPoints=").append(victoryPoints);
+    sb.append(", characterCost=").append(characterCost);
+    sb.append(", abilities=").append(abilities);
+    sb.append('}');
+    return sb.toString();
   }
 }

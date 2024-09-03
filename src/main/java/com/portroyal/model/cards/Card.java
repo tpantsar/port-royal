@@ -1,6 +1,7 @@
 package com.portroyal.model.cards;
 
 import com.portroyal.controller.output.CardType;
+import java.util.Objects;
 
 /* Base class for all card entities */
 public class Card {
@@ -67,6 +68,24 @@ public class Card {
     this.imageName = imageName;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Card card = (Card) o;
+    return displayImage == card.displayImage && Objects.equals(id, card.id)
+        && Objects.equals(name, card.name) && type == card.type && Objects.equals(
+        imageName, card.imageName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, type, displayImage, imageName);
+  }
 
   @Override
   public String toString() {

@@ -2,6 +2,7 @@ package com.portroyal.model.cards.ship;
 
 import com.portroyal.controller.output.CardType;
 import com.portroyal.model.cards.Card;
+import java.util.Objects;
 
 public class ShipCard extends Card {
 
@@ -35,5 +36,31 @@ public class ShipCard extends Card {
 
   public void setShipCoins(int shipCoins) {
     this.shipCoins = shipCoins;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ShipCard shipCard = (ShipCard) o;
+    return shipWeapons == shipCard.shipWeapons && shipCoins == shipCard.shipCoins;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(shipWeapons, shipCoins);
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("ShipCard{");
+    sb.append("shipWeapons=").append(shipWeapons);
+    sb.append(", shipCoins=").append(shipCoins);
+    sb.append('}');
+    return sb.toString();
   }
 }

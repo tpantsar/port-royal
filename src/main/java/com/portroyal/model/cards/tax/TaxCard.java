@@ -2,6 +2,7 @@ package com.portroyal.model.cards.tax;
 
 import com.portroyal.controller.output.CardType;
 import com.portroyal.model.cards.Card;
+import java.util.Objects;
 
 public class TaxCard extends Card {
 
@@ -24,5 +25,30 @@ public class TaxCard extends Card {
 
   public void setTaxMode(TaxMode taxMode) {
     this.taxMode = taxMode;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TaxCard taxCard = (TaxCard) o;
+    return taxMode == taxCard.taxMode;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(taxMode);
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("TaxCard{");
+    sb.append("taxMode=").append(taxMode);
+    sb.append('}');
+    return sb.toString();
   }
 }
