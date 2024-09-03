@@ -22,7 +22,7 @@ public class GameState {
 
   // Initialize the game state using the GameSetupService
   @PostConstruct
-  private void initGame() {
+  public void initGame() {
     this.players = gameSetupService.initPlayers();
     this.cards = gameSetupService.initCards();
     this.currentPlayer = players.getFirst();

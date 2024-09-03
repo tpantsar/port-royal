@@ -128,12 +128,18 @@ public class GameServiceImpl implements GameService {
     try {
       final Card randomCard = RandomUtil.popRandomCardFromPrimaryPile(primaryPile, discardPile);
       if (randomCard != null) {
+        randomCard.setDisplayImage(true);
         if (randomCard.getType().equals(CardType.RESEARCH)) {
           researchPile.add(randomCard);
         } else {
           tablePile.add(randomCard);
         }
-        return ApiResponse.success(200, "Card drawn successfully.", resolveCardType(randomCard));
+        try {
+          return ApiResponse.success(200, "Card drawn successfully.", resolveCardType(randomCard));
+        } catch (Exception e) {
+          return ApiResponse.error(404, "Resolve error", "card",
+              "Found card type could not be constructed. Card may not have necessary fields, e.g. ShipCard and CharacterCard fields.");
+        }
       }
       return ApiResponse.error(404, "No cards available", "id",
           "No cards available in the primary pile.");

@@ -15,17 +15,32 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class GameServiceImplTest {
 
   private GameState gameState;
+  private GameSetupService gameSetupService;
   private GameService gameService;
 
   @BeforeEach
   void setUp() {
-    GameSetupService gameSetupService = new GameSetupService();
+    // Create a mock or real instance of GameSetupService
+    gameSetupService = Mockito.mock(GameSetupService.class);
+
+    // Initialize GameState with the GameSetupService
     gameState = new GameState(gameSetupService);
+
+    // Initialize GameService with the GameState
     gameService = new GameServiceImpl(gameState);
+
+    // Set up any additional configurations or states needed for the tests
+    // For example, you can mock the methods of gameSetupService to return specific values
+    Mockito.when(gameSetupService.initPlayers()).thenReturn(UnitTestUtil.createTestPlayers());
+    Mockito.when(gameSetupService.initCards()).thenReturn(UnitTestUtil.createTestCards());
+
+    // Initialize the game state
+    gameState.initGame();
   }
 
   @AfterEach
@@ -55,20 +70,9 @@ class GameServiceImplTest {
   @Test
   void drawRandomCardSuccessfully() {
     // Arrange
-    //List<Card> primaryPile = new ArrayList<>();
-    //List<Card> tablePile = new ArrayList<>();
-    //List<Card> discardPile = new ArrayList<>();
-    //List<Card> researchPile = new ArrayList<>();
-    //when(gameState.getCards().getPrimaryPile()).thenReturn(primaryPile);
-    //when(gameState.getCards().getTablePile()).thenReturn(tablePile);
-    //when(gameState.getCards().getDiscardPile()).thenReturn(discardPile);
-    //when(gameState.getCards().getResearchPile()).thenReturn(researchPile);
-
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> tablePile = gameState.getCards().getTablePile();
-
-    // Card characterCard = UnitTestUtil.createCharacterCard();
-    // primaryPile.add(characterCard);
+    List<Card> researchPile = gameState.getCards().getResearchPile();
 
     // Act
     ApiResponse<Card> result = gameService.drawRandomCard();
@@ -77,11 +81,11 @@ class GameServiceImplTest {
     assertEquals(200, result.getStatusCode());
     assertEquals("Card drawn successfully.", result.getMessage());
 
-    assertTrue(primaryPile.isEmpty());
-    assertTrue(tablePile.contains(result.getData()));
+    Card card = result.getData();
 
-    //assertTrue(tablePile.contains(characterCard));
-    //assertTrue(primaryPile.isEmpty());
+    assertTrue(!primaryPile.contains(card));
+    assertTrue(tablePile.contains(card) || researchPile.contains(card));
+    assertTrue(card.isDisplayImage());
   }
 
   @Test
