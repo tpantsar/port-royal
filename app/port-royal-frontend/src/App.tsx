@@ -5,6 +5,7 @@ import gameService from "./services/game";
 import { ApiResponse } from "./types/ApiResponse";
 import { Card } from "./types/Card";
 import { GameStatusInfoSimple } from "./types/GameStatusInfoSimple";
+import CardImage from "./components/CardImage";
 
 function App() {
   const [gameState, setGameState] = useState<GameStatusInfoSimple | null>(null);
@@ -37,7 +38,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="row">
       <div>
         <button onClick={fetchApi}>fetch</button>
       </div>
@@ -53,7 +54,7 @@ function App() {
         </p>
         <p>currentPlayer: {gameState?.currentPlayer.name}</p>
         <p>
-          players: {gameState?.players.map((player) => player.name).join(" ")}
+          players: {gameState?.players.map((player) => player.name).join(", ")}
         </p>
       </div>
       <div>
@@ -65,6 +66,7 @@ function App() {
             <p>type: {card?.type}</p>
             <p>displayImage: {card?.displayImage}</p>
             <p>imageName: {card?.imageName}</p>
+            <CardImage imageName={card?.imageName} />
 
             {/*}
             <p>victoryPoints: {card?.victoryPoints}</p>
@@ -79,7 +81,7 @@ function App() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
