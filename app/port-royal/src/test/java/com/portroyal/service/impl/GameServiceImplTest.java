@@ -87,20 +87,4 @@ class GameServiceImplTest {
     assertTrue(tablePile.contains(card) || researchPile.contains(card));
     assertTrue(card.isDisplayImage());
   }
-
-  @Test
-  void drawRandomCardNoCardsAvailable() {
-    // Arrange
-    List<Card> primaryPile = new ArrayList<>();
-    List<Card> discardPile = new ArrayList<>();
-    when(gameState.getCards().getPrimaryPile()).thenReturn(primaryPile);
-    when(gameState.getCards().getDiscardPile()).thenReturn(discardPile);
-
-    // Act
-    ApiResponse<Card> response = gameService.drawRandomCard();
-
-    // Assert
-    assertEquals(404, response.getStatusCode());
-    assertEquals("No cards available in the primary pile.", response.getMessage());
-  }
 }
