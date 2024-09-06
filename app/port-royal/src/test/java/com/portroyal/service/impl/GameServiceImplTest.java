@@ -2,7 +2,6 @@ package com.portroyal.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 
 import com.portroyal.UnitTestUtil;
 import com.portroyal.controller.output.ApiResponse;
@@ -10,7 +9,6 @@ import com.portroyal.model.GameState;
 import com.portroyal.model.cards.Card;
 import com.portroyal.service.GameService;
 import com.portroyal.service.GameSetupService;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,13 +18,12 @@ import org.mockito.Mockito;
 class GameServiceImplTest {
 
   private GameState gameState;
-  private GameSetupService gameSetupService;
   private GameService gameService;
 
   @BeforeEach
   void setUp() {
     // Create a mock or real instance of GameSetupService
-    gameSetupService = Mockito.mock(GameSetupService.class);
+    GameSetupService gameSetupService = Mockito.mock(GameSetupService.class);
 
     // Initialize GameState with the GameSetupService
     gameState = new GameState(gameSetupService);

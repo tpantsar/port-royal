@@ -9,16 +9,8 @@ div {
   border: 1px solid red;
 }
 
-.row {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-  justify-content: center;
-}
-
 img {
-  width: 15rem;
+  width: 100%;
   height: auto;
 }
 

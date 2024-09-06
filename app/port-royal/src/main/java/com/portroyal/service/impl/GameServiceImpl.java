@@ -133,6 +133,18 @@ public class GameServiceImpl implements GameService {
           researchPile.add(randomCard);
         } else {
           tablePile.add(randomCard);
+
+          // Check if the table has duplicate colored ships
+          gameState.setDuplicateColoredShips(CardUtil.hasDuplicateColoredShips(tablePile));
+
+          if (gameState.isDuplicateColoredShips()) {
+            CardUtil.moveAllCardsFromListToList(tablePile,
+                discardPile); // Move all table cards to discard pile
+            gameState.changeCurrentPlayer(); // Set the next player in turn
+
+            return ApiResponse.error(400, "Duplicate colored ships", "table",
+                "The table pile contains two ships with the same name. Moving cards to discard pile.");
+          }
         }
         try {
           return ApiResponse.success(200, "Card drawn successfully.", resolveCardType(randomCard));
@@ -150,4 +162,23 @@ public class GameServiceImpl implements GameService {
   }
 
   // Additional game logic methods
+
+  private void checkGameState() {
+    List<Card> tablePile = gameState.getCards().getTablePile();
+    List<Card> discardPile = gameState.getCards().getDiscardPile();
+
+    // TODO: Check if the game is over
+    // if (condition) {
+    //   gameState.setStatus(GameStatus.FINISHED);
+    // }
+
+    // Check if the table has duplicate colored ships
+    gameState.setDuplicateColoredShips(CardUtil.hasDuplicateColoredShips(tablePile));
+
+    if (gameState.isDuplicateColoredShips()) {
+      CardUtil.moveAllCardsFromListToList(tablePile,
+          discardPile); // Move all table cards to discard pile
+      gameState.changeCurrentPlayer(); // Set the next player in turn
+    }
+  }
 }

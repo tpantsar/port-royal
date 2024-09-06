@@ -30,6 +30,22 @@ public class GameState {
     this.status = GameStatus.IN_PROGRESS;
   }
 
+  // Method to assign the next player in turn
+  public void changeCurrentPlayer() {
+    if (players == null || players.isEmpty()) {
+      throw new IllegalStateException("Player list cannot be null or empty");
+    }
+
+    // Find the index of the current player
+    int currentIndex = players.indexOf(currentPlayer);
+
+    // Calculate the next index, if currentPlayer is not yet set, start from 0
+    int nextIndex = (currentIndex + 1) % players.size();
+
+    // Assign the next player
+    currentPlayer = players.get(nextIndex);
+  }
+
   public List<Player> getPlayers() {
     return players;
   }
