@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import { useState } from "react";
+import "./App.css";
+import gameService from "./services/game";
+import { ApiResponse } from "./types/ApiResponse";
+import { Card } from "./types/Card";
+import { GameStatusInfoSimple } from "./types/GameStatusInfoSimple";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gameState, setGameState] = useState<GameStatusInfoSimple | null>(null);
+  const [card, setCard] = useState<Card | null>(null);
+
+  const getGameState = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      const response: ApiResponse<GameStatusInfoSimple> =
+        await gameService.getGameState();
+      setGameState(response.data);
+    } catch (error) {
+      console.error("Failed to fetch game state", error);
+    }
+  };
+
+  const fetchApi = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    drawCard(event);
+    getGameState(event);
+  };
+
+  const drawCard = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      const response: ApiResponse<Card> = await gameService.drawCard();
+      setCard(response.data);
+    } catch (error) {
+      console.error("Failed to draw card", error);
+    }
+  };
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button onClick={fetchApi}>fetch</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <div>
+        <button onClick={getGameState}>state-simple</button>
+        <p>primaryPile: {gameState?.primaryPile}</p>
+        <p>tablePile: {gameState?.tablePile}</p>
+        <p>discardPile: {gameState?.discardPile}</p>
+        <p>researchPile: {gameState?.researchPile}</p>
+        <p>status: {gameState?.status}</p>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          duplicateColoredShips: {gameState?.duplicateColoredShips.toString()}
+        </p>
+        <p>currentPlayer: {gameState?.currentPlayer.name}</p>
+        <p>
+          players: {gameState?.players.map((player) => player.name).join(" ")}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>
+        <button onClick={drawCard}>draw-card</button>
+        {card && (
+          <div>
+            <p>id: {card?.id}</p>
+            <p>name: {card?.name}</p>
+            <p>type: {card?.type}</p>
+            <p>displayImage: {card?.displayImage}</p>
+            <p>imageName: {card?.imageName}</p>
+
+            {/*}
+            <p>victoryPoints: {card?.victoryPoints}</p>
+            <p>characterCost: {card?.characterCost}</p>
+            <p>abilities: {card?.abilities.map((ability) => ability)}</p>
+            <p>researchMode: {card?.researchMode}</p>
+            <p>coinsAmount: {card?.coinsAmount}</p>
+            <p>shipWeapons: {card?.shipWeapons}</p>
+            <p>shipCoins: {card?.shipCoins}</p>
+            <p>taxMode: {card?.taxMode}</p>
+            */}
+          </div>
+        )}
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
