@@ -1,32 +1,32 @@
-import { CharacterAbility } from "./CharacterAbility";
+import { CharacterAbility } from './CharacterAbility'
 
 export type Card = {
   // All cards
-  id: number;
-  name: string;
-  type: string;
-  displayImage: boolean;
-  imageName: string;
+  id: number
+  name: string
+  type: string
+  displayImage: boolean
+  imageName: string
 
   // Character and researh cards
-  victoryPoints: number;
+  victoryPoints: number
 
   // Character cards
-  characterCost: number;
-  abilities: CharacterAbility[];
+  characterCost: number
+  abilities: CharacterAbility[]
 
   // Research cards
-  researchMode: ResearchMode[];
-  coinsAmount: number;
+  researchMode: ResearchMode[]
+  coinsAmount: number
 
   // Ship cards
-  shipWeapons: number;
-  shipCoins: number;
+  shipWeapons: number
+  shipCoins: number
 
   // Tax cards
-  taxMode: TaxMode;
-};
+  taxMode: TaxMode
+}
 
-type ResearchMode = "ANCHOR" | "CROSS" | "HOUSE";
+type ResearchMode = 'ANCHOR' | 'CROSS' | 'HOUSE'
 
-type TaxMode = "LOWEST_POINTS" | "MOST_SWORDS";
+type TaxMode = 'LOWEST_POINTS' | 'MOST_SWORDS'

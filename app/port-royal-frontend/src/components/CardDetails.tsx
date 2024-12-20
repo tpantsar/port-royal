@@ -1,17 +1,13 @@
-import React from "react";
-import { Card } from "../types/Card";
+import React from 'react'
+import { Card } from '../types/Card'
 
 type CardDetailsProps = {
-  drawCard: () => void;
-  card: Card | null;
-  message: string;
-};
+  drawCard: () => void
+  card: Card | null
+  message: string
+}
 
-const CardDetails: React.FC<CardDetailsProps> = ({
-  drawCard,
-  card,
-  message,
-}) => {
+const CardDetails: React.FC<CardDetailsProps> = ({ drawCard, card, message }) => {
   return (
     <div>
       <button onClick={drawCard}>draw-card</button>
@@ -29,7 +25,7 @@ const CardDetails: React.FC<CardDetailsProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CardDetails;
+export default CardDetails

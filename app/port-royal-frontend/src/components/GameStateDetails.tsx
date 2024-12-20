@@ -1,15 +1,12 @@
-import React from "react";
-import { GameStatusInfoSimple } from "../types/GameStatusInfoSimple";
+import React from 'react'
+import { GameStatusInfoSimple } from '../types/GameStatusInfoSimple'
 
 type GameStateDetailsProps = {
-  gameState: GameStatusInfoSimple | null;
-  getGameState: (event: React.MouseEvent<HTMLButtonElement>) => void;
-};
+  gameState: GameStatusInfoSimple | null
+  getGameState: (event: React.MouseEvent<HTMLButtonElement>) => void
+}
 
-const GameStateDetails: React.FC<GameStateDetailsProps> = ({
-  gameState,
-  getGameState,
-}) => {
+const GameStateDetails: React.FC<GameStateDetailsProps> = ({ gameState, getGameState }) => {
   return (
     <div>
       <button onClick={getGameState}>state-simple</button>
@@ -18,15 +15,11 @@ const GameStateDetails: React.FC<GameStateDetailsProps> = ({
       <p>discardPile: {gameState?.discardPile}</p>
       <p>researchPile: {gameState?.researchPile}</p>
       <p>status: {gameState?.status}</p>
-      <p>
-        duplicateColoredShips: {gameState?.duplicateColoredShips.toString()}
-      </p>
+      <p>duplicateColoredShips: {gameState?.duplicateColoredShips.toString()}</p>
       <p>currentPlayer: {gameState?.currentPlayer.name}</p>
-      <p>
-        players: {gameState?.players.map((player) => player.name).join(", ")}
-      </p>
+      <p>players: {gameState?.players.map((player) => player.name).join(', ')}</p>
     </div>
-  );
-};
+  )
+}
 
-export default GameStateDetails;
+export default GameStateDetails
