@@ -56,13 +56,31 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public synchronized ApiResponse<Player> addPlayer(Player player) {
-    // Check if player name already exists in the game
+    if (player == null) {
+      return ApiResponse.error(400, "Player not found.", "player",
+          "Player object is null. Please provide a valid player object.");
+    }
+    if (player.getId() < 1) {
+      return ApiResponse.error(400, "Invalid player id.", "id",
+          "Player id must be greater than 0.");
+    }
+    if (player.getName() == null || player.getName().isEmpty() || player.getName().isBlank()) {
+      return ApiResponse.error(400, "Invalid player name.", "name",
+          "Player name must not be empty.");
+    }
+
+    // Check if player name or id already exists in the game
     final List<Player> players = gameState.getPlayers();
     boolean playerNameExists = players.stream().anyMatch(p -> p.getName().equals(player.getName()));
+    boolean playerIdExists = players.stream().anyMatch(p -> p.getId() == player.getId());
 
     if (playerNameExists) {
-      return ApiResponse.error(404, "Player already exists", "playerId",
+      return ApiResponse.error(400, "Player name already exists.", "playerName",
           String.format("Player with name '%s' already exists in the game.", player.getName()));
+    }
+    if (playerIdExists) {
+      return ApiResponse.error(400, "Player id already exists.", "playerId",
+          String.format("Player with id '%s' already exists in the game.", player.getId()));
     }
     players.add(player);
     return ApiResponse.success(200, "Player added successfully.", player);

@@ -21,7 +21,7 @@ public class UnitTestUtil {
   private static final int TEST_COINS_PLAYER_3 = 1;
   private static final int TEST_SCORE = 0;
 
-  private static final List<Card> primaryPile = new ArrayList<>();
+  private static final List<Card> testCards = new ArrayList<>();
 
   public static CharacterCard createCharacterCard() {
     Card card = new Card(1, "test-name", CardType.CHARACTER, false, "test-imageName");
@@ -40,10 +40,10 @@ public class UnitTestUtil {
     final List<Card> playerCards = new ArrayList<>();
 
     for (int i = 0; i < cardsAmount; i++) {
-      Card randomCard = primaryPile.get(
+      Card randomCard = testCards.get(
           (int) (Math.random() * UnitTestUtil.initTestCards().getPrimaryPile().size()));
       playerCards.add(randomCard);
-      primaryPile.remove(randomCard);
+      testCards.remove(randomCard);
     }
 
     return playerCards;
@@ -66,31 +66,31 @@ public class UnitTestUtil {
   }
 
   public static Cards initTestCards() {
-    primaryPile.add(createTestCharacterCard(1));
-    primaryPile.add(createTestCharacterCard(2));
-    primaryPile.add(createTestCharacterCard(3));
-    primaryPile.add(createTestCharacterCard(4));
-    primaryPile.add(createTestCharacterCard(5));
-    primaryPile.add(createTestCharacterCard(6));
-    primaryPile.add(createTestCharacterCard(7));
-    primaryPile.add(createTestCharacterCard(8));
-    primaryPile.add(createTestCharacterCard(9));
-    primaryPile.add(createTestCharacterCard(10));
-    primaryPile.add(createTestShipCard(61));
-    primaryPile.add(createTestShipCard(62));
-    primaryPile.add(createTestShipCard(63));
-    primaryPile.add(createTestShipCard(64));
-    primaryPile.add(createTestShipCard(65));
-    primaryPile.add(createTestTaxCard(111));
-    primaryPile.add(createTestTaxCard(112));
-    primaryPile.add(createTestTaxCard(113));
-    primaryPile.add(createTestTaxCard(114));
-    primaryPile.add(createTestResearchCard(115));
-    primaryPile.add(createTestResearchCard(116));
-    primaryPile.add(createTestResearchCard(117));
-    primaryPile.add(createTestResearchCard(118));
-    primaryPile.add(createTestResearchCard(119));
-    return new Cards(primaryPile);
+    testCards.add(createTestCharacterCard(1));
+    testCards.add(createTestCharacterCard(2));
+    testCards.add(createTestCharacterCard(3));
+    testCards.add(createTestCharacterCard(4));
+    testCards.add(createTestCharacterCard(5));
+    testCards.add(createTestCharacterCard(6));
+    testCards.add(createTestCharacterCard(7));
+    testCards.add(createTestCharacterCard(8));
+    testCards.add(createTestCharacterCard(9));
+    testCards.add(createTestCharacterCard(10));
+    testCards.add(createTestShipCard(61));
+    testCards.add(createTestShipCard(62));
+    testCards.add(createTestShipCard(63));
+    testCards.add(createTestShipCard(64));
+    testCards.add(createTestShipCard(65));
+    testCards.add(createTestTaxCard(111));
+    testCards.add(createTestTaxCard(112));
+    testCards.add(createTestTaxCard(113));
+    testCards.add(createTestTaxCard(114));
+    testCards.add(createTestResearchCard(115));
+    testCards.add(createTestResearchCard(116));
+    testCards.add(createTestResearchCard(117));
+    testCards.add(createTestResearchCard(118));
+    testCards.add(createTestResearchCard(119));
+    return new Cards(testCards);
   }
 
   public static CharacterCard createTestCharacterCard(int id) {

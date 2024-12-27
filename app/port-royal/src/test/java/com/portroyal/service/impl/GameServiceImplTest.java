@@ -5,20 +5,28 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.portroyal.UnitTestUtil;
 import com.portroyal.controller.output.ApiResponse;
 import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.GameState;
 import com.portroyal.model.GameStatus;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
+import com.portroyal.model.cards.Cards;
 import com.portroyal.service.GameService;
 import com.portroyal.service.GameSetupService;
 import com.portroyal.util.CardUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Value;
 
 class GameServiceImplTest {
 
@@ -87,6 +95,128 @@ class GameServiceImplTest {
     // Assert
     assertNotNull(players);
     assertEquals(2, players.size());
+  }
+
+  @Test
+  void testAddPlayer_success() {
+    // Arrange
+    Cards cards = UnitTestUtil.initTestCards();
+    List<Card> playerCards = new ArrayList<>();
+    playerCards.add(cards.getPrimaryPile().get(0));
+    playerCards.add(cards.getPrimaryPile().get(1));
+    playerCards.add(cards.getPrimaryPile().get(2));
+
+    Player player = new Player(3, "Charlie", 3, 0, playerCards, null);
+
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(player);
+
+    // Assert
+    assertEquals(200, result.getStatusCode());
+    assertEquals("Player added successfully.", result.getMessage());
+    assertEquals(player, result.getData());
+  }
+
+  @Test
+  void testAddPlayer_playerNameExists() {
+    // Arrange
+    Cards cards = UnitTestUtil.initTestCards();
+    List<Card> playerCards = new ArrayList<>();
+    playerCards.add(cards.getPrimaryPile().get(0));
+    playerCards.add(cards.getPrimaryPile().get(1));
+    playerCards.add(cards.getPrimaryPile().get(2));
+
+    Player player = new Player(3, "Alice", 3, 0, playerCards, null);
+
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(player);
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Player name already exists.", result.getMessage());
+    assertTrue(result.getErrors().containsKey("playerName"));
+    assertEquals("Player with name 'Alice' already exists in the game.",
+        result.getErrors().get("playerName"));
+  }
+
+  @Test
+  void testAddPlayer_playerIdExists() {
+    // Arrange
+    Cards cards = UnitTestUtil.initTestCards();
+    List<Card> playerCards = new ArrayList<>();
+    playerCards.add(cards.getPrimaryPile().get(0));
+    playerCards.add(cards.getPrimaryPile().get(1));
+    playerCards.add(cards.getPrimaryPile().get(2));
+
+    Player player = new Player(1, "Charlie", 3, 0, playerCards, null);
+
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(player);
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Player id already exists.", result.getMessage());
+    assertTrue(result.getErrors().containsKey("playerId"));
+    assertEquals("Player with id '1' already exists in the game.",
+        result.getErrors().get("playerId"));
+  }
+
+  @Test
+  void testAddPlayer_playerIsNull() {
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(null);
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Player not found.", result.getMessage());
+    assertTrue(result.getErrors().containsKey("player"));
+    assertEquals("Player object is null. Please provide a valid player object.",
+        result.getErrors().get("player"));
+  }
+
+  @Test
+  void testAddPlayer_playerIdIsInvalid() {
+    // Arrange
+    Cards cards = UnitTestUtil.initTestCards();
+    List<Card> playerCards = new ArrayList<>();
+    playerCards.add(cards.getPrimaryPile().get(0));
+    playerCards.add(cards.getPrimaryPile().get(1));
+    playerCards.add(cards.getPrimaryPile().get(2));
+
+    Player player = new Player(0, "Charlie", 3, 0, playerCards, null);
+
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(player);
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Invalid player id.", result.getMessage());
+    assertTrue(result.getErrors().containsKey("id"));
+    assertEquals("Player id must be greater than 0.", result.getErrors().get("id"));
+  }
+
+  @ParameterizedTest
+  @EmptySource
+  @NullSource
+  @ValueSource(strings = {" ", "  "})
+  void testAddPlayer_playerNameIsInvalid(String name) {
+    // Test for empty, null, and blank player names
+    Cards cards = UnitTestUtil.initTestCards();
+    List<Card> playerCards = new ArrayList<>();
+    playerCards.add(cards.getPrimaryPile().get(0));
+    playerCards.add(cards.getPrimaryPile().get(1));
+    playerCards.add(cards.getPrimaryPile().get(2));
+
+    Player player = new Player(3, name, 3, 0, playerCards, null);
+
+    // Act
+    ApiResponse<Player> result = gameService.addPlayer(player);
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Invalid player name.", result.getMessage());
+    assertTrue(result.getErrors().containsKey("name"));
+    assertEquals("Player name must not be empty.", result.getErrors().get("name"));
   }
 
   @Test
