@@ -77,9 +77,7 @@ public class Card {
       return false;
     }
     Card card = (Card) o;
-    return displayImage == card.displayImage && Objects.equals(id, card.id)
-        && Objects.equals(name, card.name) && type == card.type && Objects.equals(
-        imageName, card.imageName);
+    return Objects.equals(id, card.id) && Objects.equals(name, card.name);
   }
 
   @Override

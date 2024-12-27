@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class RandomUtil {
 
-  public static Card popRandomCardFromPrimaryPile(List<Card> primaryPile, List<Card> discardPile) {
+  public static Card getRandomCardFromPrimaryPile(List<Card> primaryPile, List<Card> discardPile) {
     if (primaryPile.isEmpty()) {
       try {
         // Move all discard pile cards into the primary pile

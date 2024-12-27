@@ -16,8 +16,12 @@ import java.util.List;
 
 public class UnitTestUtil {
 
-  private static final int TEST_COINS = 15;
+  private static final int TEST_COINS_PLAYER_1 = 8;
+  private static final int TEST_COINS_PLAYER_2 = 3;
+  private static final int TEST_COINS_PLAYER_3 = 1;
   private static final int TEST_SCORE = 0;
+
+  private static final List<Card> primaryPile = new ArrayList<>();
 
   public static CharacterCard createCharacterCard() {
     Card card = new Card(1, "test-name", CardType.CHARACTER, false, "test-imageName");
@@ -32,23 +36,61 @@ public class UnitTestUtil {
     return abilities;
   }
 
-  public static List<Player> createTestPlayers() {
+  public static List<Card> initTestPlayerCards(int cardsAmount) {
+    final List<Card> playerCards = new ArrayList<>();
+
+    for (int i = 0; i < cardsAmount; i++) {
+      Card randomCard = primaryPile.get(
+          (int) (Math.random() * UnitTestUtil.initTestCards().getPrimaryPile().size()));
+      playerCards.add(randomCard);
+      primaryPile.remove(randomCard);
+    }
+
+    return playerCards;
+  }
+
+  public static List<Player> initTestPlayers() {
     List<Player> players = new ArrayList<>();
     players.add(
-        new Player(1, "Alice", TEST_COINS, TEST_SCORE, new ArrayList<>(), new ArrayList<>()));
-    players.add(new Player(2, "Bob", TEST_COINS, TEST_SCORE, new ArrayList<>(), new ArrayList<>()));
+        new Player(1, "Alice", TEST_COINS_PLAYER_1, TEST_SCORE,
+            initTestPlayerCards(TEST_COINS_PLAYER_1),
+            new ArrayList<>()));
+    players.add(new Player(2, "Bob", TEST_COINS_PLAYER_2, TEST_SCORE,
+        initTestPlayerCards(TEST_COINS_PLAYER_2),
+        new ArrayList<>()));
     players.add(
-        new Player(3, "Charlie", TEST_COINS, TEST_SCORE, new ArrayList<>(), new ArrayList<>()));
+        new Player(3, "Charlie", TEST_COINS_PLAYER_3, TEST_SCORE,
+            initTestPlayerCards(TEST_COINS_PLAYER_3),
+            new ArrayList<>()));
     return players;
   }
 
-  public static Cards createTestCards() {
-    List<Card> cards = new ArrayList<>();
-    cards.add(createTestCharacterCard(1));
-    cards.add(createTestShipCard(61));
-    cards.add(createTestTaxCard(111));
-    cards.add(createTestResearchCard(115));
-    return new Cards(cards);
+  public static Cards initTestCards() {
+    primaryPile.add(createTestCharacterCard(1));
+    primaryPile.add(createTestCharacterCard(2));
+    primaryPile.add(createTestCharacterCard(3));
+    primaryPile.add(createTestCharacterCard(4));
+    primaryPile.add(createTestCharacterCard(5));
+    primaryPile.add(createTestCharacterCard(6));
+    primaryPile.add(createTestCharacterCard(7));
+    primaryPile.add(createTestCharacterCard(8));
+    primaryPile.add(createTestCharacterCard(9));
+    primaryPile.add(createTestCharacterCard(10));
+    primaryPile.add(createTestShipCard(61));
+    primaryPile.add(createTestShipCard(62));
+    primaryPile.add(createTestShipCard(63));
+    primaryPile.add(createTestShipCard(64));
+    primaryPile.add(createTestShipCard(65));
+    primaryPile.add(createTestTaxCard(111));
+    primaryPile.add(createTestTaxCard(112));
+    primaryPile.add(createTestTaxCard(113));
+    primaryPile.add(createTestTaxCard(114));
+    primaryPile.add(createTestResearchCard(115));
+    primaryPile.add(createTestResearchCard(116));
+    primaryPile.add(createTestResearchCard(117));
+    primaryPile.add(createTestResearchCard(118));
+    primaryPile.add(createTestResearchCard(119));
+    return new Cards(primaryPile);
   }
 
   public static CharacterCard createTestCharacterCard(int id) {

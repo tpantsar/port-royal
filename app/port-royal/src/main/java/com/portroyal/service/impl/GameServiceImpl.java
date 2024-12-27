@@ -119,6 +119,11 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
+  public ApiResponse<String> resetGame() {
+    return gameState.resetGame();
+  }
+
+  @Override
   public synchronized ApiResponse<Card> drawRandomCard() {
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> tablePile = gameState.getCards().getTablePile();
@@ -126,7 +131,7 @@ public class GameServiceImpl implements GameService {
     List<Card> researchPile = gameState.getCards().getResearchPile();
 
     try {
-      final Card randomCard = RandomUtil.popRandomCardFromPrimaryPile(primaryPile, discardPile);
+      final Card randomCard = RandomUtil.getRandomCardFromPrimaryPile(primaryPile, discardPile);
       if (randomCard != null) {
         randomCard.setDisplayImage(true);
         if (randomCard.getType().equals(CardType.RESEARCH)) {

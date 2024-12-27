@@ -27,4 +27,11 @@ public interface GameService {
   ApiResponse<Player> addPlayer(Player player);
 
   ApiResponse<Card> buyCharacterCard(BuyCardRequest request);
+
+  /**
+   * Reset the game state to the initial state.
+   *
+   * @return A message indicating the game has been reset.
+   */
+  ApiResponse<String> resetGame();
 }

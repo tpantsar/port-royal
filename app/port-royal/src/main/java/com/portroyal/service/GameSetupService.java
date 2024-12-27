@@ -13,6 +13,7 @@ import com.portroyal.model.cards.research.ResearchMode;
 import com.portroyal.model.cards.ship.ShipCard;
 import com.portroyal.model.cards.tax.TaxCard;
 import com.portroyal.model.cards.tax.TaxMode;
+import com.portroyal.util.RandomUtil;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -39,49 +40,60 @@ public class GameSetupService {
           });
 
       for (Map<String, Object> jsonMap : jsonList) {
-        Integer id = (Integer) jsonMap.get("id");
-        String name = (String) jsonMap.get("name");
-        boolean displayImage = (Boolean) jsonMap.get("displayImage");
-        String imageName = (String) jsonMap.get("imageName");
+        int id = jsonMap.get("id") != null ? (Integer) jsonMap.get("id") : 0;
+        String name = jsonMap.get("name") != null ? (String) jsonMap.get("name") : "";
+        boolean displayImage =
+            jsonMap.get("displayImage") != null && (Boolean) jsonMap.get("displayImage");
+        String imageName =
+            jsonMap.get("imageName") != null ? (String) jsonMap.get("imageName") : "";
 
         if (id >= 0 && id <= 60) { // CharacterCard
           List<CharacterAbility> abilities = new ArrayList<>();
-          List<String> abilitiesStr = (List<String>) jsonMap.get("abilities");
+          List<String> abilitiesStr = objectMapper.convertValue(jsonMap.get("abilities"),
+              new TypeReference<>() {
+              });
 
           for (String abilityStr : abilitiesStr) {
             abilities.add(convertToCharacterAbility(abilityStr));
           }
 
-          int characterCost = (Integer) jsonMap.get("characterCost");
-          int victoryPoints = (Integer) jsonMap.get("victoryPoints");
+          int characterCost =
+              jsonMap.get("characterCost") != null ? (Integer) jsonMap.get("characterCost") : 0;
+          int victoryPoints =
+              jsonMap.get("victoryPoints") != null ? (Integer) jsonMap.get("victoryPoints") : 0;
 
           CharacterCard characterCard = new CharacterCard(id, name, CardType.CHARACTER,
               displayImage,
               imageName, victoryPoints, characterCost, abilities);
           cards.add(characterCard);
         } else if (id >= 61 && id <= 110) { // ShipCard
-          int shipWeapons = (Integer) jsonMap.get("shipWeapons");
-          int shipCoins = (Integer) jsonMap.get("shipCoins");
+          int shipWeapons =
+              jsonMap.get("shipWeapons") != null ? (Integer) jsonMap.get("shipWeapons") : 0;
+          int shipCoins = jsonMap.get("shipCoins") != null ? (Integer) jsonMap.get("shipCoins") : 0;
 
           ShipCard shipCard = new ShipCard(id, name, CardType.SHIP, displayImage, imageName,
               shipWeapons, shipCoins);
           cards.add(shipCard);
         } else if (id >= 111 && id <= 114) { // Create TaxCard for tax cards
-          String taxModeStr = (String) jsonMap.get("taxMode");
+          String taxModeStr = jsonMap.get("taxMode") != null ? (String) jsonMap.get("taxMode") : "";
           TaxMode taxMode = convertToTaxMode(taxModeStr);
 
           TaxCard taxCard = new TaxCard(id, name, CardType.TAX, displayImage, imageName, taxMode);
           cards.add(taxCard);
         } else if (id >= 115 && id <= 119) { // Create ResearchCard for research cards
           List<ResearchMode> researchMode = new ArrayList<>();
-          List<String> researchModeStr = (List<String>) jsonMap.get("researchMode");
+          List<String> researchModeStr = objectMapper.convertValue(jsonMap.get("researchMode"),
+              new TypeReference<>() {
+              });
 
           for (String modeStr : researchModeStr) {
             researchMode.add(convertToResearchMode(modeStr));
           }
 
-          int coinsAmount = (Integer) jsonMap.get("coinsAmount");
-          int victoryPoints = (Integer) jsonMap.get("victoryPoints");
+          int coinsAmount =
+              jsonMap.get("coinsAmount") != null ? (Integer) jsonMap.get("coinsAmount") : 0;
+          int victoryPoints =
+              jsonMap.get("victoryPoints") != null ? (Integer) jsonMap.get("victoryPoints") : 0;
 
           ResearchCard researchCard = new ResearchCard(id, name, CardType.RESEARCH, displayImage,
               imageName, researchMode, coinsAmount, victoryPoints);
@@ -89,21 +101,45 @@ public class GameSetupService {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
-      //return ApiResponse.error("Error reading JSON file: ", e);
+      System.err.println("Error reading JSON file: " + e.getMessage());
+      throw new RuntimeException("Failed to initialize cards", e);
     }
     return new Cards(cards);
   }
 
+  private List<Card> initPlayerCards(int initialPlayerCoins, Cards cards) {
+    List<Card> initialPlayerCards = new ArrayList<>(initialPlayerCoins);
+
+    // Set initial player coins for selecting random cards from the deck (displayImage = false)
+    for (int i = 0; i < initialPlayerCoins; i++) {
+      List<Card> primaryPile = cards.getPrimaryPile();
+      List<Card> discardPile = cards.getDiscardPile();
+
+      final Card randomCard = RandomUtil.getRandomCardFromPrimaryPile(primaryPile, discardPile);
+      randomCard.setDisplayImage(false);
+      initialPlayerCards.add(randomCard);
+    }
+
+    return initialPlayerCards;
+  }
+
   // Test players
-  public List<Player> initPlayers() {
+  public List<Player> initPlayers(Cards cards) {
     List<Player> players = new ArrayList<>();
-    players.add(new Player(1, "Alice", 15, 0, new ArrayList<>(), new ArrayList<>()));
-    players.add(new Player(2, "Bob", 15, 0, new ArrayList<>(), new ArrayList<>()));
+
+    // Initial coins for each player, equals the number of cards they start with
+    int initialPlayerCoins = 3;
+
+    players.add(
+        new Player(1, "Alice", initialPlayerCoins, 0, initPlayerCards(initialPlayerCoins, cards),
+            new ArrayList<>()));
+    players.add(
+        new Player(2, "Bob", initialPlayerCoins, 0, initPlayerCards(initialPlayerCoins, cards),
+            new ArrayList<>()));
     return players;
   }
 
-  private TaxMode convertToTaxMode(String taxModeStr) {
+  public TaxMode convertToTaxMode(String taxModeStr) {
     return switch (taxModeStr) {
       case "LowestPoints" -> TaxMode.LOWEST_POINTS;
       case "MostSwords" -> TaxMode.MOST_SWORDS;
@@ -111,7 +147,7 @@ public class GameSetupService {
     };
   }
 
-  private CharacterAbility convertToCharacterAbility(String abilityStr) {
+  public CharacterAbility convertToCharacterAbility(String abilityStr) {
     return switch (abilityStr) {
       case "fiveCards" -> CharacterAbility.FIVE_CARDS;
       case "oneCheaper" -> CharacterAbility.ONE_CHEAPER;
@@ -130,7 +166,7 @@ public class GameSetupService {
     };
   }
 
-  private ResearchMode convertToResearchMode(String researchModeStr) {
+  public ResearchMode convertToResearchMode(String researchModeStr) {
     return switch (researchModeStr) {
       case "anchor" -> ResearchMode.ANCHOR;
       case "cross" -> ResearchMode.CROSS;

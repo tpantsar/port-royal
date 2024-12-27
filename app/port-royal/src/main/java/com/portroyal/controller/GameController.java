@@ -22,6 +22,11 @@ public class GameController {
   @Autowired
   private GameService gameService;
 
+  @GetMapping("/reset")
+  public ApiResponse<String> resetGame() {
+    return gameService.resetGame();
+  }
+
   @GetMapping("/state-full")
   public ApiResponse<GameStatusInfo> getGameStateFull() {
     return gameService.getGameStateFull();
