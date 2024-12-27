@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.portroyal.controller.output.ApiResponse;
+import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.GameState;
+import com.portroyal.model.GameStatus;
+import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.service.GameService;
 import com.portroyal.service.GameSetupService;
@@ -74,6 +77,52 @@ class GameServiceImplTest {
     assertEquals(119 - gameState.getPlayers().size() * 3, primaryPile.size());
     assertTrue(tablePile.isEmpty());
     assertTrue(researchPile.isEmpty());
+  }
+
+  @Test
+  void testGetPlayers() {
+    // Act
+    List<Player> players = gameService.getPlayers();
+
+    // Assert
+    assertNotNull(players);
+    assertEquals(2, players.size());
+  }
+
+  @Test
+  void testGetGameStateSimple() {
+    // Act
+    ApiResponse<GameStatusInfoSimple> result = gameService.getGameStateSimple();
+    GameStatusInfoSimple gameStatus = result.getData();
+
+    // Assert
+    assertEquals(200, result.getStatusCode());
+    assertEquals("Game state retrieved successfully.", result.getMessage());
+    assertNotNull(gameStatus);
+
+    // Check card piles
+    assertEquals(119 - gameStatus.getPlayers().size() * 3, gameStatus.getPrimaryPile());
+    assertEquals(0, gameStatus.getTablePile());
+    assertEquals(0, gameStatus.getDiscardPile());
+    assertEquals(0, gameStatus.getResearchPile());
+
+    // Check status and duplicate colored ships
+    assertEquals(GameStatus.IN_PROGRESS, gameStatus.getStatus());
+    assertFalse(gameStatus.isDuplicateColoredShips());
+
+    // Check current player
+    Player currentPlayer = gameStatus.getCurrentPlayer();
+    assertEquals("Alice", currentPlayer.getName());
+    assertEquals(3, currentPlayer.getCoins());
+    assertEquals(0, currentPlayer.getScore());
+    assertEquals(3, currentPlayer.getCards().size());
+    assertEquals(0, currentPlayer.getAbilities().size());
+
+    // Check players
+    List<Player> players = gameStatus.getPlayers();
+    assertEquals(2, players.size());
+    assertEquals("Alice", players.get(0).getName());
+    assertEquals("Bob", players.get(1).getName());
   }
 
   @Test
