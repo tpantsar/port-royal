@@ -5,13 +5,18 @@ import { GameStatusInfoSimple } from '../types/GameStatusInfoSimple'
 
 const baseUrl = 'api/game'
 
-type BuyCardParams = {
-  cardId: number
+type BuyCardRequest = {
   playerId: number
+  cardId: number
 }
 
-const getGameState = async (): Promise<ApiResponse<GameStatusInfoSimple>> => {
+const getGameStateSimple = async (): Promise<ApiResponse<GameStatusInfoSimple>> => {
   const response = await axios.get<ApiResponse<GameStatusInfoSimple>>(`${baseUrl}/state-simple`)
+  return response.data
+}
+
+const resetGame = async (): Promise<ApiResponse<string>> => {
+  const response = await axios.get<ApiResponse<string>>(`${baseUrl}/reset`)
   return response.data
 }
 
@@ -20,13 +25,14 @@ const drawCard = async (): Promise<ApiResponse<Card>> => {
   return response.data
 }
 
-const buyCard = async (params: BuyCardParams): Promise<ApiResponse<Card>> => {
-  const response = await axios.post<ApiResponse<Card>>(`${baseUrl}/buy-card`, params)
+const buyCard = async (body: BuyCardRequest): Promise<ApiResponse<Card>> => {
+  const response = await axios.post<ApiResponse<Card>>(`${baseUrl}/buy-card`, body)
   return response.data
 }
 
 export default {
-  getGameState,
+  getGameStateSimple,
+  resetGame,
   drawCard,
   buyCard,
 }
