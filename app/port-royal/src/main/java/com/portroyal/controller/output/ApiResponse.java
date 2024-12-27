@@ -30,6 +30,14 @@ public class ApiResponse<T> {
     this.errors = errors;
   }
 
+  // Constructor for failed response with data
+  public ApiResponse(int statusCode, String message, Map<String, String> errors, T data) {
+    this.statusCode = statusCode;
+    this.message = message;
+    this.errors = errors;
+    this.data = data;
+  }
+
   // Getters and Setters
   public int getStatusCode() {
     return statusCode;
@@ -87,5 +95,13 @@ public class ApiResponse<T> {
     Map<String, String> errors = new HashMap<>();
     errors.put(errorKey, errorMessage);
     return new ApiResponse<>(statusCode, message, errors);
+  }
+
+  // For a failed response with a single error message and data
+  public static <T> ApiResponse<T> error(int statusCode, String message, String errorKey,
+      String errorMessage, T data) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put(errorKey, errorMessage);
+    return new ApiResponse<>(statusCode, message, errors, data);
   }
 }

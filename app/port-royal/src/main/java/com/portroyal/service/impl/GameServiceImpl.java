@@ -33,7 +33,7 @@ public class GameServiceImpl implements GameService {
     try {
       return ApiResponse.success(200, "Game state retrieved successfully.", status);
     } catch (Exception e) {
-      return ApiResponse.error(404, "Game state not found", "id",
+      return ApiResponse.error(404, "Game state not found", "game",
           "Game state not found. Please try again.");
     }
   }
@@ -44,7 +44,7 @@ public class GameServiceImpl implements GameService {
     try {
       return ApiResponse.success(200, "Game state retrieved successfully.", status);
     } catch (Exception e) {
-      return ApiResponse.error(404, "Game state not found", "id",
+      return ApiResponse.error(404, "Game state not found", "game",
           "Game state not found. Please try again.");
     }
   }
@@ -166,7 +166,8 @@ public class GameServiceImpl implements GameService {
             gameState.changeCurrentPlayer(); // Set the next player in turn
 
             return ApiResponse.error(400, "Duplicate colored ships.", "table",
-                "The table pile contains two ships with the same name. Moving cards to discard pile.");
+                "The table pile contains two ships with the same name. Moving cards to discard pile.",
+                resolveCardType(randomCard));
           }
         }
         try {
