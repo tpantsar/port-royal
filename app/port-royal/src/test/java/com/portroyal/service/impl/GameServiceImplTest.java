@@ -3,6 +3,7 @@ package com.portroyal.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.portroyal.UnitTestUtil;
@@ -62,7 +63,7 @@ class GameServiceImplTest {
   }
 
   @Test
-  void resetGameSuccessfully() {
+  void testResetGame_success() {
     // Arrange
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> tablePile = gameState.getCards().getTablePile();
@@ -256,7 +257,7 @@ class GameServiceImplTest {
   }
 
   @Test
-  void drawRandomCardSuccessfully() {
+  void testDrawRandomCard_success() {
     // Arrange
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> tablePile = gameState.getCards().getTablePile();
@@ -271,9 +272,49 @@ class GameServiceImplTest {
     assertEquals("Card drawn successfully.", result.getMessage());
     assertNotNull(card);
 
-    // Assert that the card is removed from the primary pile
+    // Assert that the card id is not found from the primary pile
     assertFalse(primaryPile.stream().anyMatch(c -> Objects.equals(c.getId(), card.getId())));
     assertTrue(tablePile.contains(card) || researchPile.contains(card));
     assertTrue(card.isDisplayImage());
+  }
+
+  @Test
+  void testDrawRandomCard_primaryPileIsEmpty() {
+    // Arrange
+    gameState.getCards().getPrimaryPile().clear();
+
+    // Act
+    ApiResponse<Card> result = gameService.drawRandomCard();
+
+    // Assert
+    assertEquals(400, result.getStatusCode());
+    assertEquals("No cards available.", result.getMessage());
+    assertEquals("No cards available in the primary pile.", result.getErrors().get("cards"));
+  }
+
+  @Test
+  void testDrawRandomCard_duplicateColoredShips() {
+    // Arrange
+    List<Card> primaryPile = gameState.getCards().getPrimaryPile();
+    List<Card> tablePile = gameState.getCards().getTablePile();
+
+    // Add duplicate colored ships to the table pile
+    CardUtil.moveCardFromListToList(primaryPile, tablePile, 61);
+    CardUtil.moveCardFromListToList(primaryPile, tablePile, 62);
+
+    assertEquals(119 - 2 - gameState.getPlayers().size() * 3, primaryPile.size());
+    assertEquals(2, tablePile.size());
+
+    // Act
+    ApiResponse<Card> result = gameService.drawRandomCard();
+    Card card = result.getData();
+
+    // Assert
+    assertNull(card);
+    assertEquals(400, result.getStatusCode());
+    assertEquals("Duplicate colored ships.", result.getMessage());
+    assertEquals(
+        "The table pile contains two ships with the same name. Moving cards to discard pile.",
+        result.getErrors().get("table"));
   }
 }

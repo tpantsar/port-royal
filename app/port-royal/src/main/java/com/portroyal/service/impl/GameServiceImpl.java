@@ -165,21 +165,21 @@ public class GameServiceImpl implements GameService {
                 discardPile); // Move all table cards to discard pile
             gameState.changeCurrentPlayer(); // Set the next player in turn
 
-            return ApiResponse.error(400, "Duplicate colored ships", "table",
+            return ApiResponse.error(400, "Duplicate colored ships.", "table",
                 "The table pile contains two ships with the same name. Moving cards to discard pile.");
           }
         }
         try {
           return ApiResponse.success(200, "Card drawn successfully.", resolveCardType(randomCard));
         } catch (Exception e) {
-          return ApiResponse.error(404, "Resolve error", "card",
+          return ApiResponse.error(400, "Resolve error", "card",
               "Found card type could not be constructed. Card may not have necessary fields, e.g. ShipCard and CharacterCard fields.");
         }
       }
-      return ApiResponse.error(404, "No cards available", "id",
+      return ApiResponse.error(400, "No cards available.", "cards",
           "No cards available in the primary pile.");
     } catch (Exception e) {
-      return ApiResponse.error(404, "No cards available", "id",
+      return ApiResponse.error(400, "No cards available.", "cards",
           "No cards available in the primary pile.");
     }
   }
