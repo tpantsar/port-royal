@@ -22,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     getGameState()
-  }, [])
+  }, [card])
 
   const handleDraw = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -40,6 +40,8 @@ export default function App() {
     try {
       const response: ApiResponse<string> = await gameService.resetGame()
       console.log('ApiResponse<string>', response.data)
+      getGameState()
+      setCard(undefined)
     } catch (error) {
       console.error('Failed to reset', error)
     }
@@ -51,8 +53,10 @@ export default function App() {
 
   return (
     <div>
-      {gameState?.primaryPile} {gameState?.tablePile} {gameState?.researchPile}{' '}
-      {gameState?.discardPile}
+      <div>Primary pile: {gameState?.primaryPile}</div>
+      <div>Table pile: {gameState?.tablePile}</div>
+      <div>Research pile: {gameState?.researchPile}</div>
+      <div>Discard pile: {gameState?.discardPile}</div>
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <div>
@@ -66,6 +70,8 @@ export default function App() {
 
             <div>{card.victoryPoints}</div>
             <div>{card.characterCost}</div>
+
+            <img src={`../../public/cards/${card.imageName}`} alt="card" />
           </>
         ) : null}
       </div>
