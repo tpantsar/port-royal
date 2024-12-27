@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import ResearchPile from './components/ResearchPile'
 import TablePile from './components/TablePile'
 import gameService from './services/game'
 import { ApiResponse } from './types/ApiResponse'
@@ -69,6 +70,7 @@ export default function App() {
 
   return (
     <div>
+      <ResearchPile gameStateFull={gameStateFull} />
       <div>Primary pile: {gameStateSimple?.primaryPile}</div>
       <div>Table pile: {gameStateSimple?.tablePile}</div>
       <div>Research pile: {gameStateSimple?.researchPile}</div>
