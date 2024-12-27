@@ -1,31 +1,29 @@
-import React from 'react'
 import { Card } from '../types/Card'
 
 type CardDetailsProps = {
-  drawCard: () => void
-  card: Card | null
-  message: string
+  card: Card | undefined
 }
 
-const CardDetails: React.FC<CardDetailsProps> = ({ drawCard, card, message }) => {
+const CardDetails = ({ card }: CardDetailsProps) => {
   return (
     <div>
-      <button onClick={drawCard}>draw-card</button>
-      {message && (
-        <div>
-          <p>{message}</p>
-        </div>
-      )}
-      {card && (
-        <div>
-          <p>id: {card.id}</p>
-          <p>name: {card.name}</p>
-          <p>type: {card.type}</p>
-          <p>displayImage: {card.displayImage.toString()}</p>
-        </div>
-      )}
+      {card ? (
+        <>
+          <div>{card.id}</div>
+          <div>{card.name}</div>
+          <div>{card.type}</div>
+          <div>{card.displayImage}</div>
+          <div>{card.imageName}</div>
+
+          <div>{card.victoryPoints}</div>
+          <div>{card.characterCost}</div>
+
+          <img src={`/cards/${card.imageName}`} alt="card" />
+        </>
+      ) : null}
     </div>
   )
 }
 
+CardDetails.displayName = 'CardDetails'
 export default CardDetails

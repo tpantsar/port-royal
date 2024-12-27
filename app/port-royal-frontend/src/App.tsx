@@ -1,27 +1,42 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import TablePile from './components/TablePile'
 import gameService from './services/game'
 import { ApiResponse } from './types/ApiResponse'
 import { Card } from './types/Card'
+import { GameStatusInfo } from './types/GameStatusInfo'
 import { GameStatusInfoSimple } from './types/GameStatusInfoSimple'
 
 export default function App() {
-  const [gameState, setGameState] = useState<GameStatusInfoSimple>()
+  const [gameStateSimple, setGameStateSimple] = useState<GameStatusInfoSimple>()
+  const [gameStateFull, setGameStateFull] = useState<GameStatusInfo>()
   const [card, setCard] = useState<Card>()
 
-  // Updates the game state
-  const getGameState = async () => {
+  // Gets the latest game state
+  const getGameStateSimple = async () => {
     try {
       const response: ApiResponse<GameStatusInfoSimple> = await gameService.getGameStateSimple()
       console.log('ApiResponse<GameStatusInfoSimple>', response.data)
-      setGameState(response.data)
+      setGameStateSimple(response.data)
+    } catch (error) {
+      console.error('Failed to fetch game state', error)
+    }
+  }
+
+  // Gets the latest game state
+  const getGameStateFull = async () => {
+    try {
+      const response: ApiResponse<GameStatusInfo> = await gameService.getGameStateFull()
+      console.log('ApiResponse<GameStatusInfo>', response.data)
+      setGameStateFull(response.data)
     } catch (error) {
       console.error('Failed to fetch game state', error)
     }
   }
 
   useEffect(() => {
-    getGameState()
+    getGameStateSimple()
+    getGameStateFull()
   }, [card])
 
   const handleDraw = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,41 +55,28 @@ export default function App() {
     try {
       const response: ApiResponse<string> = await gameService.resetGame()
       console.log('ApiResponse<string>', response.data)
-      getGameState()
+      getGameStateSimple()
+      getGameStateFull()
       setCard(undefined)
     } catch (error) {
       console.error('Failed to reset', error)
     }
   }
 
-  if (!gameState) {
+  if (!gameStateSimple) {
     return <div>Loading</div>
   }
 
   return (
     <div>
-      <div>Primary pile: {gameState?.primaryPile}</div>
-      <div>Table pile: {gameState?.tablePile}</div>
-      <div>Research pile: {gameState?.researchPile}</div>
-      <div>Discard pile: {gameState?.discardPile}</div>
+      <div>Primary pile: {gameStateSimple?.primaryPile}</div>
+      <div>Table pile: {gameStateSimple?.tablePile}</div>
+      <div>Research pile: {gameStateSimple?.researchPile}</div>
+      <div>Discard pile: {gameStateSimple?.discardPile}</div>
+      <div>Duplicate ships: {gameStateSimple?.duplicateColoredShips.toString()}</div>
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
-      <div>
-        {card ? (
-          <>
-            <div>{card.id}</div>
-            <div>{card.name}</div>
-            <div>{card.type}</div>
-            <div>{card.displayImage}</div>
-            <div>{card.imageName}</div>
-
-            <div>{card.victoryPoints}</div>
-            <div>{card.characterCost}</div>
-
-            <img src={`../../public/cards/${card.imageName}`} alt="card" />
-          </>
-        ) : null}
-      </div>
+      <TablePile gameStateFull={gameStateFull} />
     </div>
   )
 }
