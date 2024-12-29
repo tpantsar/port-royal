@@ -307,10 +307,9 @@ class GameServiceImplTest {
 
     // Act
     ApiResponse<Card> result = gameService.drawRandomCard();
-    Card card = result.getData();
 
     // Assert
-    assertNull(card);
+    assertNotNull(result.getData());
     assertEquals(400, result.getStatusCode());
     assertEquals("Duplicate colored ships.", result.getMessage());
     assertEquals(
