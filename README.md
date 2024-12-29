@@ -4,6 +4,10 @@ https://developers.redhat.com/products/openjdk/download
 
 https://maven.apache.org/download.cgi
 
+## Project uses Java version 21
+
+`<java.version>21</java.version>`
+
 ## Run the backend application from terminal
 
 1. Navigate to the root directory of your Spring Boot application where the <strong>pom.xml</strong> file is located.<br>
