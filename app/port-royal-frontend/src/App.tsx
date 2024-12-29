@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import Players from './components/Players'
 import ResearchPile from './components/ResearchPile'
 import TablePile from './components/TablePile'
 import gameService from './services/game'
@@ -79,6 +80,7 @@ export default function App() {
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <TablePile gameStateFull={gameStateFull} />
+      <Players gameStateFull={gameStateFull} />
     </div>
   )
 }
