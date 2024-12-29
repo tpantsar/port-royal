@@ -6,6 +6,11 @@ public class BuyCardRequest {
   private int playerId;
   private int cardId;
 
+  public BuyCardRequest(int playerId, int cardId) {
+    this.playerId = playerId;
+    this.cardId = cardId;
+  }
+
   public int getPlayerId() {
     return playerId;
   }

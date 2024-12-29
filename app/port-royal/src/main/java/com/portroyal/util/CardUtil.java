@@ -1,6 +1,7 @@
 package com.portroyal.util;
 
 import com.portroyal.controller.output.CardType;
+import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterCard;
 import com.portroyal.model.cards.research.ResearchCard;
@@ -31,6 +32,15 @@ public class CardUtil {
     source.clear();
   }
 
+  public static void moveAmountOfCardsFromListToList(List<Card> source, List<Card> destination,
+      int amount) {
+    for (int i = 0; i < amount; i++) {
+      Card card = source.remove(0);
+      card.setDisplayImage(true);
+      destination.add(card);
+    }
+  }
+
   public static void moveCardFromListToList(List<Card> source, List<Card> destination, int cardId) {
     Card card = getCardFromListById(source, cardId);
     if (card != null) {
@@ -57,5 +67,14 @@ public class CardUtil {
     }
 
     return false; // No duplicates found
+  }
+
+  public static void moveCoinCardsFromPlayerToList(Player player, List<Card> destination,
+      int amountOfCoinCards) {
+    // Filter out the coin cards (displayImage=false) from the player's cards (displayImage=true)
+    // Coin cards are upside down and are not visible to the player
+    List<Card> coinCards = player.getCards().stream().filter(card -> !card.isDisplayImage())
+        .toList();
+    moveAmountOfCardsFromListToList(coinCards, destination, amountOfCoinCards);
   }
 }

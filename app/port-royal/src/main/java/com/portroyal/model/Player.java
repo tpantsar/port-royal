@@ -3,6 +3,7 @@ package com.portroyal.model;
 import com.portroyal.controller.output.PlayerInformation;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterAbility;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,12 +70,38 @@ public class Player {
     this.cards = cards;
   }
 
+  // Get coin cards from player's cards
+  public List<Card> removeCoinCardsByAmount(int amount) {
+    List<Card> coinCards = cards.stream().filter(card -> !card.isDisplayImage())
+        .toList();
+    List<Card> modifiableCoinCards = new ArrayList<>();
+    for (int i = 0; i < amount; i++) {
+      // Remove the card from the player's cards
+      Card cardToRemove = cards.get(cards.indexOf(coinCards.get(i)));
+      cards.remove(cardToRemove);
+      cardToRemove.setDisplayImage(true);
+      modifiableCoinCards.add(cardToRemove);
+    }
+    return modifiableCoinCards;
+  }
+
+  public List<Card> clearAndReturnCards() {
+    List<Card> modifiableCardList = new ArrayList<>(this.cards);
+    this.cards.clear();
+    return modifiableCardList;
+  }
+
   public List<CharacterAbility> getAbilities() {
     return abilities;
   }
 
   public void setAbilities(List<CharacterAbility> abilities) {
     this.abilities = abilities;
+  }
+
+  /* Add new abilities to existing player abilities */
+  public void addAbilities(List<CharacterAbility> abilities) {
+    this.abilities.addAll(abilities);
   }
 
   @Override

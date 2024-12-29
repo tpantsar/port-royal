@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.portroyal.UnitTestUtil;
+import com.portroyal.controller.dto.BuyCardRequest;
 import com.portroyal.controller.output.ApiResponse;
 import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.GameState;
@@ -14,6 +15,7 @@ import com.portroyal.model.GameStatus;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.Cards;
+import com.portroyal.model.cards.character.CharacterAbility;
 import com.portroyal.service.GameService;
 import com.portroyal.service.GameSetupService;
 import com.portroyal.util.CardUtil;
@@ -315,5 +317,52 @@ class GameServiceImplTest {
     assertEquals(
         "The table pile contains two ships with the same name. Moving cards to discard pile.",
         result.getErrors().get("table"));
+  }
+
+  @Test
+  void testBuyCharacterCard_success() {
+    // Arrange
+    List<Card> primaryPile = gameState.getCards().getPrimaryPile();
+    List<Card> tablePile = gameState.getCards().getTablePile();
+
+    // Move all cards from the players to the primary pile
+    gameState.getPlayers()
+        .forEach(player -> CardUtil.moveAllCardsFromListToList(player.getCards(), primaryPile));
+
+    Player playerInTurn = gameState.getCurrentPlayer();
+
+    // Move 3 cards from the primary pile to the current player
+    CardUtil.moveCardFromListToList(primaryPile, playerInTurn.getCards(), 1);
+    CardUtil.moveCardFromListToList(primaryPile, playerInTurn.getCards(), 2);
+    CardUtil.moveCardFromListToList(primaryPile, playerInTurn.getCards(), 3);
+
+    // Lift Trader card with id=20, cost=3 and 1 victory point to table pile
+    CardUtil.moveCardFromListToList(primaryPile, tablePile, 20);
+
+    assertEquals(3, playerInTurn.getCoins());
+    assertEquals(3, playerInTurn.getCards().size());
+
+    // Act
+    BuyCardRequest request = new BuyCardRequest(playerInTurn.getId(), 20);
+    ApiResponse<Card> result = gameService.buyCharacterCard(request);
+
+    Card card = result.getData();
+
+    // Assert
+    assertNotNull(result.getData());
+    assertEquals(200, result.getStatusCode());
+    assertEquals("Card bought successfully.", result.getMessage());
+
+    assertFalse(tablePile.contains(card));
+    assertTrue(card.isDisplayImage());
+
+    assertEquals(0, playerInTurn.getCoins());
+    assertEquals(1, playerInTurn.getScore());
+
+    assertEquals(1, playerInTurn.getCards().size());
+    assertTrue(playerInTurn.getCards().contains(card));
+
+    assertEquals(1, playerInTurn.getAbilities().size());
+    assertEquals(CharacterAbility.EXTRA_COIN_SKIFF, playerInTurn.getAbilities().get(0));
   }
 }

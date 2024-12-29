@@ -14,6 +14,7 @@ import com.portroyal.model.cards.character.CharacterCard;
 import com.portroyal.service.GameService;
 import com.portroyal.util.CardUtil;
 import com.portroyal.util.RandomUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -91,8 +92,10 @@ public class GameServiceImpl implements GameService {
     final int playerId = request.getPlayerId();
     final int cardId = request.getCardId();
 
-    // Find the card in the table pile
     List<Card> tablePile = gameState.getCards().getTablePile();
+    List<Card> discardPile = gameState.getCards().getDiscardPile();
+
+    // Find the card in the table pile
     Card card = CardUtil.getCardFromListById(tablePile, cardId);
 
     if (card == null) {
@@ -126,9 +129,18 @@ public class GameServiceImpl implements GameService {
           "Player does not have enough coins to buy the card.");
     }
 
-    // Update player's coins and add the card to the player's cards
+    // Update player stats (coins, cards, victory points, abilities)
     player.setCoins(player.getCoins() - ((CharacterCard) card).getCharacterCost());
+
+    // Move coin cards (displayImage=false) from player to discard pile
+    List<Card> coinCards = player.removeCoinCardsByAmount(
+        ((CharacterCard) card).getCharacterCost());
+    CardUtil.moveAllCardsFromListToList(coinCards, discardPile);
+
+    card.setDisplayImage(true);
     player.getCards().add(card);
+    player.setScore(player.getScore() + ((CharacterCard) card).getVictoryPoints());
+    player.addAbilities(((CharacterCard) card).getAbilities());
 
     // Remove the card from the table pile
     tablePile.remove(card);
