@@ -48,7 +48,7 @@ export default function App() {
       console.log('ApiResponse<Card>', response.data)
       setCard(response.data)
     } catch (error) {
-      console.error('Failed to draw', error)
+      console.error('Failed to draw card', error)
     }
   }
 
@@ -61,7 +61,16 @@ export default function App() {
       getGameStateFull()
       setCard(undefined)
     } catch (error) {
-      console.error('Failed to reset', error)
+      console.error('Failed to reset game', error)
+    }
+  }
+
+  const handleSwitch = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    try {
+      console.log('switching player turn')
+    } catch (error) {
+      console.error('Failed to switch player turn', error)
     }
   }
 
@@ -79,6 +88,7 @@ export default function App() {
       <div>Duplicate ships: {gameStateSimple?.duplicateColoredShips.toString()}</div>
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
+      <button onClick={handleSwitch}>Switch player</button>
       <TablePile gameStateFull={gameStateFull} />
       <Players gameStateFull={gameStateFull} />
     </div>

@@ -6,37 +6,27 @@ interface PlayersProps {
 
 const Players = ({ gameStateFull }: PlayersProps) => {
   const players = gameStateFull?.players || []
-  const player1 = gameStateFull?.players[0]
+  //const player1 = gameStateFull?.players[0]
 
   return (
-    <>
-      <div className="row">
-        {player1 && (
+    <div className="row">
+      {players.map((player, index) => (
+        <div key={index}>
+          <div>id: {player.id}</div>
+          <div>name: {player.name}</div>
+          <div>coins: {player.coins}</div>
+          <div>score: {player.score}</div>
           <div>
-            <div>id: {player1.id}</div>
-            <div>name: {player1.name}</div>
-            <div>coins: {player1.coins}</div>
-            <div>score: {player1.score}</div>
-            <div>cards: {player1.cards.map((card) => card.id).join(', ')}</div>
-            <div>
-              abilities: {player1.abilities.map((ability) => ability.toString()).join(', ')}
-            </div>
+            cards:{' '}
+            {player.cards.length > 0 ? player.cards.map((card) => card.id).join(', ') : 'null'}
           </div>
-        )}
+          <div>abilities: {player.abilities.map((ability) => ability.toString()).join(', ')}</div>
+        </div>
+      ))}
+      <div style={{ color: 'red' }}>
+        Turn: {gameStateFull?.currentPlayer.name} (id={gameStateFull?.currentPlayer.id})
       </div>
-      <div className="row">
-        {players.map((player, index) => (
-          <div key={index}>
-            <div>id: {player.id}</div>
-            <div>name: {player.name}</div>
-            <div>coins: {player.coins}</div>
-            <div>score: {player.score}</div>
-            <div>cards: {player.cards.map((card) => card.id).join(', ')}</div>
-            <div>abilities: {player.abilities.map((ability) => ability.toString()).join(', ')}</div>
-          </div>
-        ))}
-      </div>
-    </>
+    </div>
   )
 }
 
