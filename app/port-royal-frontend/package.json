@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "backend": "cd ../port-royal && mvn spring-boot:run",
     "build": "tsc -b && vite build",
     "test": "vitest",
     "coverage": "vitest run --coverage",
