@@ -159,9 +159,20 @@ public class GameServiceImpl implements GameService {
     List<Card> tablePile = gameState.getCards().getTablePile();
     List<Card> discardPile = gameState.getCards().getDiscardPile();
 
-    return ApiResponse.error(400, "Not implemented.", "card",
-        "Buying ship cards is not implemented yet.", resolveCardType(card));
-    //return ApiResponse.success(200, "Character card bought successfully.", resolveCardType(card));
+    // Update player stats (coins)
+    player.setCoins(player.getCoins() + card.getShipCoins());
+
+    // Move primary pile cards to player's coin cards by the amount of ship coins
+    CardUtil.moveAmountOfCardsFromListToList(gameState.getCards().getPrimaryPile(),
+        player.getCards(), card.getShipCoins(), false);
+
+    // Move the ship card from the table pile to the discard pile
+    CardUtil.moveCardFromListToList(tablePile, discardPile, card.getId());
+
+    // Switch player turn
+    gameState.changeCurrentPlayer();
+
+    return ApiResponse.success(200, "Ship card bought successfully.", resolveCardType(card));
   }
 
   @Override

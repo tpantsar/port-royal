@@ -3,12 +3,12 @@ package com.portroyal.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.portroyal.UnitTestUtil;
 import com.portroyal.controller.dto.BuyCardRequest;
 import com.portroyal.controller.output.ApiResponse;
+import com.portroyal.controller.output.CardType;
 import com.portroyal.controller.output.GameStatusInfoSimple;
 import com.portroyal.model.GameState;
 import com.portroyal.model.GameStatus;
@@ -339,6 +339,7 @@ class GameServiceImplTest {
     CardUtil.moveCardFromListToList(primaryPile, tablePile, 20);
 
     assertEquals(3, playerInTurn.getCoins());
+    assertEquals(0, playerInTurn.getScore());
     assertEquals(3, playerInTurn.getCards().size());
 
     // Act
@@ -349,6 +350,7 @@ class GameServiceImplTest {
 
     // Assert
     assertNotNull(result.getData());
+    assertEquals(CardType.CHARACTER, card.getType());
     assertEquals(200, result.getStatusCode());
     assertEquals("Character card bought successfully.", result.getMessage());
 
@@ -362,6 +364,59 @@ class GameServiceImplTest {
     assertTrue(playerInTurn.getCards().contains(card));
 
     assertEquals(1, playerInTurn.getAbilities().size());
-    assertEquals(CharacterAbility.EXTRA_COIN_SKIFF, playerInTurn.getAbilities().get(0));
+    assertEquals(CharacterAbility.EXTRA_COIN_SKIFF, playerInTurn.getAbilities().getFirst());
+  }
+
+  @Test
+  void testBuyCard_shipCard_success() {
+    // Arrange
+    List<Card> primaryPile = gameState.getCards().getPrimaryPile();
+    List<Card> tablePile = gameState.getCards().getTablePile();
+    List<Card> discardPile = gameState.getCards().getDiscardPile();
+
+    // Move all cards from the players to the primary pile
+    gameState.getPlayers()
+        .forEach(player -> CardUtil.moveAllCardsFromListToList(player.getCards(), primaryPile));
+
+    // Set player coins to 0
+    gameState.getPlayers().forEach(player -> player.setCoins(0));
+
+    Player playerInTurn = gameState.getCurrentPlayer();
+    assertEquals("Alice", playerInTurn.getName());
+    assertEquals(1, playerInTurn.getId());
+
+    // Lift Skiff card with id=65, shipCoins=2 to table pile
+    CardUtil.moveCardFromListToList(primaryPile, tablePile, 65);
+
+    assertEquals(0, playerInTurn.getCoins());
+    assertEquals(0, playerInTurn.getScore());
+    assertEquals(0, playerInTurn.getCards().size());
+
+    // Act
+    BuyCardRequest request = new BuyCardRequest(playerInTurn.getId(), 65);
+    ApiResponse<Card> result = gameService.buyCard(request);
+
+    Card card = result.getData();
+
+    // Assert
+    assertNotNull(result.getData());
+    assertEquals(CardType.SHIP, card.getType());
+    assertEquals(200, result.getStatusCode());
+    assertEquals("Ship card bought successfully.", result.getMessage());
+
+    assertFalse(tablePile.contains(card));
+    assertFalse(card.isDisplayImage());
+
+    assertEquals(2, playerInTurn.getCards().size());
+    playerInTurn.getCards().forEach(c -> assertFalse(c.isDisplayImage()));
+
+    assertEquals(2, playerInTurn.getCoins());
+    assertEquals(0, playerInTurn.getScore());
+    assertEquals(0, playerInTurn.getAbilities().size());
+
+    // Player turn is switched
+    assertEquals("Bob", gameState.getCurrentPlayer().getName());
+
+    assertTrue(discardPile.contains(card));
   }
 }

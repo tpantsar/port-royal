@@ -1,7 +1,6 @@
 package com.portroyal.util;
 
 import com.portroyal.controller.output.CardType;
-import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterCard;
 import com.portroyal.model.cards.research.ResearchCard;
@@ -9,9 +8,14 @@ import com.portroyal.model.cards.ship.ShipCard;
 import com.portroyal.model.cards.tax.TaxCard;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CardUtil {
+
+  private static final Logger logger = LoggerFactory.getLogger(CardUtil.class);
 
   public static Card resolveCardType(Card card) {
     return switch (card.getType()) {
@@ -33,10 +37,14 @@ public class CardUtil {
   }
 
   public static void moveAmountOfCardsFromListToList(List<Card> source, List<Card> destination,
-      int amount) {
+      int amount, boolean displayImage) {
     for (int i = 0; i < amount; i++) {
-      Card card = source.remove(0);
-      card.setDisplayImage(true);
+      if (source.isEmpty()) {
+        logger.error("No more cards to move");
+        return;
+      }
+      Card card = source.remove(new Random().nextInt(source.size()));
+      card.setDisplayImage(displayImage);
       destination.add(card);
     }
   }
@@ -67,14 +75,5 @@ public class CardUtil {
     }
 
     return false; // No duplicates found
-  }
-
-  public static void moveCoinCardsFromPlayerToList(Player player, List<Card> destination,
-      int amountOfCoinCards) {
-    // Filter out the coin cards (displayImage=false) from the player's cards (displayImage=true)
-    // Coin cards are upside down and are not visible to the player
-    List<Card> coinCards = player.getCards().stream().filter(card -> !card.isDisplayImage())
-        .toList();
-    moveAmountOfCardsFromListToList(coinCards, destination, amountOfCoinCards);
   }
 }
