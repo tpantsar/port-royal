@@ -86,6 +86,9 @@ export default function App() {
       <div>Research pile: {gameStateSimple?.researchPile}</div>
       <div>Discard pile: {gameStateSimple?.discardPile}</div>
       <div>Duplicate ships: {gameStateSimple?.duplicateColoredShips.toString()}</div>
+      <div style={{ color: 'red' }}>
+        Turn: {gameStateSimple?.currentPlayer.name} (id={gameStateSimple?.currentPlayer.id})
+      </div>
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleSwitch}>Switch player</button>
