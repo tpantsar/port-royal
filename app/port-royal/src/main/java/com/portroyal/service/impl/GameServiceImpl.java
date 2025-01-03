@@ -11,10 +11,10 @@ import com.portroyal.model.GameState;
 import com.portroyal.model.Player;
 import com.portroyal.model.cards.Card;
 import com.portroyal.model.cards.character.CharacterCard;
+import com.portroyal.model.cards.ship.ShipCard;
 import com.portroyal.service.GameService;
 import com.portroyal.util.CardUtil;
 import com.portroyal.util.RandomUtil;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -88,24 +88,9 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public synchronized ApiResponse<Card> buyCharacterCard(BuyCardRequest request) {
+  public synchronized ApiResponse<Card> buyCard(BuyCardRequest request) {
     final int playerId = request.getPlayerId();
     final int cardId = request.getCardId();
-
-    List<Card> tablePile = gameState.getCards().getTablePile();
-    List<Card> discardPile = gameState.getCards().getDiscardPile();
-
-    // Find the card in the table pile
-    Card card = CardUtil.getCardFromListById(tablePile, cardId);
-
-    if (card == null) {
-      return ApiResponse.error(404, "Card not found", "id", "Card not found in the table pile.");
-    }
-    // Check if the card is a character card
-    if (!card.getType().equals(CardType.CHARACTER)) {
-      return ApiResponse.error(400, "Invalid card type", "type",
-          "Card type is not a character card.");
-    }
 
     // Find the player in the game
     Player player = gameState.getPlayers().stream().filter(p -> p.getId() == playerId).findFirst()
@@ -123,29 +108,60 @@ public class GameServiceImpl implements GameService {
               currentPlayer.getName()));
     }
 
-    // Check if player has enough coins to buy the card
-    if (player.getCoins() < ((CharacterCard) card).getCharacterCost()) {
+    // Find the card from the table pile
+    Card card = CardUtil.getCardFromListById(gameState.getCards().getTablePile(), cardId);
+
+    if (card == null) {
+      return ApiResponse.error(404, "Card not found", "id", "Card not found in the table pile.");
+    }
+    // Check if the card is a character card
+    if (card.getType().equals(CardType.CHARACTER)) {
+      return buyCharacterCard(currentPlayer, (CharacterCard) card);
+    }
+    // Check if the card is a ship card
+    if (card.getType().equals(CardType.SHIP)) {
+      return buyShipCard(currentPlayer, (ShipCard) card);
+    }
+    return ApiResponse.error(400, "Invalid card type", "type",
+        "Card type is not a character or ship card.");
+  }
+
+  private synchronized ApiResponse<Card> buyCharacterCard(Player player, CharacterCard card) {
+    List<Card> tablePile = gameState.getCards().getTablePile();
+    List<Card> discardPile = gameState.getCards().getDiscardPile();
+
+    // Check if player has enough coins to buy the character card
+    if (player.getCoins() < card.getCharacterCost()) {
       return ApiResponse.error(400, "Insufficient coins", "coins",
           "Player does not have enough coins to buy the card.");
     }
 
     // Update player stats (coins, cards, victory points, abilities)
-    player.setCoins(player.getCoins() - ((CharacterCard) card).getCharacterCost());
+    player.setCoins(player.getCoins() - card.getCharacterCost());
 
-    // Move coin cards (displayImage=false) from player to discard pile
+    // Move coin cards (displayImage=false) from player to discard pile that were used to buy the card
     List<Card> coinCards = player.removeCoinCardsByAmount(
-        ((CharacterCard) card).getCharacterCost());
+        card.getCharacterCost());
     CardUtil.moveAllCardsFromListToList(coinCards, discardPile);
 
     card.setDisplayImage(true);
     player.getCards().add(card);
-    player.setScore(player.getScore() + ((CharacterCard) card).getVictoryPoints());
-    player.addAbilities(((CharacterCard) card).getAbilities());
+    player.setScore(player.getScore() + card.getVictoryPoints());
+    player.addAbilities(card.getAbilities());
 
     // Remove the card from the table pile
     tablePile.remove(card);
 
-    return ApiResponse.success(200, "Card bought successfully.", resolveCardType(card));
+    return ApiResponse.success(200, "Character card bought successfully.", resolveCardType(card));
+  }
+
+  private synchronized ApiResponse<Card> buyShipCard(Player player, ShipCard card) {
+    List<Card> tablePile = gameState.getCards().getTablePile();
+    List<Card> discardPile = gameState.getCards().getDiscardPile();
+
+    return ApiResponse.error(400, "Not implemented.", "card",
+        "Buying ship cards is not implemented yet.", resolveCardType(card));
+    //return ApiResponse.success(200, "Character card bought successfully.", resolveCardType(card));
   }
 
   @Override

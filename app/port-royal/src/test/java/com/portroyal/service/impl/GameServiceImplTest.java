@@ -29,7 +29,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Value;
 
 class GameServiceImplTest {
 
@@ -320,7 +319,7 @@ class GameServiceImplTest {
   }
 
   @Test
-  void testBuyCharacterCard_success() {
+  void testBuyCard_characterCard_success() {
     // Arrange
     List<Card> primaryPile = gameState.getCards().getPrimaryPile();
     List<Card> tablePile = gameState.getCards().getTablePile();
@@ -344,14 +343,14 @@ class GameServiceImplTest {
 
     // Act
     BuyCardRequest request = new BuyCardRequest(playerInTurn.getId(), 20);
-    ApiResponse<Card> result = gameService.buyCharacterCard(request);
+    ApiResponse<Card> result = gameService.buyCard(request);
 
     Card card = result.getData();
 
     // Assert
     assertNotNull(result.getData());
     assertEquals(200, result.getStatusCode());
-    assertEquals("Card bought successfully.", result.getMessage());
+    assertEquals("Character card bought successfully.", result.getMessage());
 
     assertFalse(tablePile.contains(card));
     assertTrue(card.isDisplayImage());

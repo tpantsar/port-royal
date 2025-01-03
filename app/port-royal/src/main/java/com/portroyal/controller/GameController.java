@@ -57,7 +57,7 @@ public class GameController {
 
   // Endpoint to buy a character card
   @PostMapping("/buy-card")
-  public ApiResponse<Card> buyCharacterCard(@RequestBody BuyCardRequest request) {
-    return gameService.buyCharacterCard(request);
+  public ApiResponse<Card> buyCard(@RequestBody BuyCardRequest request) {
+    return gameService.buyCard(request);
   }
 }
