@@ -1,6 +1,5 @@
 package com.portroyal.model;
 
-import com.portroyal.controller.output.ApiResponse;
 import com.portroyal.model.cards.Cards;
 import com.portroyal.service.GameSetupService;
 import jakarta.annotation.PostConstruct;
@@ -29,11 +28,6 @@ public class GameState {
     this.currentPlayer = players.getFirst();
     this.duplicateColoredShips = false;
     this.status = GameStatus.IN_PROGRESS;
-  }
-
-  public ApiResponse<String> resetGame() {
-    initGame();
-    return ApiResponse.success(200, "Game has been reset.", "Game has been reset.");
   }
 
   // Method to assign the next player in turn

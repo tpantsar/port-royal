@@ -3,6 +3,7 @@ import { ApiResponse } from '../types/ApiResponse'
 import { Card } from '../types/Card'
 import { GameStatusInfo } from '../types/GameStatusInfo'
 import { GameStatusInfoSimple } from '../types/GameStatusInfoSimple'
+import { Player } from '../types/Player'
 
 const baseUrl = 'api/game'
 
@@ -26,8 +27,13 @@ const resetGame = async (): Promise<ApiResponse<string>> => {
   return response.data
 }
 
+const switchPlayerTurn = async (): Promise<ApiResponse<Player>> => {
+  const response = await axios.get<ApiResponse<Player>>(`${baseUrl}/switch-player`)
+  return response.data
+}
+
 const drawCard = async (): Promise<ApiResponse<Card>> => {
-  const response = await axios.post<ApiResponse<Card>>(`${baseUrl}/draw-card`)
+  const response = await axios.get<ApiResponse<Card>>(`${baseUrl}/draw-card`)
   return response.data
 }
 
@@ -40,6 +46,7 @@ export default {
   getGameStateFull,
   getGameStateSimple,
   resetGame,
+  switchPlayerTurn,
   drawCard,
   buyCard,
 }

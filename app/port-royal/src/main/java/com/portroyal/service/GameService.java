@@ -42,4 +42,11 @@ public interface GameService {
    * @return A message indicating the game has been reset.
    */
   ApiResponse<String> resetGame();
+
+  /**
+   * Switch the current player to the next player in turn.
+   *
+   * @return The player object of the new current player.
+   */
+  ApiResponse<Player> switchPlayer();
 }

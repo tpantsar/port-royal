@@ -27,6 +27,11 @@ public class GameController {
     return gameService.resetGame();
   }
 
+  @GetMapping("/switch-player")
+  public ApiResponse<Player> switchPlayer() {
+    return gameService.switchPlayer();
+  }
+
   @GetMapping("/state-full")
   public ApiResponse<GameStatusInfo> getGameStateFull() {
     return gameService.getGameStateFull();
@@ -43,16 +48,16 @@ public class GameController {
     return gameService.getPlayers();
   }
 
+  // Endpoint to draw a random card
+  @GetMapping("/draw-card")
+  public ApiResponse<Card> drawCard() {
+    return gameService.drawRandomCard();
+  }
+
   // Endpoint to add a new player
   @PostMapping("/players")
   public ApiResponse<Player> addPlayer(@RequestBody Player player) {
     return gameService.addPlayer(player);
-  }
-
-  // Endpoint to draw a random card
-  @PostMapping("/draw-card")
-  public ApiResponse<Card> drawCard() {
-    return gameService.drawRandomCard();
   }
 
   // Endpoint to buy a character card

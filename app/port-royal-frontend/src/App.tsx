@@ -8,6 +8,7 @@ import { ApiResponse } from './types/ApiResponse'
 import { Card } from './types/Card'
 import { GameStatusInfo } from './types/GameStatusInfo'
 import { GameStatusInfoSimple } from './types/GameStatusInfoSimple'
+import { Player } from './types/Player'
 
 export default function App() {
   const [gameStateSimple, setGameStateSimple] = useState<GameStatusInfoSimple>()
@@ -68,7 +69,10 @@ export default function App() {
   const handleSwitch = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     try {
-      console.log('switching player turn')
+      const response: ApiResponse<Player> = await gameService.switchPlayerTurn()
+      console.log('ApiResponse<Player>', response.data)
+      getGameStateSimple()
+      getGameStateFull()
     } catch (error) {
       console.error('Failed to switch player turn', error)
     }

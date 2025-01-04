@@ -177,7 +177,14 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public ApiResponse<String> resetGame() {
-    return gameState.resetGame();
+    gameState.initGame();
+    return ApiResponse.success(200, "Game has been reset.", "Game has been reset.");
+  }
+
+  @Override
+  public ApiResponse<Player> switchPlayer() {
+    gameState.changeCurrentPlayer();
+    return ApiResponse.success(200, "Player turn switched successfully.", gameState.getCurrentPlayer());
   }
 
   @Override
