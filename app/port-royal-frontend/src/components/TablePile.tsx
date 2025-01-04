@@ -6,9 +6,10 @@ import { GameStatusInfo } from '../types/GameStatusInfo'
 interface TablePileProps {
   gameStateFull: GameStatusInfo | undefined
   updateGameState: () => void
+  handleNotification: (message: string, type: 'success' | 'info' | 'warning' | 'error') => void
 }
 
-const TablePile = ({ gameStateFull, updateGameState }: TablePileProps) => {
+const TablePile = ({ gameStateFull, updateGameState, handleNotification }: TablePileProps) => {
   const tablePile = gameStateFull?.cards.tablePile
 
   const handleBuyCard = async (event: React.MouseEvent<HTMLImageElement>, card: Card) => {
@@ -26,6 +27,13 @@ const TablePile = ({ gameStateFull, updateGameState }: TablePileProps) => {
           const body = { playerId: currentPlayerId, cardId: cardId }
           const response: ApiResponse<Card> = await gameService.buyCard(body)
           console.log('ApiResponse<Card>', response.data)
+
+          if (response.statusCode === 200) {
+            handleNotification(response.message, 'success')
+          } else {
+            handleNotification(response.message, 'error')
+          }
+
           updateGameState()
         }
       } else {
@@ -34,6 +42,10 @@ const TablePile = ({ gameStateFull, updateGameState }: TablePileProps) => {
     } catch (error) {
       console.error('Failed to buy card', error)
     }
+  }
+
+  if (tablePile?.length === 0 || tablePile === undefined) {
+    return null
   }
 
   return (

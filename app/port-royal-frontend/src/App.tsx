@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import Alert from './components/Alert'
 import Players from './components/Players'
 import ResearchPile from './components/ResearchPile'
 import TablePile from './components/TablePile'
@@ -14,6 +15,25 @@ export default function App() {
   const [gameStateSimple, setGameStateSimple] = useState<GameStatusInfoSimple>()
   const [gameStateFull, setGameStateFull] = useState<GameStatusInfo>()
   const [card, setCard] = useState<Card>()
+
+  const [notificationMessage, setNotificationMessage] = useState<string>('')
+  const [notificationType, setNotificationType] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('info')
+
+  let notificationTimeoutId: number
+  const notificationTimeoutLength = 3000
+
+  const handleNotification = (message: string, type: 'success' | 'info' | 'warning' | 'error') => {
+    clearTimeout(notificationTimeoutId)
+    setNotificationMessage(message)
+    setNotificationType(type)
+
+    notificationTimeoutId = window.setTimeout(() => {
+      setNotificationMessage('')
+      setNotificationType('success')
+    }, notificationTimeoutLength)
+  }
 
   // Gets the latest game state
   const getGameStateSimple = async () => {
@@ -52,9 +72,16 @@ export default function App() {
     try {
       const response: ApiResponse<Card> = await gameService.drawCard()
       console.log('ApiResponse<Card>', response.data)
+
+      updateGameState()
       setCard(response.data)
+
+      if (response.statusCode === 400) {
+        handleNotification('Duplicate colored ships detected', 'info')
+      }
     } catch (error) {
       console.error('Failed to draw card', error)
+      handleNotification('Failed to draw card', 'error')
     }
   }
 
@@ -63,11 +90,17 @@ export default function App() {
     try {
       const response: ApiResponse<string> = await gameService.resetGame()
       console.log('ApiResponse<string>', response.data)
-      getGameStateSimple()
-      getGameStateFull()
+      updateGameState()
       setCard(undefined)
+
+      if (response.statusCode === 200) {
+        handleNotification(response.message, 'success')
+      } else {
+        handleNotification(response.message, 'error')
+      }
     } catch (error) {
       console.error('Failed to reset game', error)
+      handleNotification('Failed to reset game', 'error')
     }
   }
 
@@ -76,8 +109,13 @@ export default function App() {
     try {
       const response: ApiResponse<Player> = await gameService.switchPlayerTurn()
       console.log('ApiResponse<Player>', response.data)
-      getGameStateSimple()
-      getGameStateFull()
+      updateGameState()
+
+      if (response.statusCode === 200) {
+        handleNotification(response.message, 'success')
+      } else {
+        handleNotification(response.message, 'error')
+      }
     } catch (error) {
       console.error('Failed to switch player turn', error)
     }
@@ -101,7 +139,12 @@ export default function App() {
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleSwitch}>Switch player</button>
-      <TablePile gameStateFull={gameStateFull} updateGameState={updateGameState} />
+      <Alert message={notificationMessage} type={notificationType} />
+      <TablePile
+        gameStateFull={gameStateFull}
+        updateGameState={updateGameState}
+        handleNotification={handleNotification}
+      />
       <Players gameStateFull={gameStateFull} />
     </div>
   )
