@@ -37,9 +37,14 @@ export default function App() {
     }
   }
 
-  useEffect(() => {
+  const updateGameState = async () => {
     getGameStateSimple()
     getGameStateFull()
+  }
+
+  useEffect(() => {
+    updateGameState()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card])
 
   const handleDraw = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -96,7 +101,7 @@ export default function App() {
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleSwitch}>Switch player</button>
-      <TablePile gameStateFull={gameStateFull} />
+      <TablePile gameStateFull={gameStateFull} updateGameState={updateGameState} />
       <Players gameStateFull={gameStateFull} />
     </div>
   )
