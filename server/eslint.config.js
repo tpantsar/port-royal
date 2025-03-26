@@ -5,12 +5,17 @@ import perfectionist from 'eslint-plugin-perfectionist'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  {
-    ignores: ['**/*.js', 'dist'],
-  },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+  // https://perfectionist.dev/guide/getting-started#settings
+  perfectionist.configs['recommended-natural'],
+  {
+    ignores: ['**/*.js', 'dist'],
+    rules: {
+      'perfectionist/sort-objects': 'off',
+    },
+  },
   {
     languageOptions: {
       parserOptions: {
@@ -19,7 +24,6 @@ export default tseslint.config(
       },
     },
   },
-  perfectionist.configs['recommended-natural'],
   {
     files: ['**/*.test.ts', '**/*.spec.ts'],
     plugins: {

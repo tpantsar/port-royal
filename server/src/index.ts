@@ -9,12 +9,17 @@ const app: Application = express()
 app.use(express.json())
 app.use(cors())
 
-const port = process.env.PORT ?? '8000'
+const port = process.env.PORT ?? '3000'
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to Express & TypeScript Server')
+  res.send('Port Royal API')
+})
+
+app.get('/api/ping', (_req: Request, res: Response) => {
+  console.log('ping received')
+  res.send('pong')
 })
 
 app.listen(port, () => {
-  console.log(`Server is Fire at http://localhost:${port}`)
+  console.log(`Server running on http://localhost:${port}`)
 })

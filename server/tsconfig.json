@@ -1,9 +1,15 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
     "outDir": "./dist",
-    "rootDir": "./"
+    "rootDir": "./",
+    "allowJs": true, // Allow JavaScript files
+    "module": "nodenext", // Support ES module syntax
+    "moduleResolution": "nodenext", // Ensure proper resolution of ES modules,
+    "esModuleInterop": true // Enable compatibility with CommonJS and ES modules
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "eslint.config.js", "vitest.config.js"],
   "exclude": ["dist", "build", "node_modules", "coverage"]
 }
