@@ -8,10 +8,12 @@ export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  // https://perfectionist.dev/guide/getting-started#settings
-  perfectionist.configs['recommended-natural'],
   {
+    files: ['**/*.ts', '**/*.tsx'],
     ignores: ['**/*.js', 'dist'],
+    plugins: {
+      perfectionist, // https://perfectionist.dev/guide/getting-started#settings
+    },
     rules: {
       'perfectionist/sort-objects': 'off',
     },
