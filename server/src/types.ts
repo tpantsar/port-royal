@@ -60,3 +60,32 @@ export interface TaxCard extends CardBase {
   taxMode: TaxMode
   type: 'tax'
 }
+
+export interface Cards {
+  primaryPile: CardBase[]
+  tablePile: CardBase[]
+  discardPile: CardBase[]
+  researchPile: CardBase[]
+}
+
+export interface Player {
+  id: number
+  name: string
+  coins: number
+  score: number
+  cards: CardBase[]
+  abilities: CharacterAbility[]
+}
+
+export enum GameStatusEnum {
+  IN_PROGRESS,
+  FINISHED,
+}
+
+export interface GameStatus {
+  cards: Cards
+  players: Player[]
+  currentPlayer: Player
+  duplicateColoredShips: boolean
+  status: GameStatusEnum
+}
