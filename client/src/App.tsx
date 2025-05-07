@@ -37,7 +37,7 @@ export default function App() {
   const getGameState = async () => {
     try {
       const response: ApiResponse<GameStatus> = await gameService.getGameState()
-      console.log('ApiResponse<GameStatusInfo>', response.data)
+      console.log('getGameState', response.data)
       setGameState(response.data)
     } catch (error) {
       console.error('Failed to fetch game state', error)
@@ -52,7 +52,7 @@ export default function App() {
     event.preventDefault()
     try {
       const response: ApiResponse<CardBase> = await gameService.drawCard()
-      console.log('ApiResponse<CardBase>', response.data)
+      console.log('handleDraw', response.data)
 
       getGameState()
       setCard(response.data)
@@ -70,7 +70,7 @@ export default function App() {
     event.preventDefault()
     try {
       const response: ApiResponse<string> = await gameService.resetGame()
-      console.log('ApiResponse<string>', response.data)
+      console.log('handleReset', response.data)
       getGameState()
       setCard(undefined)
 
@@ -89,7 +89,7 @@ export default function App() {
     event.preventDefault()
     try {
       const response: ApiResponse<Player> = await gameService.switchPlayerTurn()
-      console.log('ApiResponse<Player>', response.data)
+      console.log('handleSwitch', response.data)
       getGameState()
 
       if (response.statusCode === 200) {
