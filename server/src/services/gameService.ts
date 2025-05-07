@@ -34,8 +34,21 @@ const resetGameState = () => {
   return gameStatus
 }
 
+const switchPlayer = () => {
+  const currentPlayerIndex = gameStatus.players.findIndex(
+    (player) => player.id === gameStatus.currentPlayer.id,
+  )
+
+  const nextPlayerIndex = (currentPlayerIndex + 1) % gameStatus.players.length
+  gameStatus.currentPlayer = gameStatus.players[nextPlayerIndex]
+
+  console.log('Switched to player:', gameStatus.currentPlayer.name)
+  return gameStatus.currentPlayer
+}
+
 export default {
   getStatus,
   drawCard,
   resetGameState,
+  switchPlayer,
 }
