@@ -7,13 +7,11 @@ import TablePile from './components/TablePile'
 import gameService from './services/game'
 import { ApiResponse } from './types/ApiResponse'
 import { Card } from './types/Card'
-import { GameStatusInfo } from './types/GameStatusInfo'
-import { GameStatusInfoSimple } from './types/GameStatusInfoSimple'
+import { GameStatus } from './types/GameStatus'
 import { Player } from './types/Player'
 
 export default function App() {
-  const [gameStateSimple, setGameStateSimple] = useState<GameStatusInfoSimple>()
-  const [gameStateFull, setGameStateFull] = useState<GameStatusInfo>()
+  const [gameState, setGameState] = useState<GameStatus>()
   const [card, setCard] = useState<Card>()
 
   const [notificationMessage, setNotificationMessage] = useState<string>('')
@@ -36,35 +34,18 @@ export default function App() {
   }
 
   // Gets the latest game state
-  const getGameStateSimple = async () => {
+  const getGameState = async () => {
     try {
-      const response: ApiResponse<GameStatusInfoSimple> = await gameService.getGameStateSimple()
-      console.log('ApiResponse<GameStatusInfoSimple>', response.data)
-      setGameStateSimple(response.data)
-    } catch (error) {
-      console.error('Failed to fetch game state', error)
-    }
-  }
-
-  // Gets the latest game state
-  const getGameStateFull = async () => {
-    try {
-      const response: ApiResponse<GameStatusInfo> = await gameService.getGameStateFull()
+      const response: ApiResponse<GameStatus> = await gameService.getGameState()
       console.log('ApiResponse<GameStatusInfo>', response.data)
-      setGameStateFull(response.data)
+      setGameState(response.data)
     } catch (error) {
       console.error('Failed to fetch game state', error)
     }
-  }
-
-  const updateGameState = async () => {
-    getGameStateSimple()
-    getGameStateFull()
   }
 
   useEffect(() => {
-    updateGameState()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getGameState()
   }, [card])
 
   const handleDraw = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -73,7 +54,7 @@ export default function App() {
       const response: ApiResponse<Card> = await gameService.drawCard()
       console.log('ApiResponse<Card>', response.data)
 
-      updateGameState()
+      getGameState()
       setCard(response.data)
 
       if (response.statusCode === 400) {
@@ -90,7 +71,7 @@ export default function App() {
     try {
       const response: ApiResponse<string> = await gameService.resetGame()
       console.log('ApiResponse<string>', response.data)
-      updateGameState()
+      getGameState()
       setCard(undefined)
 
       if (response.statusCode === 200) {
@@ -109,7 +90,7 @@ export default function App() {
     try {
       const response: ApiResponse<Player> = await gameService.switchPlayerTurn()
       console.log('ApiResponse<Player>', response.data)
-      updateGameState()
+      getGameState()
 
       if (response.statusCode === 200) {
         handleNotification(response.message, 'success')
@@ -121,31 +102,31 @@ export default function App() {
     }
   }
 
-  if (!gameStateSimple) {
+  if (!gameState || gameState === undefined) {
     return <div>Loading</div>
   }
 
   return (
     <div>
-      <ResearchPile gameStateFull={gameStateFull} />
-      <div>Primary pile: {gameStateSimple?.primaryPile}</div>
-      <div>Table pile: {gameStateSimple?.tablePile}</div>
-      <div>Research pile: {gameStateSimple?.researchPile}</div>
-      <div>Discard pile: {gameStateSimple?.discardPile}</div>
-      <div>Duplicate ships: {gameStateSimple?.duplicateColoredShips.toString()}</div>
+      <ResearchPile gameStateFull={gameState} />
+      <div>Primary pile: {gameState.cards.primaryPile.length}</div>
+      <div>Table pile: {gameState.cards.tablePile.length}</div>
+      <div>Discard pile: {gameState.cards.discardPile.length}</div>
+      <div>Research pile: {gameState.cards.researchPile.length}</div>
+      <div>Duplicate ships: {gameState.duplicateColoredShips.toString()}</div>
       <div style={{ color: 'red' }}>
-        Turn: {gameStateSimple?.currentPlayer.name} (id={gameStateSimple?.currentPlayer.id})
+        Turn: {gameState.currentPlayer.name} (id={gameState.currentPlayer.id})
       </div>
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleSwitch}>Switch player</button>
       <Alert message={notificationMessage} type={notificationType} />
       <TablePile
-        gameStateFull={gameStateFull}
-        updateGameState={updateGameState}
+        gameState={gameState}
+        updateGameState={getGameState}
         handleNotification={handleNotification}
       />
-      <Players gameStateFull={gameStateFull} />
+      <Players gameStateFull={gameState} />
     </div>
   )
 }

@@ -1,21 +1,21 @@
 import gameService from '../services/game'
 import { ApiResponse } from '../types/ApiResponse'
 import { Card } from '../types/Card'
-import { GameStatusInfo } from '../types/GameStatusInfo'
+import { GameStatus } from '../types/GameStatus'
 
 interface TablePileProps {
-  gameStateFull: GameStatusInfo | undefined
+  gameState: GameStatus | undefined
   updateGameState: () => void
   handleNotification: (message: string, type: 'success' | 'info' | 'warning' | 'error') => void
 }
 
-const TablePile = ({ gameStateFull, updateGameState, handleNotification }: TablePileProps) => {
-  const tablePile = gameStateFull?.cards.tablePile
+const TablePile = ({ gameState, updateGameState, handleNotification }: TablePileProps) => {
+  const tablePile = gameState?.cards.tablePile
 
   const handleBuyCard = async (event: React.MouseEvent<HTMLImageElement>, card: Card) => {
     event.preventDefault()
 
-    const currentPlayerId = gameStateFull?.currentPlayer.id
+    const currentPlayerId = gameState?.currentPlayer.id
     const cardId = card?.id
 
     console.log('currentPlayerId', currentPlayerId)

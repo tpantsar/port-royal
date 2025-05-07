@@ -1,7 +1,7 @@
-import { GameStatusInfo } from '../types/GameStatusInfo'
+import { GameStatus } from '../types/GameStatus'
 
 interface ResearchPileProps {
-  gameStateFull: GameStatusInfo | undefined
+  gameStateFull: GameStatus | undefined
 }
 
 const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {

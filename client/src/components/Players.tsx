@@ -1,8 +1,8 @@
-import { GameStatusInfo } from '../types/GameStatusInfo'
+import { GameStatus } from '../types/GameStatus'
 import { Player } from '../types/Player'
 
 interface PlayersProps {
-  gameStateFull: GameStatusInfo | undefined
+  gameStateFull: GameStatus | undefined
 }
 
 const PlayerInfo = ({ player }: { player: Player }) => {
