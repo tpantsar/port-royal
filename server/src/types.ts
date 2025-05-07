@@ -1,3 +1,11 @@
+// Generic ApiResponse type that will be used to define the response structure of all API calls
+export interface ApiResponse<T> {
+  data: T // The generic type that will be replaced with specific data types
+  statusCode: number
+  message?: string
+  errors?: string[] | null
+}
+
 enum ResearchMode {
   ANCHOR,
   CROSS,
