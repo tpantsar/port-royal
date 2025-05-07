@@ -1,16 +1,28 @@
+// In-memory based state management for a game
+// This module handles loading and saving the game state to a runtime variable.
 import { GameStatus, GameStatusEnum, Player } from '#types.js'
-import fs from 'fs'
-import path from 'path'
 
-// File path for storing game state
-const PATH = path.dirname(new URL(import.meta.url).pathname)
-console.log('PATH', PATH)
+// Initial test players
+const PLAYERS: Player[] = [
+  {
+    id: 1,
+    name: 'Player 1',
+    coins: 0,
+    score: 0,
+    cards: [],
+    abilities: [],
+  },
+  {
+    id: 2,
+    name: 'Player 2',
+    coins: 0,
+    score: 0,
+    cards: [],
+    abilities: [],
+  },
+]
 
-// File path for storing game state
-const STATE_FILE = path.join(PATH, '../data/state.json')
-console.log('STATE_FILE', STATE_FILE)
-
-const currentPlayer: Player = {
+const CURRENT_PLAYER: Player = {
   id: 1,
   name: 'Player 1',
   coins: 0,
@@ -19,35 +31,16 @@ const currentPlayer: Player = {
   abilities: [],
 }
 
-const gameStatus: GameStatus = {
+// This is the main game state that will be modified throughout the game
+export const gameStatus: GameStatus = {
   cards: {
     primaryPile: [],
     tablePile: [],
     discardPile: [],
     researchPile: [],
   },
-  players: [currentPlayer],
-  currentPlayer: currentPlayer,
+  players: PLAYERS,
+  currentPlayer: CURRENT_PLAYER,
   duplicateColoredShips: false,
   status: GameStatusEnum.IN_PROGRESS,
-}
-
-// 🌟 Function to load state from file (or initialize it if it doesn’t exist)
-export const loadState = (): GameStatus => {
-  if (fs.existsSync(STATE_FILE)) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'))
-  } else {
-    return gameStatus
-  }
-}
-
-// 🌟 Function to save state to file
-export const saveState = (state: GameStatus) => {
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf-8')
-}
-
-export const initGame = () => {
-  saveState(gameStatus)
-  console.log('Game state initialized')
 }

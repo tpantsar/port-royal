@@ -4,10 +4,11 @@
     "strict": true,
     "target": "ES6",
     "outDir": "./dist",
+    "rootDir": "./src", // Specify the root directory of input files
     "allowJs": true, // Allow JavaScript files
     "module": "NodeNext", // Enable CommonJS module
     "esModuleInterop": true // Enable compatibility with CommonJS and ES modules
   },
-  "include": ["**/*.ts", "eslint.config.js", "vitest.config.js"],
+  "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["dist", "build", "node_modules", "coverage"]
 }

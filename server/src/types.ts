@@ -82,6 +82,9 @@ export enum GameStatusEnum {
   FINISHED,
 }
 
+// Game status for handling all game logic and state
+// This is the main game state that will be modified throughout the game
+// It contains all the information about the game, including the players, cards, and current player
 export interface GameStatus {
   cards: Cards
   players: Player[]
