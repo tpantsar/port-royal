@@ -1,5 +1,5 @@
 import gameService from '#services/gameService.js'
-import { ApiResponse, GameStatus } from '#types.js'
+import { ApiResponse, CardBase, GameStatus } from '#types.js'
 import express, { Request, Response } from 'express'
 
 const router = express.Router()
@@ -20,6 +20,30 @@ router.get('/status', (_req: Request, res: Response<ApiResponse<GameStatus | nul
     const response: ApiResponse<null> = {
       statusCode: 500,
       message: 'Failed to fetch game status',
+      data: null,
+      errors: [error instanceof Error ? error.message : 'Unknown error'],
+    }
+
+    res.status(500).json(response)
+  }
+})
+
+router.get('/draw', (_req: Request, res: Response<ApiResponse<CardBase | null>>) => {
+  try {
+    const card = gameService.drawCard()
+
+    const response: ApiResponse<CardBase> = {
+      statusCode: 200,
+      message: 'Card drawn successfully',
+      data: card,
+      errors: null,
+    }
+
+    res.status(200).json(response)
+  } catch (error) {
+    const response: ApiResponse<null> = {
+      statusCode: 500,
+      message: 'Failed to draw card',
       data: null,
       errors: [error instanceof Error ? error.message : 'Unknown error'],
     }
