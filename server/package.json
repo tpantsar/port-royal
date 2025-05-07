@@ -8,16 +8,17 @@
     "dev": "tsx --watch src/index.ts",
     "start": "node dist/src/index.js",
     "build": "tsc",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
     "test": "vitest",
     "test:run": "vitest --run",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{js,ts,jsx,tsx}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,jsx,tsx}\"",
+    "c": "npm run type-check && npm run lint && npm run format:check"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

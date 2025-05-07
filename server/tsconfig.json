@@ -2,13 +2,14 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
     "strict": true,
-    "target": "ES6",
+    "target": "ESNext",
     "outDir": "./dist",
-    "rootDir": "./src", // Specify the root directory of input files
+    "rootDir": "./",
     "allowJs": true, // Allow JavaScript files
-    "module": "NodeNext", // Enable CommonJS module
+    "module": "nodenext", // Support ES module syntax
+    "moduleResolution": "nodenext", // Ensure proper resolution of ES modules,
     "esModuleInterop": true // Enable compatibility with CommonJS and ES modules
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["dist", "build", "node_modules", "coverage"]
 }
