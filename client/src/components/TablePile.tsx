@@ -1,6 +1,6 @@
 import gameService from '../services/game'
 import { ApiResponse } from '../types/ApiResponse'
-import { Card } from '../types/Card'
+import { CardBase } from '../types/Card'
 import { GameStatus } from '../types/GameStatus'
 
 interface TablePileProps {
@@ -12,7 +12,7 @@ interface TablePileProps {
 const TablePile = ({ gameState, updateGameState, handleNotification }: TablePileProps) => {
   const tablePile = gameState?.cards.tablePile
 
-  const handleBuyCard = async (event: React.MouseEvent<HTMLImageElement>, card: Card) => {
+  const handleBuyCard = async (event: React.MouseEvent<HTMLImageElement>, card: CardBase) => {
     event.preventDefault()
 
     const currentPlayerId = gameState?.currentPlayer.id
@@ -25,7 +25,7 @@ const TablePile = ({ gameState, updateGameState, handleNotification }: TablePile
       if (currentPlayerId !== undefined && cardId !== undefined) {
         if (window.confirm('Are you sure you want to buy this card?')) {
           const body = { playerId: currentPlayerId, cardId: cardId }
-          const response: ApiResponse<Card> = await gameService.buyCard(body)
+          const response: ApiResponse<CardBase> = await gameService.buyCard(body)
           console.log('ApiResponse<Card>', response.data)
 
           if (response.statusCode === 200) {
@@ -55,7 +55,6 @@ const TablePile = ({ gameState, updateGameState, handleNotification }: TablePile
           <div key={index}>
             <div>{card.id}</div>
             <div>{card.name}</div>
-            <div>{card.type}</div>
             <div>{card.displayImage}</div>
             <div>{card.imageName}</div>
             <img

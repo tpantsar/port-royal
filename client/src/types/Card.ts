@@ -42,7 +42,7 @@ type ResearchMode = 'ANCHOR' | 'CROSS' | 'HOUSE'
 
 type TaxMode = 'LOWEST_POINTS' | 'MOST_SWORDS'
 
-enum CharacterAbility {
+export enum CharacterAbility {
   FIVE_CARDS = 'FIVE_CARDS',
   ONE_CHEAPER = 'ONE_CHEAPER',
   BOARD_EMPTY = 'BOARD_EMPTY',

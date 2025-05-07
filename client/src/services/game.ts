@@ -12,27 +12,27 @@ type BuyCardRequest = {
 }
 
 const getGameState = async (): Promise<ApiResponse<GameStatus>> => {
-  const response = await axios.get<ApiResponse<GameStatus>>(`${baseUrl}/status`)
+  const response = await axios.get(`${baseUrl}/status`)
   return response.data
 }
 
-const resetGame = async (): Promise<ApiResponse<string>> => {
-  const response = await axios.get<ApiResponse<string>>(`${baseUrl}/reset`)
+const resetGame = async (): Promise<ApiResponse<GameStatus>> => {
+  const response = await axios.get(`${baseUrl}/reset`)
   return response.data
 }
 
 const switchPlayerTurn = async (): Promise<ApiResponse<Player>> => {
-  const response = await axios.get<ApiResponse<Player>>(`${baseUrl}/switch`)
+  const response = await axios.get(`${baseUrl}/switch`)
   return response.data
 }
 
 const drawCard = async (): Promise<ApiResponse<CardBase>> => {
-  const response = await axios.get<ApiResponse<CardBase>>(`${baseUrl}/draw`)
+  const response = await axios.get(`${baseUrl}/draw`)
   return response.data
 }
 
 const buyCard = async (body: BuyCardRequest): Promise<ApiResponse<CardBase>> => {
-  const response = await axios.post<ApiResponse<CardBase>>(`${baseUrl}/buy`, body)
+  const response = await axios.post(`${baseUrl}/buy`, body)
   return response.data
 }
 

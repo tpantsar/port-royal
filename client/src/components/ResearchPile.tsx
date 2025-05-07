@@ -14,7 +14,6 @@ const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
           <div key={index}>
             <div>{card.id}</div>
             <div>{card.name}</div>
-            <div>{card.type}</div>
             <div>{card.displayImage}</div>
             <div>{card.imageName}</div>
             <img src={`/cards/${card.imageName}`} alt="card" />

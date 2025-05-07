@@ -1,11 +1,10 @@
-import { Card } from './Card'
-import { CharacterAbility } from './CharacterAbility'
+import { CardBase, CharacterAbility } from './Card'
 
-export type Player = {
+export interface Player {
   id: number
   name: string
   coins: number
   score: number
-  cards: Card[]
+  cards: CardBase[]
   abilities: CharacterAbility[]
 }

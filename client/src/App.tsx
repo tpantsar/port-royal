@@ -69,7 +69,7 @@ export default function App() {
   const handleReset = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     try {
-      const response: ApiResponse<string> = await gameService.resetGame()
+      const response: ApiResponse<GameStatus> = await gameService.resetGame()
       console.log('handleReset', response.data)
       getGameState()
       setCard(undefined)

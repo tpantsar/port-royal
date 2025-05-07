@@ -52,4 +52,28 @@ router.get('/draw', (_req: Request, res: Response<ApiResponse<CardBase | null>>)
   }
 })
 
+router.get('/reset', (_req: Request, res: Response<ApiResponse<GameStatus | null>>) => {
+  try {
+    const reset = gameService.resetGameState()
+
+    const response: ApiResponse<GameStatus> = {
+      statusCode: 200,
+      message: 'Game reset successfully',
+      data: reset,
+      errors: null,
+    }
+
+    res.status(200).json(response)
+  } catch (error) {
+    const response: ApiResponse<null> = {
+      statusCode: 500,
+      message: 'Failed to reset game',
+      data: null,
+      errors: [error instanceof Error ? error.message : 'Unknown error'],
+    }
+
+    res.status(500).json(response)
+  }
+})
+
 export default router

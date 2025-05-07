@@ -1,8 +1,7 @@
 import { CardBase, GameStatus } from '#types.js'
-import { gameStatus } from '#utils/state.js'
+import { gameStatus, resetGame } from '#utils/state.js'
 
 const getStatus = (): GameStatus => {
-  console.log('Game status:', gameStatus)
   return gameStatus
 }
 
@@ -29,7 +28,14 @@ const drawCard = (): CardBase => {
   return randomCard
 }
 
+// Reset the game state to its initial state
+const resetGameState = () => {
+  resetGame()
+  return gameStatus
+}
+
 export default {
   getStatus,
   drawCard,
+  resetGameState,
 }
