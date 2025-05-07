@@ -99,6 +99,7 @@ export default function App() {
       }
     } catch (error) {
       console.error('Failed to switch player turn', error)
+      handleNotification('Failed to switch player turn', 'error')
     }
   }
 
