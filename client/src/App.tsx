@@ -6,13 +6,13 @@ import ResearchPile from './components/ResearchPile'
 import TablePile from './components/TablePile'
 import gameService from './services/game'
 import { ApiResponse } from './types/ApiResponse'
-import { CardBase } from './types/Card'
+import { Card } from './types/Card'
 import { GameStatus } from './types/GameStatus'
 import { Player } from './types/Player'
 
 export default function App() {
   const [gameState, setGameState] = useState<GameStatus>()
-  const [card, setCard] = useState<CardBase>()
+  const [card, setCard] = useState<Card>()
 
   const [notificationMessage, setNotificationMessage] = useState<string>('')
   const [notificationType, setNotificationType] = useState<
@@ -51,7 +51,7 @@ export default function App() {
   const handleDraw = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     try {
-      const response: ApiResponse<CardBase> = await gameService.drawCard()
+      const response: ApiResponse<Card> = await gameService.drawCard()
       console.log('handleDraw', response.data)
 
       getGameState()

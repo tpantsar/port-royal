@@ -1,7 +1,7 @@
-import { CardBase } from '../types/Card'
+import { Card } from '../types/Card'
 
 type CardDetailsProps = {
-  card: CardBase | undefined
+  card: Card | undefined
 }
 
 const CardDetails = ({ card }: CardDetailsProps) => {
