@@ -10,6 +10,6 @@
     "moduleResolution": "nodenext", // Ensure proper resolution of ES modules,
     "esModuleInterop": true // Enable compatibility with CommonJS and ES modules
   },
-  "include": ["**/*.ts", "eslint.config.js", "vitest.config.js"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "build", "node_modules", "coverage"]
 }

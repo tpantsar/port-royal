@@ -1,7 +1,7 @@
-import { Card } from '../types/Card'
+import { CardBase } from '../types/Card'
 
 type CardDetailsProps = {
-  card: Card | undefined
+  card: CardBase | undefined
 }
 
 const CardDetails = ({ card }: CardDetailsProps) => {
@@ -11,12 +11,8 @@ const CardDetails = ({ card }: CardDetailsProps) => {
         <>
           <div>{card.id}</div>
           <div>{card.name}</div>
-          <div>{card.type}</div>
           <div>{card.displayImage}</div>
           <div>{card.imageName}</div>
-
-          <div>{card.victoryPoints}</div>
-          <div>{card.characterCost}</div>
 
           <img src={`/cards/${card.imageName}`} alt="card" />
         </>

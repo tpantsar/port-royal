@@ -1,4 +1,9 @@
-const cards = [
+// Total of 119 cards
+// Character cards: 60
+// Ship cards: 50
+// Research cards: 5
+// Tax cards: 4
+const allCards = [
   {
     id: 1,
     displayImage: false,
@@ -1014,4 +1019,4 @@ const cards = [
   },
 ]
 
-export default cards
+export default allCards

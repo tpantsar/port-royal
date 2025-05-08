@@ -1,7 +1,7 @@
-import { GameStatusInfo } from '../types/GameStatusInfo'
+import { GameStatus } from '../types/GameStatus'
 
 interface ResearchPileProps {
-  gameStateFull: GameStatusInfo | undefined
+  gameStateFull: GameStatus | undefined
 }
 
 const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
@@ -14,7 +14,6 @@ const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
           <div key={index}>
             <div>{card.id}</div>
             <div>{card.name}</div>
-            <div>{card.type}</div>
             <div>{card.displayImage}</div>
             <div>{card.imageName}</div>
             <img src={`/cards/${card.imageName}`} alt="card" />
