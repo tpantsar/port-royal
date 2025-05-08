@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ApiResponse } from '../types/ApiResponse'
-import { CardBase } from '../types/Card'
+import { Card } from '../types/Card'
 import { GameStatus } from '../types/GameStatus'
 import { Player } from '../types/Player'
 
@@ -26,12 +26,12 @@ const switchPlayerTurn = async (): Promise<ApiResponse<Player>> => {
   return response.data
 }
 
-const drawCard = async (): Promise<ApiResponse<CardBase>> => {
+const drawCard = async (): Promise<ApiResponse<Card>> => {
   const response = await axios.get(`${baseUrl}/draw`)
   return response.data
 }
 
-const buyCard = async (body: BuyCardRequest): Promise<ApiResponse<CardBase>> => {
+const buyCard = async (body: BuyCardRequest): Promise<ApiResponse<Card>> => {
   const response = await axios.post(`${baseUrl}/buy`, body)
   return response.data
 }

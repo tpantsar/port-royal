@@ -1,11 +1,11 @@
 import { GameStatus } from '../types/GameStatus'
 
 interface ResearchPileProps {
-  gameStateFull: GameStatus | undefined
+  gameState: GameStatus | undefined
 }
 
-const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
-  const researchPile = gameStateFull?.cards.researchPile
+const ResearchPile = ({ gameState }: ResearchPileProps) => {
+  const researchPile = gameState?.cards.researchPile
 
   return (
     <div className="row">
@@ -14,9 +14,12 @@ const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
           <div key={index}>
             <div>{card.id}</div>
             <div>{card.name}</div>
-            <div>{card.displayImage}</div>
+            <div>{card.displayImage.toString()}</div>
             <div>{card.imageName}</div>
-            <img src={`/cards/${card.imageName}`} alt="card" />
+            <img
+              src={card.displayImage ? `/cards/${card.imageName}` : '/cards/cardback.png'}
+              alt="card"
+            />
           </div>
         ))}
     </div>

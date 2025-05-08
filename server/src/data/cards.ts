@@ -6,6 +6,7 @@
 const allCards = [
   {
     id: 1,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 1,
@@ -15,6 +16,7 @@ const allCards = [
   },
   {
     id: 2,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 2,
@@ -24,6 +26,7 @@ const allCards = [
   },
   {
     id: 3,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 2,
@@ -33,6 +36,7 @@ const allCards = [
   },
   {
     id: 4,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 2,
@@ -42,6 +46,7 @@ const allCards = [
   },
   {
     id: 5,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 3,
@@ -51,6 +56,7 @@ const allCards = [
   },
   {
     id: 6,
+    type: 'character',
     displayImage: false,
     name: 'Admiral',
     victoryPoints: 3,
@@ -60,6 +66,7 @@ const allCards = [
   },
   {
     id: 7,
+    type: 'character',
     displayImage: false,
     name: 'Mademoiselle',
     victoryPoints: 2,
@@ -69,6 +76,7 @@ const allCards = [
   },
   {
     id: 8,
+    type: 'character',
     displayImage: false,
     name: 'Mademoiselle',
     victoryPoints: 2,
@@ -78,6 +86,7 @@ const allCards = [
   },
   {
     id: 9,
+    type: 'character',
     displayImage: false,
     name: 'Mademoiselle',
     victoryPoints: 3,
@@ -87,6 +96,7 @@ const allCards = [
   },
   {
     id: 10,
+    type: 'character',
     displayImage: false,
     name: 'Mademoiselle',
     victoryPoints: 3,
@@ -96,6 +106,7 @@ const allCards = [
   },
   {
     id: 11,
+    type: 'character',
     displayImage: false,
     name: 'Jester',
     victoryPoints: 1,
@@ -105,6 +116,7 @@ const allCards = [
   },
   {
     id: 12,
+    type: 'character',
     displayImage: false,
     name: 'Jester',
     victoryPoints: 2,
@@ -114,6 +126,7 @@ const allCards = [
   },
   {
     id: 13,
+    type: 'character',
     displayImage: false,
     name: 'Jester',
     victoryPoints: 2,
@@ -123,6 +136,7 @@ const allCards = [
   },
   {
     id: 14,
+    type: 'character',
     displayImage: false,
     name: 'Jester',
     victoryPoints: 2,
@@ -132,6 +146,7 @@ const allCards = [
   },
   {
     id: 15,
+    type: 'character',
     displayImage: false,
     name: 'Jester',
     victoryPoints: 3,
@@ -141,6 +156,7 @@ const allCards = [
   },
   {
     id: 16,
+    type: 'character',
     displayImage: false,
     name: 'Governor',
     victoryPoints: 0,
@@ -150,6 +166,7 @@ const allCards = [
   },
   {
     id: 17,
+    type: 'character',
     displayImage: false,
     name: 'Governor',
     victoryPoints: 0,
@@ -159,6 +176,7 @@ const allCards = [
   },
   {
     id: 18,
+    type: 'character',
     displayImage: false,
     name: 'Governor',
     victoryPoints: 0,
@@ -168,6 +186,7 @@ const allCards = [
   },
   {
     id: 19,
+    type: 'character',
     displayImage: false,
     name: 'Governor',
     victoryPoints: 0,
@@ -177,6 +196,7 @@ const allCards = [
   },
   {
     id: 20,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -186,6 +206,7 @@ const allCards = [
   },
   {
     id: 21,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -195,6 +216,7 @@ const allCards = [
   },
   {
     id: 22,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -204,6 +226,7 @@ const allCards = [
   },
   {
     id: 23,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 2,
@@ -213,6 +236,7 @@ const allCards = [
   },
   {
     id: 24,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -222,6 +246,7 @@ const allCards = [
   },
   {
     id: 25,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -231,6 +256,7 @@ const allCards = [
   },
   {
     id: 26,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -240,6 +266,7 @@ const allCards = [
   },
   {
     id: 27,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -249,6 +276,7 @@ const allCards = [
   },
   {
     id: 28,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 1,
@@ -258,6 +286,7 @@ const allCards = [
   },
   {
     id: 29,
+    type: 'character',
     displayImage: false,
     name: 'Trader',
     victoryPoints: 2,
@@ -267,6 +296,7 @@ const allCards = [
   },
   {
     id: 30,
+    type: 'character',
     displayImage: false,
     name: 'Jack of all Trades',
     victoryPoints: 1,
@@ -276,6 +306,7 @@ const allCards = [
   },
   {
     id: 31,
+    type: 'character',
     displayImage: false,
     name: 'Jack of all Trades',
     victoryPoints: 1,
@@ -285,6 +316,7 @@ const allCards = [
   },
   {
     id: 32,
+    type: 'character',
     displayImage: false,
     name: 'Jack of all Trades',
     victoryPoints: 1,
@@ -294,6 +326,7 @@ const allCards = [
   },
   {
     id: 33,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -303,6 +336,7 @@ const allCards = [
   },
   {
     id: 34,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -312,6 +346,7 @@ const allCards = [
   },
   {
     id: 35,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -321,6 +356,7 @@ const allCards = [
   },
   {
     id: 36,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -330,6 +366,7 @@ const allCards = [
   },
   {
     id: 37,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -339,6 +376,7 @@ const allCards = [
   },
   {
     id: 38,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -348,6 +386,7 @@ const allCards = [
   },
   {
     id: 39,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 1,
@@ -357,6 +396,7 @@ const allCards = [
   },
   {
     id: 40,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 2,
@@ -366,6 +406,7 @@ const allCards = [
   },
   {
     id: 41,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 2,
@@ -375,6 +416,7 @@ const allCards = [
   },
   {
     id: 42,
+    type: 'character',
     displayImage: false,
     name: 'Sailor',
     victoryPoints: 3,
@@ -384,6 +426,7 @@ const allCards = [
   },
   {
     id: 43,
+    type: 'character',
     displayImage: false,
     name: 'Pirate',
     victoryPoints: 1,
@@ -393,6 +436,7 @@ const allCards = [
   },
   {
     id: 44,
+    type: 'character',
     displayImage: false,
     name: 'Pirate',
     victoryPoints: 2,
@@ -402,6 +446,7 @@ const allCards = [
   },
   {
     id: 45,
+    type: 'character',
     displayImage: false,
     name: 'Pirate',
     victoryPoints: 3,
@@ -411,6 +456,7 @@ const allCards = [
   },
   {
     id: 46,
+    type: 'character',
     displayImage: false,
     name: 'Captain',
     victoryPoints: 1,
@@ -420,6 +466,7 @@ const allCards = [
   },
   {
     id: 47,
+    type: 'character',
     displayImage: false,
     name: 'Captain',
     victoryPoints: 1,
@@ -429,6 +476,7 @@ const allCards = [
   },
   {
     id: 48,
+    type: 'character',
     displayImage: false,
     name: 'Captain',
     victoryPoints: 1,
@@ -438,6 +486,7 @@ const allCards = [
   },
   {
     id: 49,
+    type: 'character',
     displayImage: false,
     name: 'Captain',
     victoryPoints: 1,
@@ -447,6 +496,7 @@ const allCards = [
   },
   {
     id: 50,
+    type: 'character',
     displayImage: false,
     name: 'Captain',
     victoryPoints: 1,
@@ -456,6 +506,7 @@ const allCards = [
   },
   {
     id: 51,
+    type: 'character',
     displayImage: false,
     name: 'Priest',
     victoryPoints: 1,
@@ -465,6 +516,7 @@ const allCards = [
   },
   {
     id: 52,
+    type: 'character',
     displayImage: false,
     name: 'Priest',
     victoryPoints: 1,
@@ -474,6 +526,7 @@ const allCards = [
   },
   {
     id: 53,
+    type: 'character',
     displayImage: false,
     name: 'Priest',
     victoryPoints: 1,
@@ -483,6 +536,7 @@ const allCards = [
   },
   {
     id: 54,
+    type: 'character',
     displayImage: false,
     name: 'Priest',
     victoryPoints: 1,
@@ -492,6 +546,7 @@ const allCards = [
   },
   {
     id: 55,
+    type: 'character',
     displayImage: false,
     name: 'Priest',
     victoryPoints: 1,
@@ -501,6 +556,7 @@ const allCards = [
   },
   {
     id: 56,
+    type: 'character',
     displayImage: false,
     name: 'Settler',
     victoryPoints: 1,
@@ -510,6 +566,7 @@ const allCards = [
   },
   {
     id: 57,
+    type: 'character',
     displayImage: false,
     name: 'Settler',
     victoryPoints: 1,
@@ -519,6 +576,7 @@ const allCards = [
   },
   {
     id: 58,
+    type: 'character',
     displayImage: false,
     name: 'Settler',
     victoryPoints: 1,
@@ -528,6 +586,7 @@ const allCards = [
   },
   {
     id: 59,
+    type: 'character',
     displayImage: false,
     name: 'Settler',
     victoryPoints: 1,
@@ -537,6 +596,7 @@ const allCards = [
   },
   {
     id: 60,
+    type: 'character',
     displayImage: false,
     name: 'Settler',
     victoryPoints: 1,
@@ -546,6 +606,7 @@ const allCards = [
   },
   {
     id: 61,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 1,
@@ -554,6 +615,7 @@ const allCards = [
   },
   {
     id: 62,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 1,
@@ -562,6 +624,7 @@ const allCards = [
   },
   {
     id: 63,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 1,
@@ -570,6 +633,7 @@ const allCards = [
   },
   {
     id: 64,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 1,
@@ -578,6 +642,7 @@ const allCards = [
   },
   {
     id: 65,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 3,
@@ -586,6 +651,7 @@ const allCards = [
   },
   {
     id: 66,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 3,
@@ -594,6 +660,7 @@ const allCards = [
   },
   {
     id: 67,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 3,
@@ -602,6 +669,7 @@ const allCards = [
   },
   {
     id: 68,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 5,
@@ -610,6 +678,7 @@ const allCards = [
   },
   {
     id: 69,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 5,
@@ -618,6 +687,7 @@ const allCards = [
   },
   {
     id: 70,
+    type: 'ship',
     displayImage: false,
     name: 'Skiff',
     shipWeapons: 5,
@@ -626,6 +696,7 @@ const allCards = [
   },
   {
     id: 71,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 1,
@@ -634,6 +705,7 @@ const allCards = [
   },
   {
     id: 72,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 1,
@@ -642,6 +714,7 @@ const allCards = [
   },
   {
     id: 73,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 1,
@@ -650,6 +723,7 @@ const allCards = [
   },
   {
     id: 74,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 1,
@@ -658,6 +732,7 @@ const allCards = [
   },
   {
     id: 75,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 2,
@@ -666,6 +741,7 @@ const allCards = [
   },
   {
     id: 76,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 2,
@@ -674,6 +750,7 @@ const allCards = [
   },
   {
     id: 77,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 2,
@@ -682,6 +759,7 @@ const allCards = [
   },
   {
     id: 78,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 5,
@@ -690,6 +768,7 @@ const allCards = [
   },
   {
     id: 79,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 5,
@@ -698,6 +777,7 @@ const allCards = [
   },
   {
     id: 80,
+    type: 'ship',
     displayImage: false,
     name: 'Flute',
     shipWeapons: 5,
@@ -706,6 +786,7 @@ const allCards = [
   },
   {
     id: 81,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 1,
@@ -714,6 +795,7 @@ const allCards = [
   },
   {
     id: 82,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 1,
@@ -722,6 +804,7 @@ const allCards = [
   },
   {
     id: 83,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 1,
@@ -730,6 +813,7 @@ const allCards = [
   },
   {
     id: 84,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 3,
@@ -738,6 +822,7 @@ const allCards = [
   },
   {
     id: 85,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 3,
@@ -746,6 +831,7 @@ const allCards = [
   },
   {
     id: 86,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 3,
@@ -754,6 +840,7 @@ const allCards = [
   },
   {
     id: 87,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 6,
@@ -762,6 +849,7 @@ const allCards = [
   },
   {
     id: 88,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 6,
@@ -770,6 +858,7 @@ const allCards = [
   },
   {
     id: 89,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 100,
@@ -778,6 +867,7 @@ const allCards = [
   },
   {
     id: 90,
+    type: 'ship',
     displayImage: false,
     name: 'Frigate',
     shipWeapons: 100,
@@ -786,6 +876,7 @@ const allCards = [
   },
   {
     id: 91,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 2,
@@ -794,6 +885,7 @@ const allCards = [
   },
   {
     id: 92,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 2,
@@ -802,6 +894,7 @@ const allCards = [
   },
   {
     id: 93,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 2,
@@ -810,6 +903,7 @@ const allCards = [
   },
   {
     id: 94,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 4,
@@ -818,6 +912,7 @@ const allCards = [
   },
   {
     id: 95,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 4,
@@ -826,6 +921,7 @@ const allCards = [
   },
   {
     id: 96,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 4,
@@ -834,6 +930,7 @@ const allCards = [
   },
   {
     id: 97,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 7,
@@ -842,6 +939,7 @@ const allCards = [
   },
   {
     id: 98,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 7,
@@ -850,6 +948,7 @@ const allCards = [
   },
   {
     id: 99,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 100,
@@ -858,6 +957,7 @@ const allCards = [
   },
   {
     id: 100,
+    type: 'ship',
     displayImage: false,
     name: 'Galleon',
     shipWeapons: 100,
@@ -866,6 +966,7 @@ const allCards = [
   },
   {
     id: 101,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 1,
@@ -874,6 +975,7 @@ const allCards = [
   },
   {
     id: 102,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 1,
@@ -882,6 +984,7 @@ const allCards = [
   },
   {
     id: 103,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 1,
@@ -890,6 +993,7 @@ const allCards = [
   },
   {
     id: 104,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 1,
@@ -898,6 +1002,7 @@ const allCards = [
   },
   {
     id: 105,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 2,
@@ -906,6 +1011,7 @@ const allCards = [
   },
   {
     id: 106,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 2,
@@ -914,6 +1020,7 @@ const allCards = [
   },
   {
     id: 107,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 2,
@@ -922,6 +1029,7 @@ const allCards = [
   },
   {
     id: 108,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 4,
@@ -930,6 +1038,7 @@ const allCards = [
   },
   {
     id: 109,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 4,
@@ -938,6 +1047,7 @@ const allCards = [
   },
   {
     id: 110,
+    type: 'ship',
     displayImage: false,
     name: 'Pinance',
     shipWeapons: 4,
@@ -946,6 +1056,7 @@ const allCards = [
   },
   {
     id: 111,
+    type: 'tax',
     name: 'Tax',
     displayImage: false,
     taxMode: 'LowestPoints',
@@ -953,6 +1064,7 @@ const allCards = [
   },
   {
     id: 112,
+    type: 'tax',
     name: 'Tax',
     displayImage: false,
     taxMode: 'LowestPoints',
@@ -960,6 +1072,7 @@ const allCards = [
   },
   {
     id: 113,
+    type: 'tax',
     name: 'Tax',
     displayImage: false,
     taxMode: 'MostSwords',
@@ -967,6 +1080,7 @@ const allCards = [
   },
   {
     id: 114,
+    type: 'tax',
     name: 'Tax',
     displayImage: false,
     taxMode: 'MostSwords',
@@ -974,6 +1088,7 @@ const allCards = [
   },
   {
     id: 115,
+    type: 'research',
     name: 'Research',
     displayImage: false,
     researchMode: ['anchor', 'anchor'],
@@ -983,6 +1098,7 @@ const allCards = [
   },
   {
     id: 116,
+    type: 'research',
     name: 'Research',
     displayImage: false,
     researchMode: ['cross', 'cross'],
@@ -992,6 +1108,7 @@ const allCards = [
   },
   {
     id: 117,
+    type: 'research',
     name: 'Research',
     displayImage: false,
     researchMode: ['house', 'house'],
@@ -1001,6 +1118,7 @@ const allCards = [
   },
   {
     id: 118,
+    type: 'research',
     name: 'Research',
     displayImage: false,
     researchMode: ['anchor', 'anchor', 'house'],
@@ -1010,6 +1128,7 @@ const allCards = [
   },
   {
     id: 119,
+    type: 'research',
     name: 'Research',
     displayImage: false,
     researchMode: ['cross', 'cross', 'house'],

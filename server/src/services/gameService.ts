@@ -1,21 +1,23 @@
-import { CardBase, GameStatus } from '#types.js'
+import { Card, GameStatus } from '#types.js'
 import { gameStatus, resetGame } from '#utils/state.js'
 
 const getStatus = (): GameStatus => {
   return gameStatus
 }
 
-const drawCard = (): CardBase => {
-  const primaryPile = gameStatus.cards.primaryPile.length
+const drawCard = (): Card => {
+  const primaryPileCards = gameStatus.cards.primaryPile.length
 
   // Shuffle discard pile if primary pile is empty
-  if (primaryPile === 0) {
+  if (primaryPileCards === 0) {
     gameStatus.cards.primaryPile = gameStatus.cards.discardPile
     gameStatus.cards.discardPile = []
+    console.log('Moved discard pile into primary pile')
   }
 
-  const randomCard = gameStatus.cards.primaryPile[Math.floor(Math.random() * primaryPile)]
-  console.log('Draw card:', randomCard)
+  const randomCard = gameStatus.cards.primaryPile[Math.floor(Math.random() * primaryPileCards)]
+  randomCard.displayImage = true
+  console.log('Random card drawn:', randomCard)
 
   // Remove the drawn card from the primary pile
   gameStatus.cards.primaryPile = gameStatus.cards.primaryPile.filter(
@@ -24,6 +26,30 @@ const drawCard = (): CardBase => {
 
   // Add the drawn card to the table pile
   gameStatus.cards.tablePile.push(randomCard)
+
+  // Check if duplicate colored ships (by name) are present in table pile
+  const shipCards = gameStatus.cards.tablePile.filter(
+    (card) => card.type === 'ship' && card.displayImage,
+  )
+
+  const uniqueShipNames = new Set(shipCards.map((card) => card.name))
+  console.log('Unique ship names:', uniqueShipNames)
+
+  gameStatus.duplicateColoredShips = shipCards.length !== uniqueShipNames.size
+
+  if (gameStatus.duplicateColoredShips) {
+    console.log('Duplicate colored ships found!')
+
+    // Switch to the next player
+    switchPlayer()
+
+    // Move all table cards to discard pile
+    gameStatus.cards.discardPile.push(...gameStatus.cards.tablePile)
+    gameStatus.cards.tablePile = []
+
+    // Reset duplicate colored ships status after moving cards
+    gameStatus.duplicateColoredShips = false
+  }
 
   return randomCard
 }

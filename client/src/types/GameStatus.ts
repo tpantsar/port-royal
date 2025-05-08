@@ -1,11 +1,11 @@
-import { CardBase } from './Card'
+import { Card } from './Card'
 import { Player } from './Player'
 
 export interface Cards {
-  primaryPile: CardBase[]
-  tablePile: CardBase[]
-  discardPile: CardBase[]
-  researchPile: CardBase[]
+  primaryPile: Card[]
+  tablePile: Card[]
+  discardPile: Card[]
+  researchPile: Card[]
 }
 
 type GameStatusEnum = 'IN_PROGRESS' | 'FINISHED'

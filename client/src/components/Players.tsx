@@ -2,7 +2,7 @@ import { GameStatus } from '../types/GameStatus'
 import { Player } from '../types/Player'
 
 interface PlayersProps {
-  gameStateFull: GameStatus | undefined
+  gameState: GameStatus | undefined
 }
 
 const PlayerInfo = ({ player }: { player: Player }) => {
@@ -42,8 +42,8 @@ const PlayerInfo = ({ player }: { player: Player }) => {
   )
 }
 
-const Players = ({ gameStateFull }: PlayersProps) => {
-  const players = gameStateFull?.players || []
+const Players = ({ gameState }: PlayersProps) => {
+  const players = gameState?.players || []
 
   return (
     <div>

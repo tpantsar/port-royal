@@ -1,41 +1,40 @@
-// Common properties for all cards
+export type CardType = 'character' | 'research' | 'ship' | 'tax'
+
+// Union type for all cards
+export type Card = CharacterCard | ResearchCard | ShipCard | TaxCard
+
 export interface CardBase {
   id: number
+  type: CardType
   name: string
   displayImage: boolean
   imageName: string
 }
 
+// Specific cards are defined using narrowed type values
 export interface CharacterCard extends CardBase {
+  type: 'character'
   victoryPoints: number
   characterCost: number
   abilities: CharacterAbility[]
-  type: 'character'
 }
 
 export interface ResearchCard extends CardBase {
+  type: 'research'
   victoryPoints: number
   researchMode: ResearchMode
   coinsAmount: number
-  type: 'research'
 }
 
 export interface ShipCard extends CardBase {
+  type: 'ship'
   shipWeapons: number
   shipCoins: number
-  type: 'ship'
 }
 
 export interface TaxCard extends CardBase {
-  taxMode: TaxMode
   type: 'tax'
-}
-
-export interface Cards {
-  primaryPile: CardBase[]
-  tablePile: CardBase[]
-  discardPile: CardBase[]
-  researchPile: CardBase[]
+  taxMode: TaxMode
 }
 
 type ResearchMode = 'ANCHOR' | 'CROSS' | 'HOUSE'
