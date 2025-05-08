@@ -11,7 +11,7 @@ const CardDetails = ({ card }: CardDetailsProps) => {
         <>
           <div>{card.id}</div>
           <div>{card.name}</div>
-          <div>{card.displayImage}</div>
+          <div>{card.displayImage.toString()}</div>
           <div>{card.imageName}</div>
 
           <img src={`/cards/${card.imageName}`} alt="card" />

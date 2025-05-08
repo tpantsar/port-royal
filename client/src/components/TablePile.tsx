@@ -55,10 +55,10 @@ const TablePile = ({ gameState, updateGameState, handleNotification }: TablePile
           <div key={index}>
             <div>{card.id}</div>
             <div>{card.name}</div>
-            <div>{card.displayImage}</div>
+            <div>{card.displayImage.toString()}</div>
             <div>{card.imageName}</div>
             <img
-              src={`/cards/${card.imageName}`}
+              src={card.displayImage ? `/cards/${card.imageName}` : '/cards/cardback.png'}
               alt="card"
               onClick={(event) => handleBuyCard(event, card)}
             />
