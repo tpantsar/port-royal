@@ -1,10 +1,10 @@
 // In-memory based state management for a game
 // This module handles loading and saving the game state to a runtime variable.
 import allCards from '#data/cards.js'
-import { CardBase, GameStatus, GameStatusEnum, Player } from '#types.js'
+import { Card, GameStatus, GameStatusEnum, Player } from '#types.js'
 
 // Helper to assign 3 random initial cards to each player
-const assignInitialPlayerCards = (primaryPile: CardBase[]): [Player[], CardBase[]] => {
+const assignInitialPlayerCards = (primaryPile: Card[]): [Player[], Card[]] => {
   const shuffled = [...primaryPile].sort(() => Math.random() - 0.5)
   const player1Cards = shuffled.slice(0, 3)
   const player2Cards = shuffled.slice(3, 6)
@@ -35,7 +35,7 @@ const assignInitialPlayerCards = (primaryPile: CardBase[]): [Player[], CardBase[
 // Function to create a fresh initial game state
 const createInitialGameStatus = (): GameStatus => {
   const clonedCards = structuredClone(allCards)
-  const [players, remainingPrimaryPile] = assignInitialPlayerCards(clonedCards)
+  const [players, remainingPrimaryPile] = assignInitialPlayerCards(clonedCards as Card[])
 
   return {
     cards: {

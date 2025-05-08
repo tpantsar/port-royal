@@ -1,11 +1,11 @@
-import { CardBase, GameStatus } from '#types.js'
+import { Card, GameStatus } from '#types.js'
 import { gameStatus, resetGame } from '#utils/state.js'
 
 const getStatus = (): GameStatus => {
   return gameStatus
 }
 
-const drawCard = (): CardBase => {
+const drawCard = (): Card => {
   const primaryPile = gameStatus.cards.primaryPile.length
 
   // Shuffle discard pile if primary pile is empty
@@ -24,6 +24,25 @@ const drawCard = (): CardBase => {
 
   // Add the drawn card to the table pile
   gameStatus.cards.tablePile.push(randomCard)
+
+  // Check if duplicate colored ships are present in table pile
+  const shipCards = gameStatus.cards.tablePile.filter(
+    (card) => card.type === 'ship' && card.displayImage,
+  )
+  const shipColors = shipCards.map((card) => card.imageName)
+  const uniqueShipColors = new Set(shipColors)
+
+  gameStatus.duplicateColoredShips = shipColors.length !== uniqueShipColors.size
+
+  if (gameStatus.duplicateColoredShips) {
+    console.log('Duplicate colored ships found!')
+
+    // Move all table cards to discard pile
+    gameStatus.cards.discardPile.push(...gameStatus.cards.tablePile)
+    gameStatus.cards.tablePile = []
+
+    gameStatus.duplicateColoredShips = false
+  }
 
   return randomCard
 }

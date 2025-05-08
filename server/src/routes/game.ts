@@ -1,5 +1,5 @@
 import gameService from '#services/gameService.js'
-import { ApiResponse, CardBase, GameStatus, Player } from '#types.js'
+import { ApiResponse, Card, GameStatus, Player } from '#types.js'
 import express, { Request, Response } from 'express'
 
 const router = express.Router()
@@ -28,11 +28,11 @@ router.get('/status', (_req: Request, res: Response<ApiResponse<GameStatus | nul
   }
 })
 
-router.get('/draw', (_req: Request, res: Response<ApiResponse<CardBase | null>>) => {
+router.get('/draw', (_req: Request, res: Response<ApiResponse<Card | null>>) => {
   try {
     const card = gameService.drawCard()
 
-    const response: ApiResponse<CardBase> = {
+    const response: ApiResponse<Card> = {
       statusCode: 200,
       message: 'Card drawn successfully',
       data: card,
