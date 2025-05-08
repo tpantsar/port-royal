@@ -109,7 +109,7 @@ export default function App() {
 
   return (
     <div>
-      <ResearchPile gameStateFull={gameState} />
+      <ResearchPile gameState={gameState} />
       <div>Primary pile: {gameState.cards.primaryPile.length}</div>
       <div>Table pile: {gameState.cards.tablePile.length}</div>
       <div>Discard pile: {gameState.cards.discardPile.length}</div>
@@ -127,7 +127,7 @@ export default function App() {
         updateGameState={getGameState}
         handleNotification={handleNotification}
       />
-      <Players gameStateFull={gameState} />
+      <Players gameState={gameState} />
     </div>
   )
 }

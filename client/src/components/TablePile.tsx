@@ -52,7 +52,26 @@ const TablePile = ({ gameState, updateGameState, handleNotification }: TablePile
   if (tablePile?.length === 0 || tablePile === undefined) {
     return (
       <div className="row player-card">
-        <img src="/cards/cardback.png" alt="card" onClick={(event) => handleDrawCard(event)} />
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <img
+            className="coin-card"
+            src="/cards/cardback.png"
+            alt="coin"
+            onClick={(e) => handleDrawCard(e)}
+          />
+          <span
+            style={{
+              position: 'absolute',
+              top: '20%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: 'white',
+              fontSize: '2.5em',
+            }}
+          >
+            {gameState?.cards.primaryPile.length}
+          </span>
+        </div>
       </div>
     )
   }

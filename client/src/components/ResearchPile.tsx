@@ -1,11 +1,11 @@
 import { GameStatus } from '../types/GameStatus'
 
 interface ResearchPileProps {
-  gameStateFull: GameStatus | undefined
+  gameState: GameStatus | undefined
 }
 
-const ResearchPile = ({ gameStateFull }: ResearchPileProps) => {
-  const researchPile = gameStateFull?.cards.researchPile
+const ResearchPile = ({ gameState }: ResearchPileProps) => {
+  const researchPile = gameState?.cards.researchPile
 
   return (
     <div className="row">
