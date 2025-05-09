@@ -1,0 +1,56 @@
+name: Server CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+    types:
+      - opened
+      - synchronize
+      - closed
+
+jobs:
+  server:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: server/package-lock.json
+          # https://github.com/actions/setup-node/tree/v4/?tab=readme-ov-file#caching-global-packages-data
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test:run
+
+      - name: Run TypeScript type checking
+        run: npm run type-check
+
+      - name: Run ESLint and fix
+        run: npm run lint:fix
+
+      - name: Format with Prettier
+        run: npm run format
+
+      - name: Check for remaining ESLint errors
+        run: npm run lint
+
+      - name: Check for remaining formatting issues
+        run: npm run format:check

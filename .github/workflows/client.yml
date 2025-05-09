@@ -1,0 +1,45 @@
+name: Client CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+    types:
+      - opened
+      - synchronize
+      - closed
+
+jobs:
+  client:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run TypeScript type checking
+        run: npm run type-check
+
+      - name: Run ESLint and fix
+        run: npm run lint:fix
+
+      - name: Format with Prettier
+        run: npm run format
+
+      - name: Check for remaining ESLint errors
+        run: npm run lint
+
+      - name: Check for remaining formatting issues
+        run: npm run format:check
