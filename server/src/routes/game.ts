@@ -116,13 +116,27 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
     }
 
     if (cardBeingBought === null) {
-      throw new Error('Card was not found!')
+      const response: ApiResponse<null> = {
+        statusCode: 400,
+        message: 'You cannot buy that card',
+        data: null,
+        errors: [],
+      }
+      res.status(response.statusCode).json(response)
+      return
     }
 
     switch (cardBeingBought.type) {
       case 'research':
       case 'tax':
-        throw new Error('You cannot buy that card!')
+        const response: ApiResponse<null> = {
+          statusCode: 400,
+          message: 'You cannot buy that card',
+          data: null,
+          errors: [],
+        }
+        res.status(response.statusCode).json(response)
+        return
       case 'character':
         handleCharacterPurchase(cardBeingBought)
         break
