@@ -111,6 +111,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
     for (let x = 0; x < tablePile.length; x++) {
       if (tablePile[x].id === _req.body['cardId']) {
         cardBeingBought = tablePile[x]
+        break
       }
     }
 
