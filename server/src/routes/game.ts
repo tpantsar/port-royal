@@ -181,10 +181,12 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
       // delete as many cards from primaryPile as the coin amount is in ship
       // e.g. if ship gives 3 coins, remove 3 cards from the deck, because they're given to the player's coin deck
       const newPrimaryPile = shuffled.slice(coinAmount)
+      const newCurrentPlayerCards = shuffled.slice(0, coinAmount)
 
       // set the current deck to the right one
       gameStatus.cards.primaryPile = newPrimaryPile
       gameStatus.currentPlayer.coins += coinAmount
+      gameStatus.currentPlayer.cards = [...gameStatus.currentPlayer.cards, ...newCurrentPlayerCards]
       gameStatus.cards.tablePile = tablePile.filter((_card) => _card.id !== card.id)
       gameService.switchPlayer()
     }
