@@ -149,7 +149,14 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
 
     function handleCharacterPurchase(card: CharacterCard) {
       if (card.characterCost > gameStatus.currentPlayer.coins) {
-        throw new Error('Not enough coins')
+        const response: ApiResponse<null> = {
+          statusCode: 400,
+          message: 'Not enough coins',
+          data: null,
+          errors: [],
+        }
+        res.status(response.statusCode).json(response)
+        return
       }
       const coinAmount = card.characterCost
 
