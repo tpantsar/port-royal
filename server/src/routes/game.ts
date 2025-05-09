@@ -103,10 +103,6 @@ router.get('/switch', (_req: Request, res: Response<ApiResponse<Player | null>>)
 
 router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>>) => {
   try {
-    const nextPlayer = gameService.switchPlayer()
-
-    const gameStatusObject = gameStatus
-
     let cardBeingBought: Card | null = null
 
     // for-loop toimii jostain syystä. array.forEach ei toimi cardBeingBought:in kanssa
@@ -152,6 +148,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
         ...card.abilities,
       ]
       gameStatus.cards.tablePile = tablePile.filter((_card) => _card.id !== card.id)
+      gameService.switchPlayer()
     }
 
     function handleShipPurchase(card: ShipCard) {
@@ -167,12 +164,13 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
       gameStatus.cards.primaryPile = newPrimaryPile
       gameStatus.currentPlayer.coins += coinAmount
       gameStatus.cards.tablePile = tablePile.filter((_card) => _card.id !== card.id)
+      gameService.switchPlayer()
     }
 
     const response: ApiResponse<GameStatus> = {
       statusCode: 200,
       message: 'Player switched successfully',
-      data: gameStatusObject,
+      data: gameStatus,
       errors: null,
     }
     res.status(200).json(response)
