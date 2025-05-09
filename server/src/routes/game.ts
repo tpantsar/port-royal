@@ -143,8 +143,16 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
       case 'ship':
         handleShipPurchase(cardBeingBought)
         break
-      default:
-        throw new Error('You cannot buy that card')
+      default: {
+        const response: ApiResponse<null> = {
+          statusCode: 400,
+          message: 'You cannot buy that card',
+          data: null,
+          errors: [],
+        }
+        res.status(response.statusCode).json(response)
+        return
+      }
     }
 
     function handleCharacterPurchase(card: CharacterCard) {
