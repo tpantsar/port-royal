@@ -118,7 +118,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
     if (cardBeingBought === null) {
       const response: ApiResponse<null> = {
         statusCode: 400,
-        message: 'You cannot buy that card',
+        message: 'Card was not found',
         data: null,
         errors: [],
       }
