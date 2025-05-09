@@ -144,12 +144,12 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
         handleShipPurchase(cardBeingBought)
         break
       default:
-        throw new Error('You cannot buy that card!')
+        throw new Error('You cannot buy that card')
     }
 
     function handleCharacterPurchase(card: CharacterCard) {
       if (card.characterCost > gameStatus.currentPlayer.coins) {
-        throw new Error('Not enough coins!')
+        throw new Error('Not enough coins')
       }
       const coinAmount = card.characterCost
 
