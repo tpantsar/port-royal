@@ -1,5 +1,6 @@
 import gameService from '#services/gameService.js'
-import { ApiResponse, Card, CharacterCard, GameStatus, Player, ShipCard } from '#types.js'
+import { ApiResponse, BuyCardRequest, Card, GameStatus, Player } from '#types.js'
+import { handleCharacterPurchase, handleShipPurchase } from '#utils/common.js'
 import { gameStatus } from '#utils/state.js'
 import express, { Request, Response } from 'express'
 
@@ -101,127 +102,83 @@ router.get('/switch', (_req: Request, res: Response<ApiResponse<Player | null>>)
   }
 })
 
-router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>>) => {
-  try {
-    let cardBeingBought: Card | null = null
+router.post(
+  '/buy',
+  (
+    req: Request<unknown, unknown, BuyCardRequest>,
+    res: Response<ApiResponse<GameStatus | null>>,
+  ) => {
+    const { playerId, cardId } = req.body
+    const currentPlayer = gameStatus.currentPlayer
 
-    // eslint-disable-next-line
-    const cardId = _req.body.cardId
+    console.log('Player ID:', playerId)
+    console.log('Card ID:', cardId)
+    console.log('Current Player ID:', currentPlayer.id)
 
-    if (typeof cardId !== 'number') {
-      const response: ApiResponse<null> = {
-        statusCode: 400,
-        message: 'Invalid cardId',
-        data: null,
-        errors: [],
+    try {
+      let cardBeingBought: Card | null = null
+      const tablePile = gameStatus.cards.tablePile
+
+      for (const card of tablePile) {
+        if (card.id === cardId) {
+          cardBeingBought = card
+          break
+        }
       }
-      res.status(response.statusCode).json(response)
-      return
-    }
 
-    const tablePile = gameStatus.cards.tablePile
-    for (const tableCard of tablePile) {
-      if (tableCard.id === cardId) {
-        cardBeingBought = tableCard
-        break
-      }
-    }
-
-    if (cardBeingBought === null) {
-      const response: ApiResponse<null> = {
-        statusCode: 400,
-        message: 'Card was not found',
-        data: null,
-        errors: [],
-      }
-      res.status(response.statusCode).json(response)
-      return
-    }
-
-    switch (cardBeingBought.type) {
-      case 'research':
-      case 'tax': {
+      if (cardBeingBought === null) {
         const response: ApiResponse<null> = {
           statusCode: 400,
-          message: 'You cannot buy that card',
+          message: 'Card was not found',
           data: null,
           errors: [],
         }
         res.status(response.statusCode).json(response)
         return
       }
-      case 'character':
-        handleCharacterPurchase(cardBeingBought)
-        break
-      case 'ship':
-        handleShipPurchase(cardBeingBought)
-        break
-      default: {
-        const response: ApiResponse<null> = {
-          statusCode: 400,
-          message: 'You cannot buy that card',
-          data: null,
-          errors: [],
+
+      const invalidBuyResponse: ApiResponse<null> = {
+        statusCode: 400,
+        message: 'You cannot buy that card',
+        data: null,
+        errors: [],
+      }
+
+      switch (cardBeingBought.type) {
+        case 'research':
+        case 'tax': {
+          res.status(invalidBuyResponse.statusCode).json(invalidBuyResponse)
+          return
         }
-        res.status(response.statusCode).json(response)
-        return
+        case 'character':
+          handleCharacterPurchase(cardBeingBought)
+          break
+        case 'ship':
+          handleShipPurchase(cardBeingBought)
+          break
+        default: {
+          res.status(invalidBuyResponse.statusCode).json(invalidBuyResponse)
+          return
+        }
       }
-    }
 
-    function handleCharacterPurchase(card: CharacterCard) {
-      if (card.characterCost > gameStatus.currentPlayer.coins) {
-        throw new Error('Not enough coins')
+      const response: ApiResponse<GameStatus> = {
+        statusCode: 200,
+        message: 'Player switched successfully',
+        data: gameStatus,
+        errors: null,
       }
-      const coinAmount = card.characterCost
-
-      // add card to player
-      const addedCardArray = gameStatus.currentPlayer.cards.concat(card)
-      // set the old array with new one
-      gameStatus.currentPlayer.coins -= coinAmount
-      gameStatus.currentPlayer.cards = addedCardArray
-      gameStatus.currentPlayer.abilities = [
-        ...gameStatus.currentPlayer.abilities,
-        ...card.abilities,
-      ]
-      gameStatus.cards.tablePile = tablePile.filter((_card) => _card.id !== card.id)
-      gameService.switchPlayer()
+      res.status(200).json(response)
+    } catch (error) {
+      const response: ApiResponse<null> = {
+        statusCode: 500,
+        message: 'Failed to switch player',
+        data: null,
+        errors: [error instanceof Error ? error.message : 'Unknown error'],
+      }
+      res.status(500).json(response)
     }
-
-    function handleShipPurchase(card: ShipCard) {
-      const coinAmount = card.shipCoins
-      const primaryPile = gameStatus.cards.primaryPile
-      const shuffled = [...primaryPile].sort(() => Math.random() - 0.5)
-
-      // delete as many cards from primaryPile as the coin amount is in ship
-      // e.g. if ship gives 3 coins, remove 3 cards from the deck, because they're given to the player's coin deck
-      const newPrimaryPile = shuffled.slice(coinAmount)
-      const newCurrentPlayerCards = shuffled.slice(0, coinAmount)
-
-      // set the current deck to the right one
-      gameStatus.cards.primaryPile = newPrimaryPile
-      gameStatus.currentPlayer.coins += coinAmount
-      gameStatus.currentPlayer.cards = [...gameStatus.currentPlayer.cards, ...newCurrentPlayerCards]
-      gameStatus.cards.tablePile = tablePile.filter((_card) => _card.id !== card.id)
-      gameService.switchPlayer()
-    }
-
-    const response: ApiResponse<GameStatus> = {
-      statusCode: 200,
-      message: 'Player switched successfully',
-      data: gameStatus,
-      errors: null,
-    }
-    res.status(200).json(response)
-  } catch (error) {
-    const response: ApiResponse<null> = {
-      statusCode: 500,
-      message: 'Failed to switch player',
-      data: null,
-      errors: [error instanceof Error ? error.message : 'Unknown error'],
-    }
-
-    res.status(500).json(response)
-  }
-})
+  },
+)
 
 export default router

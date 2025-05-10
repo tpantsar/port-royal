@@ -6,6 +6,11 @@ export interface ApiResponse<T> {
   errors?: string[] | null
 }
 
+export interface BuyCardRequest {
+  playerId: number
+  cardId: number
+}
+
 enum ResearchMode {
   ANCHOR,
   CROSS,
