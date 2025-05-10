@@ -105,12 +105,24 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
   try {
     let cardBeingBought: Card | null = null
 
-    // for-loop toimii jostain syystä. array.forEach ei toimi cardBeingBought:in kanssa
-    // sanoo cardBeingBought:in olevan "never"
+    // eslint-disable-next-line
+    const cardId = _req.body.cardId
+
+    if (typeof cardId !== 'number') {
+      const response: ApiResponse<null> = {
+        statusCode: 400,
+        message: 'Invalid cardId',
+        data: null,
+        errors: [],
+      }
+      res.status(response.statusCode).json(response)
+      return
+    }
+
     const tablePile = gameStatus.cards.tablePile
-    for (let x = 0; x < tablePile.length; x++) {
-      if (tablePile[x].id === _req.body['cardId']) {
-        cardBeingBought = tablePile[x]
+    for (const tableCard of tablePile) {
+      if (tableCard.id === cardId) {
+        cardBeingBought = tableCard
         break
       }
     }
@@ -128,7 +140,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
 
     switch (cardBeingBought.type) {
       case 'research':
-      case 'tax':
+      case 'tax': {
         const response: ApiResponse<null> = {
           statusCode: 400,
           message: 'You cannot buy that card',
@@ -137,6 +149,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
         }
         res.status(response.statusCode).json(response)
         return
+      }
       case 'character':
         handleCharacterPurchase(cardBeingBought)
         break
@@ -157,14 +170,7 @@ router.post('/buy', (_req: Request, res: Response<ApiResponse<GameStatus | null>
 
     function handleCharacterPurchase(card: CharacterCard) {
       if (card.characterCost > gameStatus.currentPlayer.coins) {
-        const response: ApiResponse<null> = {
-          statusCode: 400,
-          message: 'Not enough coins',
-          data: null,
-          errors: [],
-        }
-        res.status(response.statusCode).json(response)
-        return
+        throw new Error('Not enough coins')
       }
       const coinAmount = card.characterCost
 
