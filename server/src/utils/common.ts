@@ -39,11 +39,26 @@ export function handleCharacterPurchase(card: CharacterCard) {
 
   const coinAmount = characterCost
 
-  // add card to player
-  const addedCardArray = currentPlayer.cards.concat(card)
+  // remove face-down cards
+  let howManyCardsRemoved = 0
+  console.log(currentPlayer.cards.length, 'currentPlayer.cards.length')
+  const removedCards = currentPlayer.cards.filter((_card, _index) => {
+    if (_card.displayImage === false && howManyCardsRemoved !== coinAmount) {
+      howManyCardsRemoved++
+      console.log(howManyCardsRemoved)
+      console.log(_card)
+      console.log('Removing card...')
+      return false
+    }
+    return true
+  })
+  // add card to array
+  const newCurrentPlayerCards = removedCards.concat(card)
+  console.log('\n\n\n\n\n\n', newCurrentPlayerCards)
   // set the old array with new one
   currentPlayer.coins -= coinAmount
-  currentPlayer.cards = addedCardArray
+  //currentPlayer.cards = newCurrentPlayerCards
+  gameStatus.currentPlayer.cards = newCurrentPlayerCards
   currentPlayer.abilities = [...currentPlayer.abilities, ...card.abilities]
 
   gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
