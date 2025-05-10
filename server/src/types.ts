@@ -11,10 +11,10 @@ export interface BuyCardRequest {
   cardId: number
 }
 
-enum ResearchMode {
-  ANCHOR,
-  CROSS,
-  HOUSE,
+export enum ResearchMode {
+  HOUSE = 'HOUSE',
+  ANCHOR = 'ANCHOR',
+  CROSS = 'CROSS',
 }
 
 enum TaxMode {
@@ -22,7 +22,7 @@ enum TaxMode {
   MOST_SWORDS,
 }
 
-enum CharacterAbility {
+export enum CharacterAbility {
   FIVE_CARDS = 'FIVE_CARDS',
   ONE_CHEAPER = 'ONE_CHEAPER',
   BOARD_EMPTY = 'BOARD_EMPTY',
@@ -66,7 +66,7 @@ export interface CharacterCard extends CardBase {
 export interface ResearchCard extends CardBase {
   type: 'research'
   victoryPoints: number
-  researchMode: ResearchMode
+  researchMode: ResearchMode[]
   coinsAmount: number
 }
 

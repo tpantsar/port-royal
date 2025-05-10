@@ -1,6 +1,10 @@
 import gameService from '#services/gameService.js'
 import { ApiResponse, BuyCardRequest, Card, GameStatus, Player } from '#types.js'
-import { handleCharacterPurchase, handleShipPurchase } from '#utils/common.js'
+import {
+  handleCharacterPurchase,
+  handleResearchPurchase,
+  handleShipPurchase,
+} from '#utils/common.js'
 import { gameStatus } from '#utils/state.js'
 import express, { Request, Response } from 'express'
 
@@ -17,7 +21,7 @@ router.get('/status', (_req: Request, res: Response<ApiResponse<GameStatus | nul
       errors: null,
     }
 
-    res.status(200).json(response)
+    res.status(response.statusCode).json(response)
   } catch (error) {
     const response: ApiResponse<null> = {
       statusCode: 500,
@@ -26,7 +30,7 @@ router.get('/status', (_req: Request, res: Response<ApiResponse<GameStatus | nul
       errors: [error instanceof Error ? error.message : 'Unknown error'],
     }
 
-    res.status(500).json(response)
+    res.status(response.statusCode).json(response)
   }
 })
 
@@ -41,7 +45,7 @@ router.get('/draw', (_req: Request, res: Response<ApiResponse<Card | null>>) => 
       errors: null,
     }
 
-    res.status(200).json(response)
+    res.status(response.statusCode).json(response)
   } catch (error) {
     const response: ApiResponse<null> = {
       statusCode: 500,
@@ -50,7 +54,7 @@ router.get('/draw', (_req: Request, res: Response<ApiResponse<Card | null>>) => 
       errors: [error instanceof Error ? error.message : 'Unknown error'],
     }
 
-    res.status(500).json(response)
+    res.status(response.statusCode).json(response)
   }
 })
 
@@ -65,7 +69,7 @@ router.get('/reset', (_req: Request, res: Response<ApiResponse<GameStatus | null
       errors: null,
     }
 
-    res.status(200).json(response)
+    res.status(response.statusCode).json(response)
   } catch (error) {
     const response: ApiResponse<null> = {
       statusCode: 500,
@@ -74,7 +78,7 @@ router.get('/reset', (_req: Request, res: Response<ApiResponse<GameStatus | null
       errors: [error instanceof Error ? error.message : 'Unknown error'],
     }
 
-    res.status(500).json(response)
+    res.status(response.statusCode).json(response)
   }
 })
 
@@ -89,7 +93,7 @@ router.get('/switch', (_req: Request, res: Response<ApiResponse<Player | null>>)
       errors: null,
     }
 
-    res.status(200).json(response)
+    res.status(response.statusCode).json(response)
   } catch (error) {
     const response: ApiResponse<null> = {
       statusCode: 500,
@@ -98,7 +102,7 @@ router.get('/switch', (_req: Request, res: Response<ApiResponse<Player | null>>)
       errors: [error instanceof Error ? error.message : 'Unknown error'],
     }
 
-    res.status(500).json(response)
+    res.status(response.statusCode).json(response)
   }
 })
 
@@ -116,17 +120,10 @@ router.post(
     console.log('Current Player ID:', currentPlayer.id)
 
     try {
-      let cardBeingBought: Card | null = null
-      const tablePile = gameStatus.cards.tablePile
+      const cardBeingBought = gameStatus.cards.tablePile.find((card) => card.id === cardId)
 
-      for (const card of tablePile) {
-        if (card.id === cardId) {
-          cardBeingBought = card
-          break
-        }
-      }
-
-      if (cardBeingBought === null) {
+      // Check if the card exists in table pile
+      if (cardBeingBought === undefined) {
         const response: ApiResponse<null> = {
           statusCode: 400,
           message: 'Card was not found',
@@ -145,38 +142,38 @@ router.post(
       }
 
       switch (cardBeingBought.type) {
-        case 'research':
+        case 'research': {
+          const response = handleResearchPurchase(cardBeingBought)
+          res.status(response.statusCode).json(response)
+          return
+        }
         case 'tax': {
           res.status(invalidBuyResponse.statusCode).json(invalidBuyResponse)
           return
         }
-        case 'character':
-          handleCharacterPurchase(cardBeingBought)
-          break
-        case 'ship':
-          handleShipPurchase(cardBeingBought)
-          break
+        case 'character': {
+          const response = handleCharacterPurchase(cardBeingBought)
+          res.status(response.statusCode).json(response)
+          return
+        }
+        case 'ship': {
+          const response = handleShipPurchase(cardBeingBought)
+          res.status(response.statusCode).json(response)
+          return
+        }
         default: {
           res.status(invalidBuyResponse.statusCode).json(invalidBuyResponse)
           return
         }
       }
-
-      const response: ApiResponse<GameStatus> = {
-        statusCode: 200,
-        message: 'Player switched successfully',
-        data: gameStatus,
-        errors: null,
-      }
-      res.status(200).json(response)
     } catch (error) {
       const response: ApiResponse<null> = {
         statusCode: 500,
-        message: 'Failed to switch player',
+        message: 'Failed to buy card',
         data: null,
         errors: [error instanceof Error ? error.message : 'Unknown error'],
       }
-      res.status(500).json(response)
+      res.status(response.statusCode).json(response)
     }
   },
 )
