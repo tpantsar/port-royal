@@ -16,6 +16,7 @@ const PlayerInfo = ({ player }: { player: Player }) => {
         <div>name: {player.name}</div>
         <div>score: {player.score}</div>
         <div>abilities: {player.abilities.map((ability) => ability.toString()).join(', ')}</div>
+        <div>cards length: {player.cards.length}</div>
       </div>
       <div style={{ position: 'relative', display: 'inline-block' }}>
         <img className="coin-card" src="/cards/cardback.png" alt="coin" />

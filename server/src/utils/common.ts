@@ -1,5 +1,5 @@
 import gameService from '#services/gameService.js'
-import { ApiResponse, CharacterCard, ShipCard } from '#types.js'
+import { ApiResponse, Card, CharacterCard, ShipCard } from '#types.js'
 
 import { gameStatus } from './state.js'
 
@@ -39,11 +39,23 @@ export function handleCharacterPurchase(card: CharacterCard) {
 
   const coinAmount = characterCost
 
-  // add card to player
-  const addedCardArray = currentPlayer.cards.concat(card)
-  // set the old array with new one
+  // remove face-down cards
+  let removedCards: Card[] = []
+  const cardsAfterPurchase = currentPlayer.cards.filter((_card) => {
+    if (!_card.displayImage && removedCards.length !== coinAmount) {
+      removedCards = [...removedCards, _card]
+      return false
+    }
+    return true
+  })
+  // add card to array
+  const newCurrentPlayerCards = cardsAfterPurchase.concat(card)
+
+  // add removed cards to discard pile
+  gameStatus.cards.discardPile = [...gameStatus.cards.discardPile, ...removedCards]
+
   currentPlayer.coins -= coinAmount
-  currentPlayer.cards = addedCardArray
+  currentPlayer.cards = newCurrentPlayerCards
   currentPlayer.abilities = [...currentPlayer.abilities, ...card.abilities]
 
   gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
