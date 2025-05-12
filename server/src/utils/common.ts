@@ -41,8 +41,8 @@ export function handleCharacterPurchase(card: CharacterCard) {
 
   // remove face-down cards
   let removedCards: Card[] = []
-  const cardsAfterPurchase = currentPlayer.cards.filter((_card, _index) => {
-    if (_card.displayImage === false && removedCards.length !== coinAmount) {
+  const cardsAfterPurchase = currentPlayer.cards.filter((_card) => {
+    if (!_card.displayImage && removedCards.length !== coinAmount) {
       removedCards = [...removedCards, _card]
       return false
     }
