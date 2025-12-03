@@ -1,12 +1,12 @@
-import { GameStatus } from '../types/GameStatus'
-import { Player } from '../types/Player'
+import { GameStatus } from '../types/GameStatus';
+import { Player } from '../types/Player';
 
 interface PlayersProps {
-  gameState: GameStatus | undefined
+  gameState: GameStatus | undefined;
 }
 
 const PlayerInfo = ({ player }: { player: Player }) => {
-  const visibleCards = player.cards.filter((card) => card.displayImage)
+  const visibleCards = player.cards.filter((card) => card.displayImage);
   //const visibleCards = player.cards
 
   return (
@@ -39,11 +39,11 @@ const PlayerInfo = ({ player }: { player: Player }) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
 const Players = ({ gameState }: PlayersProps) => {
-  const players = gameState?.players || []
+  const players = gameState?.players || [];
 
   return (
     <div>
@@ -51,8 +51,8 @@ const Players = ({ gameState }: PlayersProps) => {
         <PlayerInfo key={index} player={player} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-Players.displayName = 'Players'
-export default Players
+Players.displayName = 'Players';
+export default Players;

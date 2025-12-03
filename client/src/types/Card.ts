@@ -1,45 +1,45 @@
-export type CardType = 'character' | 'research' | 'ship' | 'tax'
+export type CardType = 'character' | 'research' | 'ship' | 'tax';
 
 // Union type for all cards
-export type Card = CharacterCard | ResearchCard | ShipCard | TaxCard
+export type Card = CharacterCard | ResearchCard | ShipCard | TaxCard;
 
 export interface CardBase {
-  id: number
-  type: CardType
-  name: string
-  displayImage: boolean
-  imageName: string
+  id: number;
+  type: CardType;
+  name: string;
+  displayImage: boolean;
+  imageName: string;
 }
 
 // Specific cards are defined using narrowed type values
 export interface CharacterCard extends CardBase {
-  type: 'character'
-  victoryPoints: number
-  characterCost: number
-  abilities: CharacterAbility[]
+  type: 'character';
+  victoryPoints: number;
+  characterCost: number;
+  abilities: CharacterAbility[];
 }
 
 export interface ResearchCard extends CardBase {
-  type: 'research'
-  victoryPoints: number
-  researchMode: ResearchMode
-  coinsAmount: number
+  type: 'research';
+  victoryPoints: number;
+  researchMode: ResearchMode;
+  coinsAmount: number;
 }
 
 export interface ShipCard extends CardBase {
-  type: 'ship'
-  shipWeapons: number
-  shipCoins: number
+  type: 'ship';
+  shipWeapons: number;
+  shipCoins: number;
 }
 
 export interface TaxCard extends CardBase {
-  type: 'tax'
-  taxMode: TaxMode
+  type: 'tax';
+  taxMode: TaxMode;
 }
 
-type ResearchMode = 'ANCHOR' | 'CROSS' | 'HOUSE'
+type ResearchMode = 'ANCHOR' | 'CROSS' | 'HOUSE';
 
-type TaxMode = 'LOWEST_POINTS' | 'MOST_SWORDS'
+type TaxMode = 'LOWEST_POINTS' | 'MOST_SWORDS';
 
 export enum CharacterAbility {
   FIVE_CARDS = 'FIVE_CARDS',

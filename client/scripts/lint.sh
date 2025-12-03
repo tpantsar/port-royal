@@ -1,0 +1,5 @@
+#!/bin/bash
+
+npm run type-check
+npm run lint
+npm run format:check

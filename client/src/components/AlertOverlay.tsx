@@ -1,8 +1,8 @@
-import '../styles/AlertOverlay.css'
+import '../styles/AlertOverlay.css';
 
 interface AlertOverlayProps {
-  message: string
-  onClose: () => void
+  message: string;
+  onClose: () => void;
 }
 
 const AlertOverlay = ({ message, onClose }: AlertOverlayProps) => {
@@ -13,7 +13,7 @@ const AlertOverlay = ({ message, onClose }: AlertOverlayProps) => {
         <button onClick={onClose}>Close</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AlertOverlay
+export default AlertOverlay;

@@ -1,10 +1,10 @@
-import { Card, CharacterAbility } from './Card'
+import { Card, CharacterAbility } from './Card';
 
 export interface Player {
-  id: number
-  name: string
-  coins: number
-  score: number
-  cards: Card[]
-  abilities: CharacterAbility[]
+  id: number;
+  name: string;
+  coins: number;
+  score: number;
+  cards: Card[];
+  abilities: CharacterAbility[];
 }

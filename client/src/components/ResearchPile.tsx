@@ -1,11 +1,11 @@
-import { GameStatus } from '../types/GameStatus'
+import { GameStatus } from '../types/GameStatus';
 
 interface ResearchPileProps {
-  gameState: GameStatus | undefined
+  gameState: GameStatus | undefined;
 }
 
 const ResearchPile = ({ gameState }: ResearchPileProps) => {
-  const researchPile = gameState?.cards.researchPile
+  const researchPile = gameState?.cards.researchPile;
 
   return (
     <div className="row">
@@ -23,8 +23,8 @@ const ResearchPile = ({ gameState }: ResearchPileProps) => {
           </div>
         ))}
     </div>
-  )
-}
+  );
+};
 
-ResearchPile.displayName = 'ResearchPile'
-export default ResearchPile
+ResearchPile.displayName = 'ResearchPile';
+export default ResearchPile;

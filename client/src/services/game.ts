@@ -1,45 +1,40 @@
-import axios from 'axios'
-import { ApiResponse } from '../types/ApiResponse'
-import { Card } from '../types/Card'
-import { GameStatus } from '../types/GameStatus'
-import { Player } from '../types/Player'
+import { ApiResponse } from '../types/ApiResponse';
+import { Card } from '../types/Card';
+import { GameStatus } from '../types/GameStatus';
+import { Player } from '../types/Player';
 
-const baseUrl = 'api/game'
+import { axiosClient } from './apiClient';
 
 type BuyCardRequest = {
-  playerId: number
-  cardId: number
-}
+  playerId: number;
+  cardId: number;
+};
 
-const getGameState = async (): Promise<ApiResponse<GameStatus>> => {
-  const response = await axios.get(`${baseUrl}/status`)
-  return response.data
-}
+const baseUrl = '/game';
 
-const resetGame = async (): Promise<ApiResponse<GameStatus>> => {
-  const response = await axios.get(`${baseUrl}/reset`)
-  return response.data
-}
+export class GameService {
+  public static getGameState = async (): Promise<ApiResponse<GameStatus>> => {
+    const response = await axiosClient.get(`${baseUrl}/status`);
+    return response.data;
+  };
 
-const switchPlayerTurn = async (): Promise<ApiResponse<Player>> => {
-  const response = await axios.get(`${baseUrl}/switch`)
-  return response.data
-}
+  public static resetGame = async (): Promise<ApiResponse<GameStatus>> => {
+    const response = await axiosClient.get(`${baseUrl}/reset`);
+    return response.data;
+  };
 
-const drawCard = async (): Promise<ApiResponse<Card>> => {
-  const response = await axios.get(`${baseUrl}/draw`)
-  return response.data
-}
+  public static switchPlayerTurn = async (): Promise<ApiResponse<Player>> => {
+    const response = await axiosClient.get(`${baseUrl}/switch`);
+    return response.data;
+  };
 
-const buyCard = async (body: BuyCardRequest): Promise<ApiResponse<Card>> => {
-  const response = await axios.post(`${baseUrl}/buy`, body)
-  return response.data
-}
+  public static drawCard = async (): Promise<ApiResponse<Card>> => {
+    const response = await axiosClient.get(`${baseUrl}/draw`);
+    return response.data;
+  };
 
-export default {
-  getGameState,
-  resetGame,
-  switchPlayerTurn,
-  drawCard,
-  buyCard,
+  public static buyCard = async (body: BuyCardRequest): Promise<ApiResponse<Card>> => {
+    const response = await axiosClient.post(`${baseUrl}/buy`, body);
+    return response.data;
+  };
 }

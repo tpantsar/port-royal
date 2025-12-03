@@ -1,8 +1,8 @@
-import { Card } from '../types/Card'
+import { Card } from '../types/Card';
 
 type CardDetailsProps = {
-  card: Card | undefined
-}
+  card: Card | undefined;
+};
 
 const CardDetails = ({ card }: CardDetailsProps) => {
   return (
@@ -18,8 +18,8 @@ const CardDetails = ({ card }: CardDetailsProps) => {
         </>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-CardDetails.displayName = 'CardDetails'
-export default CardDetails
+CardDetails.displayName = 'CardDetails';
+export default CardDetails;
