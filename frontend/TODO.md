@@ -2,11 +2,9 @@
 
 - Highlight current player with border or background color
 - Players layout improvements
-  - Remove debug info
-- Show player colors
+- Add color for each player
 - Show player turn order
 - Add new player
-- Add color for each player
 
 ## Game Logic
 
