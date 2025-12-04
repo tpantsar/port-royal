@@ -19,6 +19,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.1.0",
     "@reduxjs/toolkit": "^2.10.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",

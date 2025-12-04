@@ -59,13 +59,13 @@ export default function App() {
 
   return (
     <div>
-      <ResearchPile gameState={gameState} />
       <Debug />
       <button onClick={handleDraw}>Draw</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleSwitch}>Switch player</button>
+      <ResearchPile />
       <TablePile />
-      <Players gameState={gameState} />
+      <Players />
       <SnackbarGeneric />
     </div>
   );

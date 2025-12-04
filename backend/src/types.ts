@@ -85,7 +85,7 @@ export interface Cards {
   primaryPile: Card[]
   tablePile: Card[]
   discardPile: Card[]
-  researchPile: Card[]
+  researchPile: ResearchCard[]
 }
 
 export interface Player {

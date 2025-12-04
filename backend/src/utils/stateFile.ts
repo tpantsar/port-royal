@@ -56,7 +56,7 @@ const gameStatus: GameStatus = {
   status: GameStatusEnum.IN_PROGRESS,
 }
 
-// 🌟 Function to load state from file (or initialize it if it doesn’t exist)
+// Load state from file (or initialize it if it doesn’t exist)
 export const loadState = (): GameStatus => {
   if (fs.existsSync(STATE_FILE)) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -66,7 +66,7 @@ export const loadState = (): GameStatus => {
   }
 }
 
-// 🌟 Function to save state to file
+// Save state to file
 export const saveState = (state: GameStatus) => {
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf-8')
 }

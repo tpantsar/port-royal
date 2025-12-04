@@ -1,13 +1,8 @@
-import { GameStatus } from '../types/GameStatus';
+import { useAppSelector } from '../hooks/common';
 import { Player } from '../types/Player';
-
-interface PlayersProps {
-  gameState: GameStatus | undefined;
-}
 
 const PlayerInfo = ({ player }: { player: Player }) => {
   const visibleCards = player.cards.filter((card) => card.displayImage);
-  //const visibleCards = player.cards
 
   return (
     <div className="row player-card">
@@ -42,7 +37,8 @@ const PlayerInfo = ({ player }: { player: Player }) => {
   );
 };
 
-const Players = ({ gameState }: PlayersProps) => {
+export default function Players() {
+  const gameState = useAppSelector((state) => state.game.game);
   const players = gameState?.players || [];
 
   return (
@@ -52,7 +48,4 @@ const Players = ({ gameState }: PlayersProps) => {
       ))}
     </div>
   );
-};
-
-Players.displayName = 'Players';
-export default Players;
+}

@@ -133,6 +133,9 @@ export function handleResearchPurchase(card: ResearchCard): ApiResponse<GameStat
   }
 
   gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
+  gameStatus.cards.researchPile = gameStatus.cards.researchPile.filter(
+    (_card) => _card.id !== card.id,
+  )
   gameService.switchPlayer()
 
   const response: ApiResponse<GameStatus> = {

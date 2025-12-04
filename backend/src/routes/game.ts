@@ -120,7 +120,9 @@ router.post(
     console.log('Current Player ID:', currentPlayer.id)
 
     try {
-      const cardBeingBought = gameStatus.cards.tablePile.find((card) => card.id === cardId)
+      const cardBeingBought =
+        gameStatus.cards.tablePile.find((card) => card.id === cardId) ??
+        gameStatus.cards.researchPile.find((card) => card.id === cardId)
 
       // Check if the card exists in table pile
       if (cardBeingBought === undefined) {

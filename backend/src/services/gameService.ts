@@ -24,8 +24,13 @@ const drawCard = (): Card => {
     (card) => card.id !== randomCard.id,
   )
 
-  // Add the drawn card to the table pile
-  gameStatus.cards.tablePile.push(randomCard)
+  // Add to research pile if it's a research card
+  if (randomCard.type === 'research') {
+    gameStatus.cards.researchPile.push(randomCard)
+  } else {
+    // Otherwise, add to table pile
+    gameStatus.cards.tablePile.push(randomCard)
+  }
 
   // Check if duplicate colored ships (by name) are present in table pile
   const shipCards = gameStatus.cards.tablePile.filter(
