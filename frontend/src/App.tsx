@@ -35,27 +35,6 @@ import { useAppDispatch, useAppSelector } from './hooks/common';
 import { drawCard, fetchGameState, resetGame, switchPlayerTurn } from './reducers/gameReducer';
 import { PaletteMode, getDesignTokens } from './theme';
 
-function Debug() {
-  const gameState = useAppSelector((state) => state.game.game);
-
-  if (!gameState || gameState === undefined) {
-    return <div>Loading</div>;
-  }
-
-  return (
-    <>
-      <div>Primary pile: {gameState.cards.primaryPile.length}</div>
-      <div>Table pile: {gameState.cards.tablePile.length}</div>
-      <div>Discard pile: {gameState.cards.discardPile.length}</div>
-      <div>Research pile: {gameState.cards.researchPile.length}</div>
-      <div>Duplicate ships: {gameState.duplicateColoredShips.toString()}</div>
-      <div style={{ color: 'red' }}>
-        Turn: {gameState.currentPlayer.name} (id={gameState.currentPlayer.id})
-      </div>
-    </>
-  );
-}
-
 type ViewKey = 'table' | 'research' | 'players';
 
 export default function App() {
@@ -178,7 +157,6 @@ export default function App() {
             mx: 'auto',
           }}
         >
-          <Debug />
           <button onClick={handleDraw}>Draw</button>
           <button onClick={handleReset}>Reset</button>
           <button onClick={handleSwitch}>Switch player</button>
