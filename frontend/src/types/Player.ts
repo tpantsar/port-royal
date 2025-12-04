@@ -7,4 +7,5 @@ export interface Player {
   score: number;
   cards: Card[];
   abilities: CharacterAbility[];
+  color: string;
 }

@@ -6,6 +6,7 @@
 - Show player colors
 - Show player turn order
 - Add new player
+- Add color for each player
 
 ## Game Logic
 

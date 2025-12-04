@@ -97,7 +97,7 @@ export default function App() {
       case 'research':
         return <ResearchPile />;
       case 'players':
-        return <Players />;
+        return <Players isMobile={isMobile} />;
       default:
         return null;
     }
