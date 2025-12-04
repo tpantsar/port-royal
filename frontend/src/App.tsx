@@ -27,10 +27,10 @@ import {
 } from '@mui/material';
 
 import './App.css';
-import Players from './components/Players';
 import ResearchPile from './components/ResearchPile';
 import SnackbarGeneric from './components/SnackbarGeneric';
 import TablePile from './components/TablePile';
+import Players from './components/players/Players';
 import { useAppDispatch, useAppSelector } from './hooks/common';
 import { drawCard, fetchGameState, resetGame, switchPlayerTurn } from './reducers/gameReducer';
 import { PaletteMode, getDesignTokens } from './theme';
