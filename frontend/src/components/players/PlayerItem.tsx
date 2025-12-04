@@ -30,48 +30,50 @@ export default function PlayerItem({ player, isMobile }: PlayerProps) {
 
   function PlayerCoinsCard() {
     return (
-      <Box
-        sx={{
-          position: 'relative',
-          width: 140,
-          height: 200,
-          mx: 'auto',
-          borderRadius: 1,
-          padding: 0.5,
-          overflow: 'hidden',
-          boxShadow: 2,
-        }}
-      >
+      <Box sx={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
         <Box
-          component="img"
-          src="/cards/cardback.png"
-          alt="Player coins cardback"
           sx={{
+            position: 'relative',
             width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            display: 'block',
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'top',
-            color: '#fff',
-            textShadow: '0px 3px 8px rgba(0,0,0,0.65)',
-            bgcolor: 'rgba(0,0,0,0.18)',
+            maxWidth: 160,
+            height: 200,
+            borderRadius: 1,
+            padding: 0.5,
+            overflow: 'hidden',
+            boxShadow: 2,
           }}
         >
-          <Typography variant="h4" fontWeight={800} lineHeight={1} sx={{ marginTop: 3 }}>
-            {player.coins}
-          </Typography>
-          <Typography variant="caption" sx={{ letterSpacing: 1, textTransform: 'uppercase' }}>
-            Coins
-          </Typography>
+          <Box
+            component="img"
+            src="/cards/cardback.png"
+            alt="Player coins cardback"
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'top',
+              color: '#fff',
+              textShadow: '0px 3px 8px rgba(0,0,0,0.65)',
+              bgcolor: 'rgba(0,0,0,0.18)',
+            }}
+          >
+            <Typography variant="h4" fontWeight={800} lineHeight={1} sx={{ marginTop: 3 }}>
+              {player.coins}
+            </Typography>
+            <Typography variant="caption" sx={{ letterSpacing: 1, textTransform: 'uppercase' }}>
+              Coins
+            </Typography>
+          </Box>
         </Box>
       </Box>
     );
@@ -80,11 +82,11 @@ export default function PlayerItem({ player, isMobile }: PlayerProps) {
   function PlayerStats() {
     return (
       <Stack
-        direction="row"
+        direction="column"
         spacing={2}
-        justifyContent="space-between"
+        justifyContent="space-around"
         flexWrap="wrap"
-        sx={{ width: '100%' }}
+        sx={{ width: '100%', flex: 1, minWidth: 0 }}
       >
         <Stack spacing={0.5}>
           <Typography variant="caption" color="text.secondary">
@@ -92,14 +94,6 @@ export default function PlayerItem({ player, isMobile }: PlayerProps) {
           </Typography>
           <Typography variant="body2" fontWeight={600}>
             {player.score}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography variant="caption" color="text.secondary">
-            Coins
-          </Typography>
-          <Typography variant="body2" fontWeight={600}>
-            {player.coins}
           </Typography>
         </Stack>
         <Stack spacing={0.5}>
@@ -140,8 +134,8 @@ export default function PlayerItem({ player, isMobile }: PlayerProps) {
           title={player.name}
           subheader={`Player ID: ${player.id}`}
         />
-        <CardContent sx={{ pb: 1 }}>
-          <Stack spacing={2}>
+        <CardContent sx={{ pb: 2 }}>
+          <Stack direction="row" spacing={2} alignItems="stretch">
             <PlayerCoinsCard />
             <PlayerStats />
           </Stack>
