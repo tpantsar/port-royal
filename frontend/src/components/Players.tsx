@@ -143,47 +143,98 @@ export default function Players({ isMobile }: PlayerCardsViewProps) {
                       subheader={`Player ID: ${player.id}`}
                     />
                     <CardContent sx={{ pb: 1 }}>
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        justifyContent="space-between"
-                        flexWrap="wrap"
-                      >
-                        <Stack spacing={0.5}>
-                          <Typography variant="caption" color="text.secondary">
-                            Score
-                          </Typography>
-                          <Typography variant="body2" fontWeight={600}>
-                            {player.score}
-                          </Typography>
-                        </Stack>
-                        <Stack spacing={0.5}>
-                          <Typography variant="caption" color="text.secondary">
-                            Coins
-                          </Typography>
-                          <Typography variant="body2" fontWeight={600}>
-                            {player.coins}
-                          </Typography>
-                        </Stack>
-                        <Stack spacing={0.5}>
-                          <Typography variant="caption" color="text.secondary">
-                            Swords
-                          </Typography>
-                          <Typography variant="body2" fontWeight={600}>
-                            {player.abilities.filter((ability) => ability === 'SWORDS').length}
-                          </Typography>
-                        </Stack>
-                        <Stack spacing={0.5}>
-                          <Typography variant="caption" color="text.secondary">
-                            Research
-                          </Typography>
-                          <Typography variant="body2" fontWeight={600}>
-                            {
-                              player.abilities.filter((ability) =>
-                                ['ANCHOR', 'CROSS', 'HOUSE'].includes(ability),
-                              ).length
-                            }
-                          </Typography>
+                      <Stack spacing={2}>
+                        <Box
+                          sx={{
+                            position: 'relative',
+                            width: 140,
+                            height: 200,
+                            mx: 'auto',
+                            borderRadius: 1,
+                            padding: 0.5,
+                            overflow: 'hidden',
+                            boxShadow: 2,
+                          }}
+                        >
+                          <Box
+                            component="img"
+                            src="/cards/cardback.png"
+                            alt="Player coins cardback"
+                            sx={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'contain',
+                              display: 'block',
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              inset: 0,
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#fff',
+                              textShadow: '0px 3px 8px rgba(0,0,0,0.65)',
+                              bgcolor: 'rgba(0,0,0,0.18)',
+                            }}
+                          >
+                            <Typography variant="h4" fontWeight={800} lineHeight={1}>
+                              {player.coins}
+                            </Typography>
+                            <Typography
+                              variant="caption"
+                              sx={{ letterSpacing: 1, textTransform: 'uppercase' }}
+                            >
+                              Coins
+                            </Typography>
+                          </Box>
+                        </Box>
+
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          justifyContent="space-between"
+                          flexWrap="wrap"
+                          sx={{ width: '100%' }}
+                        >
+                          <Stack spacing={0.5}>
+                            <Typography variant="caption" color="text.secondary">
+                              Score
+                            </Typography>
+                            <Typography variant="body2" fontWeight={600}>
+                              {player.score}
+                            </Typography>
+                          </Stack>
+                          <Stack spacing={0.5}>
+                            <Typography variant="caption" color="text.secondary">
+                              Coins
+                            </Typography>
+                            <Typography variant="body2" fontWeight={600}>
+                              {player.coins}
+                            </Typography>
+                          </Stack>
+                          <Stack spacing={0.5}>
+                            <Typography variant="caption" color="text.secondary">
+                              Swords
+                            </Typography>
+                            <Typography variant="body2" fontWeight={600}>
+                              {player.abilities.filter((ability) => ability === 'SWORDS').length}
+                            </Typography>
+                          </Stack>
+                          <Stack spacing={0.5}>
+                            <Typography variant="caption" color="text.secondary">
+                              Research
+                            </Typography>
+                            <Typography variant="body2" fontWeight={600}>
+                              {
+                                player.abilities.filter((ability) =>
+                                  ['ANCHOR', 'CROSS', 'HOUSE'].includes(ability),
+                                ).length
+                              }
+                            </Typography>
+                          </Stack>
                         </Stack>
                       </Stack>
                     </CardContent>
