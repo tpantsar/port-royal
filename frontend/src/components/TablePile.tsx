@@ -1,4 +1,4 @@
-import { cardStyle } from '../constants';
+import { cardContainerStyle, cardStyle } from '../constants';
 import { useAppDispatch, useAppSelector } from '../hooks/common';
 import { buyCard, drawCard } from '../reducers/gameReducer';
 import { Card } from '../types/Card';
@@ -88,17 +88,7 @@ export default function TablePile() {
             key="deck-card"
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
-            <MUICard
-              elevation={3}
-              sx={{
-                width: 'fit-content',
-                height: '100%',
-                borderRadius: 2.5,
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <MUICard elevation={3} sx={cardContainerStyle}>
               <CardActionArea onClick={(event) => handleDrawCard(event)} sx={{ p: 0 }}>
                 <Box sx={{ position: 'relative' }}>
                   <Badge
@@ -149,17 +139,7 @@ export default function TablePile() {
                 key={card.id}
                 sx={{ display: 'flex', justifyContent: 'center' }}
               >
-                <MUICard
-                  elevation={4}
-                  sx={{
-                    width: 'fit-content',
-                    height: '100%',
-                    borderRadius: 2.5,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
+                <MUICard elevation={4} sx={cardContainerStyle}>
                   <CardActionArea onClick={(event) => handleBuyCard(event, card)} sx={{ p: 0 }}>
                     <Box sx={{ position: 'relative' }}>
                       <CardMedia component="img" image={cardImage} alt={card.name} sx={cardStyle} />

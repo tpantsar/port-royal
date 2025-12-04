@@ -1,13 +1,6 @@
 #root {
-  max-width: 1680px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
-}
-
-img {
-  width: 100%;
-  height: auto;
 }
 
 .logo:hover {
@@ -15,8 +8,4 @@ img {
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-.card {
-  padding: 2em;
 }
