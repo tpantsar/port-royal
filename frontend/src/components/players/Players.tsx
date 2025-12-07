@@ -80,7 +80,7 @@ interface PlayerCardsViewProps {
 }
 
 export default function Players({ isMobile }: PlayerCardsViewProps) {
-  const { players } = useAppSelector((state) => state.game.game!);
+  const { players, currentPlayer } = useAppSelector((state) => state.game.game!);
 
   const loading = false;
   const error: string | null = null;
@@ -102,7 +102,14 @@ export default function Players({ isMobile }: PlayerCardsViewProps) {
         {!loading && !error && players.length > 0 && (
           <Grid container spacing={2}>
             {players.map((player: Player) => {
-              return <PlayerItem key={player.id} player={player} isMobile={isMobile} />;
+              return (
+                <PlayerItem
+                  key={player.id}
+                  player={player}
+                  isMobile={isMobile}
+                  isCurrent={player.id === currentPlayer.id}
+                />
+              );
             })}
           </Grid>
         )}

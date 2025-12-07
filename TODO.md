@@ -1,3 +1,7 @@
+## In progress
+
+- Highlight current player with border or background color
+
 ## General
 
 - Number of face-down cards (displayImage=false) equals the number of coins the player has
@@ -5,7 +9,6 @@
 
 ## Players
 
-- Highlight current player with border or background color
 - Players layout improvements
 - Add color for each player
 - Show player turn order

@@ -18,9 +18,10 @@ import {
 interface PlayerProps {
   player: Player;
   isMobile: boolean;
+  isCurrent: boolean;
 }
 
-export default function PlayerItem({ player, isMobile }: PlayerProps) {
+export default function PlayerItem({ player, isMobile, isCurrent }: PlayerProps) {
   const initials = player.name
     .split(' ')
     .map((p) => p[0])
@@ -127,6 +128,10 @@ export default function PlayerItem({ player, isMobile }: PlayerProps) {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
+          border: '2px solid',
+          borderColor: isCurrent ? 'primary.main' : 'transparent',
+          bgcolor: 'background.paper',
+          transition: 'border-color 150ms ease, background-color 150ms ease',
         }}
       >
         <CardHeader
