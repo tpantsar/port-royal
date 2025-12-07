@@ -9,13 +9,13 @@ import {
   ShipCard,
 } from '#types.js'
 
-import { gameStatus } from './state.js'
+import { gameServer } from './state.js'
 
 export function handleShipPurchase(card: ShipCard): ApiResponse<GameStatus | null> {
   const coinAmount = card.shipCoins
-  const primaryPile = gameStatus.cards.primaryPile
+  const primaryPile = gameServer.cards.primaryPile
   const shuffled = [...primaryPile].sort(() => Math.random() - 0.5)
-  const currentPlayer = gameStatus.currentPlayer
+  const currentPlayer = gameServer.currentPlayer
 
   // delete as many cards from primaryPile as the coin amount is in ship
   // e.g. if ship gives 3 coins, remove 3 cards from the deck, because they're given to the player's coin deck
@@ -23,11 +23,11 @@ export function handleShipPurchase(card: ShipCard): ApiResponse<GameStatus | nul
   const newCurrentPlayerCards = shuffled.slice(0, coinAmount)
 
   // set the current deck to the right one
-  gameStatus.cards.primaryPile = newPrimaryPile
+  gameServer.cards.primaryPile = newPrimaryPile
   currentPlayer.coins += coinAmount
   currentPlayer.cards = currentPlayer.cards.concat(newCurrentPlayerCards)
 
-  gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
+  gameServer.cards.tablePile = gameServer.cards.tablePile.filter((_card) => _card.id !== card.id)
   gameService.switchPlayer()
 
   const response: ApiResponse<null> = {
@@ -40,7 +40,7 @@ export function handleShipPurchase(card: ShipCard): ApiResponse<GameStatus | nul
 }
 
 export function handleCharacterPurchase(card: CharacterCard): ApiResponse<GameStatus | null> {
-  const currentPlayer = gameStatus.currentPlayer
+  const currentPlayer = gameServer.currentPlayer
   const characterCost = card.characterCost
 
   if (characterCost > currentPlayer.coins) {
@@ -63,20 +63,20 @@ export function handleCharacterPurchase(card: CharacterCard): ApiResponse<GameSt
   currentPlayer.cards = addedCardArray
   currentPlayer.abilities = [...currentPlayer.abilities, ...card.abilities]
 
-  gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
+  gameServer.cards.tablePile = gameServer.cards.tablePile.filter((_card) => _card.id !== card.id)
   gameService.switchPlayer()
 
   const response: ApiResponse<GameStatus> = {
     statusCode: 200,
     message: 'Card purchased successfully',
-    data: gameStatus,
+    data: gameServer.status,
     errors: null,
   }
   return response
 }
 
 export function handleResearchPurchase(card: ResearchCard): ApiResponse<GameStatus | null> {
-  const currentPlayer = gameStatus.currentPlayer
+  const currentPlayer = gameServer.currentPlayer
   const researchModes = card.researchMode
 
   // Count occurrences of abilities
@@ -132,8 +132,8 @@ export function handleResearchPurchase(card: ResearchCard): ApiResponse<GameStat
     }
   }
 
-  gameStatus.cards.tablePile = gameStatus.cards.tablePile.filter((_card) => _card.id !== card.id)
-  gameStatus.cards.researchPile = gameStatus.cards.researchPile.filter(
+  gameServer.cards.tablePile = gameServer.cards.tablePile.filter((_card) => _card.id !== card.id)
+  gameServer.cards.researchPile = gameServer.cards.researchPile.filter(
     (_card) => _card.id !== card.id,
   )
   gameService.switchPlayer()
@@ -141,7 +141,7 @@ export function handleResearchPurchase(card: ResearchCard): ApiResponse<GameStat
   const response: ApiResponse<GameStatus> = {
     statusCode: 200,
     message: 'Card purchased successfully',
-    data: gameStatus,
+    data: gameServer.status,
     errors: null,
   }
   return response

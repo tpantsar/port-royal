@@ -1,85 +1,74 @@
-import { Card, GameStatus } from '#types.js'
-import { gameStatus, resetGame } from '#utils/state.js'
+import { Card } from '#types.js'
+import { gameServer } from '#utils/state.js'
 
-const getStatus = (): GameStatus => {
-  return gameStatus
+const switchPlayer = () => {
+  const players = gameServer.players
+  const currentPlayer = gameServer.currentPlayer
+
+  const currentPlayerIndex = players.findIndex((player) => player.id === currentPlayer.id)
+
+  const nextPlayerIndex = (currentPlayerIndex + 1) % players.length
+  gameServer.currentPlayer = players[nextPlayerIndex]
+
+  console.log('Switched to player:', gameServer.currentPlayer.name)
+  return gameServer.currentPlayer
 }
 
 const drawCard = (): Card => {
-  const primaryPileCards = gameStatus.cards.primaryPile.length
+  const cards = gameServer.cards
+  let primaryPileCards = cards.primaryPile.length
 
   // Shuffle discard pile if primary pile is empty
   if (primaryPileCards === 0) {
-    gameStatus.cards.primaryPile = gameStatus.cards.discardPile
-    gameStatus.cards.discardPile = []
+    cards.primaryPile = cards.discardPile
+    cards.discardPile = []
+    primaryPileCards = cards.primaryPile.length
     console.log('Moved discard pile into primary pile')
   }
 
-  const randomCard = gameStatus.cards.primaryPile[Math.floor(Math.random() * primaryPileCards)]
+  const randomCard = cards.primaryPile[Math.floor(Math.random() * primaryPileCards)]
   randomCard.displayImage = true
   console.log('Random card drawn:', randomCard)
 
   // Remove the drawn card from the primary pile
-  gameStatus.cards.primaryPile = gameStatus.cards.primaryPile.filter(
-    (card) => card.id !== randomCard.id,
-  )
+  cards.primaryPile = cards.primaryPile.filter((card) => card.id !== randomCard.id)
 
   // Add to research pile if it's a research card
   if (randomCard.type === 'research') {
-    gameStatus.cards.researchPile.push(randomCard)
+    cards.researchPile.push(randomCard)
   } else {
     // Otherwise, add to table pile
-    gameStatus.cards.tablePile.push(randomCard)
+    cards.tablePile.push(randomCard)
   }
 
   // Check if duplicate colored ships (by name) are present in table pile
-  const shipCards = gameStatus.cards.tablePile.filter(
-    (card) => card.type === 'ship' && card.displayImage,
-  )
+  const shipCards = cards.tablePile.filter((card) => card.type === 'ship' && card.displayImage)
 
   const uniqueShipNames = new Set(shipCards.map((card) => card.name))
   console.log('Unique ship names:', uniqueShipNames)
 
-  gameStatus.duplicateColoredShips = shipCards.length !== uniqueShipNames.size
+  gameServer.duplicateColoredShips = shipCards.length !== uniqueShipNames.size
 
-  if (gameStatus.duplicateColoredShips) {
+  if (gameServer.duplicateColoredShips) {
     console.log('Duplicate colored ships found!')
 
     // Switch to the next player
     switchPlayer()
 
     // Move all table cards to discard pile
-    gameStatus.cards.discardPile.push(...gameStatus.cards.tablePile)
-    gameStatus.cards.tablePile = []
+    cards.discardPile.push(...cards.tablePile)
+    cards.tablePile = []
 
     // Reset duplicate colored ships status after moving cards
-    gameStatus.duplicateColoredShips = false
+    gameServer.duplicateColoredShips = false
   }
 
   return randomCard
 }
 
-// Reset the game state to its initial state
-const resetGameState = () => {
-  resetGame()
-  return gameStatus
-}
-
-const switchPlayer = () => {
-  const currentPlayerIndex = gameStatus.players.findIndex(
-    (player) => player.id === gameStatus.currentPlayer.id,
-  )
-
-  const nextPlayerIndex = (currentPlayerIndex + 1) % gameStatus.players.length
-  gameStatus.currentPlayer = gameStatus.players[nextPlayerIndex]
-
-  console.log('Switched to player:', gameStatus.currentPlayer.name)
-  return gameStatus.currentPlayer
-}
-
-export default {
-  getStatus,
+export const GameService = {
   drawCard,
-  resetGameState,
   switchPlayer,
 }
+
+export default GameService

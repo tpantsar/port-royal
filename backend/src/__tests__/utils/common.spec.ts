@@ -1,20 +1,21 @@
-import { CharacterAbility, GameStatus, ResearchCard, ResearchMode } from '#types.js'
+import { CharacterAbility, ResearchCard, ResearchMode } from '#types.js'
 import { handleResearchPurchase } from '#utils/common.js'
-import { gameStatus as testGameStatus } from '#utils/state.js'
+import { GameServer } from '#utils/state.js'
 import { describe, expect, it } from 'vitest'
 
 describe('handleResearchPurchase', () => {
   it('should buy research card with enough abilities', () => {
     // Initial game status
-    const gameStatus: GameStatus = testGameStatus
+    const gameServer = new GameServer()
+    gameServer.resetGame()
 
     // Mock current player abilities
-    gameStatus.currentPlayer.abilities = [
+    gameServer.currentPlayer.abilities = [
       CharacterAbility.ANCHOR,
       CharacterAbility.ANCHOR,
       CharacterAbility.HOUSE,
     ]
-    gameStatus.currentPlayer.cards = []
+    gameServer.currentPlayer.cards = []
 
     const researchCard: ResearchCard = {
       id: 118,

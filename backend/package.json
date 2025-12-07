@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsx --watch src/index.ts",
     "start": "node dist/src/index.js",
-    "build": "tsc",
+    "build": "tsc -b",
     "coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",

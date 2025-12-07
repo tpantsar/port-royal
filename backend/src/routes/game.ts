@@ -5,19 +5,17 @@ import {
   handleResearchPurchase,
   handleShipPurchase,
 } from '#utils/common.js'
-import { gameStatus } from '#utils/state.js'
+import { gameServer } from '#utils/state.js'
 import express, { Request, Response } from 'express'
 
 const router = express.Router()
 
 router.get('/status', (_req: Request, res: Response<ApiResponse<GameStatus | null>>) => {
   try {
-    const status = gameService.getStatus()
-
     const response: ApiResponse<GameStatus> = {
       statusCode: 200,
       message: 'Game status fetched successfully',
-      data: status,
+      data: gameServer.status,
       errors: null,
     }
 
@@ -60,12 +58,12 @@ router.get('/draw', (_req: Request, res: Response<ApiResponse<Card | null>>) => 
 
 router.get('/reset', (_req: Request, res: Response<ApiResponse<GameStatus | null>>) => {
   try {
-    const reset = gameService.resetGameState()
+    gameServer.resetGame()
 
     const response: ApiResponse<GameStatus> = {
       statusCode: 200,
       message: 'Game reset successfully',
-      data: reset,
+      data: gameServer.status,
       errors: null,
     }
 
@@ -113,7 +111,7 @@ router.post(
     res: Response<ApiResponse<GameStatus | null>>,
   ) => {
     const { playerId, cardId } = req.body
-    const currentPlayer = gameStatus.currentPlayer
+    const currentPlayer = gameServer.currentPlayer
 
     console.log('Player ID:', playerId)
     console.log('Card ID:', cardId)
@@ -121,8 +119,8 @@ router.post(
 
     try {
       const cardBeingBought =
-        gameStatus.cards.tablePile.find((card) => card.id === cardId) ??
-        gameStatus.cards.researchPile.find((card) => card.id === cardId)
+        gameServer.cards.tablePile.find((card) => card.id === cardId) ??
+        gameServer.cards.researchPile.find((card) => card.id === cardId)
 
       // Check if the card exists in table pile
       if (cardBeingBought === undefined) {
