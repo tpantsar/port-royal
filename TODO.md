@@ -1,7 +1,10 @@
 ## In progress
 
-- Highlight current player with border or background color
-- Show status for player (DRAW/BUY/CONTINUE)
+- After buying the card on trading phase, change player turn
+  - After all the players have bought cards, change round
+  - Show status for player (DRAW/BUY/CONTINUE)
+  - If player has bought a card, they cannot draw more cards this round
+  - If the following player has no coins, skip their turn
 
 ## General
 
@@ -10,6 +13,7 @@
 
 ## Players
 
+- Show cards in player's hand
 - Players layout improvements
 - Add color for each player
 - Show player turn order
@@ -17,8 +21,6 @@
 
 ## Game Logic
 
-- After buying the card on trading phase, change player turn
-- After all the players have bought cards, change round
 - Score is not calculated correctly when player has both character and research cards in hand
 - Handle tax collection logic
 - Swords can be used to remove ships from table pile
@@ -29,6 +31,7 @@
 
 - Display round number
 - Display round status
+- Show snackbar notifications for game actions (card drawn, card bought, errors, etc.)
 - Replace window.confirm with confirmDialog popup for buying cards
 - Show error message if backend server cannot be reached (GET http://localhost:3000/api/game/status)
 - mobile friendly: Improve UI layout for smaller screens
@@ -51,6 +54,10 @@
 - Animations for card dealing and buying
 
 ## Changelog
+
+2025-12-07
+
+- Highlight current player with border or background color
 
 2025-12-04
 
