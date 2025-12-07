@@ -28,6 +28,8 @@ export default function TablePile() {
   const tablePile = gameState?.cards.tablePile ?? [];
   const primaryPileCount = gameState?.cards.primaryPile.length ?? 0;
   const tablePileCount = gameState?.cards.tablePile.length ?? 0;
+  const researchPileCount = gameState?.cards.researchPile.length ?? 0;
+  const discardPileCount = gameState?.cards.discardPile.length ?? 0;
 
   const handleBuyCard = async (event: MouseEvent<HTMLElement>, card: Card) => {
     event.preventDefault();
@@ -66,8 +68,15 @@ export default function TablePile() {
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
+            <Chip
+              label={`Turn: ${gameState?.currentPlayer.name ?? 'Unknown'}`}
+              color="default"
+              variant="outlined"
+            />
             <Chip label={`Deck: ${primaryPileCount}`} color="default" variant="outlined" />
             <Chip label={`Table: ${tablePileCount}`} color="default" variant="outlined" />
+            <Chip label={`Research: ${researchPileCount}`} color="default" variant="outlined" />
+            <Chip label={`Discard: ${discardPileCount}`} color="default" variant="outlined" />
           </Box>
         </Stack>
 
