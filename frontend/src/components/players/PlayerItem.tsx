@@ -81,11 +81,12 @@ export default function PlayerItem({ player, isMobile, isCurrent }: PlayerProps)
   }
 
   function PlayerStats() {
+    console.log('players.cards', player.cards);
     return (
       <Stack
         direction="column"
-        spacing={2}
-        justifyContent="space-around"
+        spacing={1}
+        justifyContent="space-between"
         flexWrap="wrap"
         sx={{ width: '100%', flex: 1, minWidth: 0 }}
       >
@@ -95,6 +96,14 @@ export default function PlayerItem({ player, isMobile, isCurrent }: PlayerProps)
           </Typography>
           <Typography variant="body2" fontWeight={600}>
             {player.score}
+          </Typography>
+        </Stack>
+        <Stack spacing={0.5}>
+          <Typography variant="caption" color="text.secondary">
+            Cards
+          </Typography>
+          <Typography variant="body2" fontWeight={600}>
+            {player.cards.filter((card) => card.displayImage).length}
           </Typography>
         </Stack>
         <Stack spacing={0.5}>
