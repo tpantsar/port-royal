@@ -123,7 +123,7 @@ export default function PlayerItem({ player, isMobile, isCurrent }: PlayerProps)
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={player.id}>
       <Card
-        elevation={2}
+        elevation={isCurrent ? 8 : 2}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -138,6 +138,11 @@ export default function PlayerItem({ player, isMobile, isCurrent }: PlayerProps)
           avatar={<Avatar sx={{ bgcolor: player.color }}>{initials}</Avatar>}
           title={player.name}
           subheader={`Player ID: ${player.id}`}
+          sx={{ fontWeight: 600 }}
+          slotProps={{
+            title: { sx: { fontSize: '0.875rem', fontWeight: isCurrent ? 600 : 0 } },
+            subheader: { sx: { fontSize: '0.875rem' } },
+          }}
         />
         <CardContent sx={{ pb: 2 }}>
           <Stack direction="row" spacing={2} alignItems="stretch">

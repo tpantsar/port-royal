@@ -1,6 +1,7 @@
 ## In progress
 
 - Highlight current player with border or background color
+- Show status for player (DRAW/BUY/CONTINUE)
 
 ## General
 
@@ -9,7 +10,6 @@
 
 ## Players
 
-- Show status for player (DRAW/BUY/CONTINUE)
 - Players layout improvements
 - Add color for each player
 - Show player turn order
