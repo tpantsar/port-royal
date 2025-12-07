@@ -1,4 +1,4 @@
-import { cardContainerStyle, cardStyle } from '../constants';
+import { cardContainerStyle, cardStyle, pileContainerStyle } from '../constants';
 import { useAppDispatch, useAppSelector } from '../hooks/common';
 import { buyCard, drawCard } from '../reducers/gameReducer';
 import { Card } from '../types/Card';
@@ -49,16 +49,7 @@ export default function TablePile() {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Paper
-        elevation={6}
-        sx={{
-          p: { xs: 2, sm: 3 },
-          borderRadius: 3,
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #e4ecf5 100%)',
-          border: '1px solid',
-          borderColor: 'divider',
-        }}
-      >
+      <Paper elevation={6} sx={pileContainerStyle}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"

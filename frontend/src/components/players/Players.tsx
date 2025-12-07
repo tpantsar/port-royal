@@ -8,7 +8,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
   Grid,
   Skeleton,
   Typography,
@@ -88,21 +87,6 @@ export default function Players({ isMobile }: PlayerCardsViewProps) {
 
   return (
     <Box>
-      <Box
-        sx={{
-          position: 'sticky',
-          top: 0,
-          zIndex: (theme) => theme.zIndex.appBar - 1,
-          bgcolor: 'background.default',
-          pb: 1,
-        }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Players
-        </Typography>
-        <Divider sx={{ mt: 1 }} />
-      </Box>
-
       <Box mt={2}>
         {loading && <LoadingSkeleton count={3} />}
         {error && <ErrorState message={error} />}

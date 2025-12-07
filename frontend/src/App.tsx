@@ -72,7 +72,13 @@ export default function App() {
   const renderContent = () => {
     switch (view) {
       case 'table':
-        return <TablePile />;
+        return (
+          <>
+            <TablePile />
+            <Players isMobile={isMobile} />
+          </>
+        );
+
       case 'research':
         return <ResearchPile />;
       case 'players':

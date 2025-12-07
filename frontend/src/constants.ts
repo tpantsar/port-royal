@@ -15,3 +15,11 @@ export const cardContainerStyle = {
   padding: 1.0,
   overflow: 'hidden',
 };
+
+export const pileContainerStyle = {
+  p: { xs: 2, sm: 3 },
+  borderRadius: 1,
+  background: 'linear-gradient(135deg, #fffefb 0%, #f2eee4 100%)',
+  border: '1px solid',
+  borderColor: 'divider',
+};
