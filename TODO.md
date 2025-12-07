@@ -5,6 +5,7 @@
   - Show status for player (DRAW/BUY/CONTINUE)
   - If player has bought a card, they cannot draw more cards this round
   - If the following player has no coins, skip their turn
+  - Clear the table pile and deal new cards after all players have bought cards
 
 ## General
 
