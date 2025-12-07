@@ -9,6 +9,7 @@
 
 ## Players
 
+- Show status for player (DRAW/BUY/CONTINUE)
 - Players layout improvements
 - Add color for each player
 - Show player turn order
@@ -20,14 +21,17 @@
 - After all the players have bought cards, change round
 - Score is not calculated correctly when player has both character and research cards in hand
 - Handle tax collection logic
+- Swords can be used to remove ships from table pile
 - Handle round end logic
   - When all players have bought cards it should clear the table and deal new cards
 
 ## UI
 
+- Display round number
+- Display round status
+- Replace window.confirm with confirmDialog popup for buying cards
 - Show error message if backend server cannot be reached (GET http://localhost:3000/api/game/status)
 - mobile friendly: Improve UI layout for smaller screens
-- Replace window.confirm with confirmDialog popup for buying cards
 - Dark mode toggle
 - Research pile badge showing number of research cards on table
 
@@ -41,6 +45,7 @@
 ## Ideas
 
 - Leaderboard showing top players
+- Time limit for each round (like 60 seconds)
 - Chatting between players
 - Sound effects for actions (buying cards, drawing cards, etc.)
 - Animations for card dealing and buying
